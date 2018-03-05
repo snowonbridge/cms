@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'Agent_id'  =>  '用户的代理Id',
+    'Agent_truename'  =>  '真实姓名',
+    'Apply_no'  =>  '提现订单号',
+    'Phone'  =>  '手机号',
+    'Settlement_type'  =>  '结算类型',
+    'Wx_openid'  =>  ' 微信openid',
+    'Bank_account'  =>  '银行账户',
+    'Pay_money'  =>  '提现申请金额（单位元）',
+    'Settlement_money'  =>  '实际结算金额（单位元）',
+    'Transfer_charge'  =>  '提现手续费（单位元）',
+    'Pay_status'  =>  '审核状态',
+    'Audit_img'  =>  ' 玩家申请提现证明图片（多图时用,分割）',
+    'Settlement_img'  =>  '结算图片证明',
+    'Audit_refuse_reason'  =>  '审核拒绝原因',
+    'Settlement_fail_reason'  =>  '结算失败原因',
+    'Remark'  =>  ' 备注',
+    'Audit_time'  =>  '审核时间',
+    'Settlement_time'  =>  '结算时间',
+    'Fail_counts'  =>  '结算失败次数',
+    'Create_time'  =>  '创建时间',
+    'Ext'  =>  '渠道扩展字段'
+];

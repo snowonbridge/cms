@@ -1,0 +1,2452 @@
+---------------------------------------------------------------
+[ 2017-12-29T14:22:14+08:00 ] 10.0.2.15 10.0.2.2 GET /
+[ info ] local.cms.com/ [运行时间：0.981991s][吞吐率：1.02req/s] [内存消耗：495.04kb] [文件加载：67]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000526s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.034512s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'proxy-connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.014041s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ VIEW ] /vagrant/cms/public/../application/common/view/tpl/dispatch_jump.tpl [ array (
+  0 => 'code',
+  1 => 'msg',
+  2 => 'data',
+  3 => 'url',
+  4 => 'wait',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.004612s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:18+08:00 ] 10.0.2.15 10.0.2.2 GET /index/login?url=/
+[ info ] local.cms.com/index/login?url=/ [运行时间：0.269835s][吞吐率：3.71req/s] [内存消耗：578.23kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000445s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011526s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'url' => '/',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.005009s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ RUN ] app\admin\controller\Index->login[ /vagrant/cms/application/admin/controller/Index.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/index/login.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'background',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002684s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:19+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=index&v=1514528537
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=index&v=1514528537 [运行时间：0.094571s][吞吐率：10.57req/s] [内存消耗：578.52kb] [文件加载：69]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001139s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004979s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/index/login?url=/',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'index',
+  'v' => '1514528537',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002234s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.000985s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:20+08:00 ] 10.0.2.15 10.0.2.2 POST /index/login?url=/
+[ info ] local.cms.com/index/login?url=/ [运行时间：0.376571s][吞吐率：2.66req/s] [内存消耗：874.88kb] [文件加载：79]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000385s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008889s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'content-length' => '75',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'origin' => 'http://local.cms.com',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/index/login?url=/',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+)
+[ info ] [ PARAM ] array (
+  'url' => '/',
+  '__token__' => '8c0db9d2509a2acd77de1f96700fd776',
+  'username' => 'admin',
+  'password' => 'A123456',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003143s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ RUN ] app\admin\controller\Index->login[ /vagrant/cms/application/admin/controller/Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.023398s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003242s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_admin` [ RunTime:0.015792s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_admin` WHERE  `username` = 'admin' LIMIT 1 [ RunTime:0.000647s ]
+[ sql ] [ SQL ] UPDATE `fa_admin`  SET `logintime`=1514528540,`token`='22a4e7ed-51b1-4183-a6d8-afe45dcdd248',`updatetime`=1514528540  WHERE  `id` = 1 [ RunTime:0.017636s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_admin_log` [ RunTime:0.002096s ]
+[ sql ] [ SQL ] INSERT INTO `fa_admin_log` (`title` , `content` , `url` , `admin_id` , `username` , `useragent` , `ip` , `createtime`) VALUES ('登录' , '{\"url\":\"\\/\",\"__token__\":\"8c0db9d2509a2acd77de1f96700fd776\",\"username\":\"admin\"}' , '/index/login?url=/' , 1 , 'admin' , 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36' , '10.0.2.2' , 1514528540) [ RunTime:0.003525s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:24+08:00 ] 10.0.2.15 10.0.2.2 GET /
+[ info ] local.cms.com/ [运行时间：3.739431s][吞吐率：0.27req/s] [内存消耗：2,149.97kb] [文件加载：89]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000433s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005035s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/index/login?url=/',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002243s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ RUN ] app\admin\controller\Index->index[ /vagrant/cms/application/admin/controller/Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/index/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'menulist',
+  6 => 'title',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001148s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000613s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001300s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.007225s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.002859s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002549s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:24+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=index&v=1514528540
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=index&v=1514528540 [运行时间：0.146023s][吞吐率：6.85req/s] [内存消耗：628.93kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000423s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008911s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'index',
+  'v' => '1514528540',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002746s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002319s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:25+08:00 ] 10.0.2.15 10.0.2.2 GET /general/config?addtabs=1
+[ info ] local.cms.com/general/config?addtabs=1 [运行时间：0.272147s][吞吐率：3.67req/s] [内存消耗：1,604.27kb] [文件加载：77]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000397s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004645s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'general.config',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/general/config?ref=addtabs',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'addtabs' => '1',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002309s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/general/config.php
+[ info ] [ RUN ] app\admin\controller\general\Config->index[ /vagrant/cms/application/admin/controller/general/Config.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/general/config/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'siteList',
+  6 => 'typeList',
+  7 => 'groupList',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001057s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000461s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001085s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000653s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001127s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001902s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_config` [ RunTime:0.003769s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_config` [ RunTime:0.000866s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:25+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=general.config&v=1514528545
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=general.config&v=1514528545 [运行时间：0.077543s][吞吐率：12.90req/s] [内存消耗：627.91kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000341s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004388s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/general/config?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'general.config',
+  'v' => '1514528545',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002219s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/general/config.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.000773s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:35+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory?addtabs=1
+[ info ] local.cms.com/activity/activitycategory?addtabs=1 [运行时间：0.461844s][吞吐率：2.17req/s] [内存消耗：1,785.14kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000345s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.009937s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?ref=addtabs',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'addtabs' => '1',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.005113s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->index[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitycategory/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'ChannelList',
+  6 => 'ControlList',
+  7 => 'LevelList',
+  8 => 'statusList',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.003109s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001125s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001327s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000796s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001433s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002115s ]
+[ sql ] [ SQL ] SELECT `title`,`remark` FROM `fa_auth_rule` WHERE  `name` = 'activity/activitycategory' LIMIT 1 [ RunTime:0.001248s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:35+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528555
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528555 [运行时间：0.136599s][吞吐率：7.32req/s] [内存消耗：625.20kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001609s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.009740s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitycategory',
+  'v' => '1514528555',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003037s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002816s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:36+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/index?sort=id&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528555573
+[ info ] local.cms.com/activity/activitycategory/index?sort=id&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528555573 [运行时间：0.370211s][吞吐率：2.70req/s] [内存消耗：2,136.69kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000472s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004590s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'id',
+  'order' => 'desc',
+  'offset' => '0',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528555573',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002188s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->index[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001130s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000462s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001076s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000682s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001224s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001507s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:38+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel?addtabs=1
+[ info ] local.cms.com/activity/activitychannel?addtabs=1 [运行时间：0.292315s][吞吐率：3.42req/s] [内存消耗：1,581.34kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001326s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010009s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?ref=addtabs',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'addtabs' => '1',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003637s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitychannel/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'statusList',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001292s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001135s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001153s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000820s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001164s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002107s ]
+[ sql ] [ SQL ] SELECT `title`,`remark` FROM `fa_auth_rule` WHERE  `name` = 'activity/activitychannel' LIMIT 1 [ RunTime:0.000753s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:39+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitychannel&v=1514528558
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitychannel&v=1514528558 [运行时间：0.071603s][吞吐率：13.97req/s] [内存消耗：624.59kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000373s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004992s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitychannel',
+  'v' => '1514528558',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.001942s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001030s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:22:39+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559033
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559033 [运行时间：0.168686s][吞吐率：5.93req/s] [内存消耗：1,849.43kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000368s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004972s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '0',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559033',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.001996s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001096s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000474s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001024s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000698s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000933s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001830s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:42+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=10&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559034
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=10&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559034 [运行时间：0.329398s][吞吐率：3.04req/s] [内存消耗：1,849.37kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002145s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010588s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '10',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559034',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002248s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002930s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000627s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001146s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000728s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001140s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001860s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:46+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=20&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559035
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=20&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559035 [运行时间：0.210647s][吞吐率：4.75req/s] [内存消耗：1,849.38kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000347s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.006021s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '20',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559035',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002314s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001482s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000491s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.000986s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000655s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000922s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001666s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:52+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559036
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559036 [运行时间：0.248643s][吞吐率：4.02req/s] [内存消耗：1,849.41kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000381s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.006920s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '0',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559036',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002813s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002378s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000402s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.000965s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000655s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001009s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001708s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:22:54+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=30&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559037
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=30&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559037 [运行时间：0.232244s][吞吐率：4.31req/s] [内存消耗：1,847.64kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000375s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005864s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '30',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559037',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002201s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001462s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000369s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001252s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000759s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001091s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001699s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:02+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=20&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559038
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=20&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559038 [运行时间：0.226523s][吞吐率：4.41req/s] [内存消耗：1,849.38kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000358s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.006087s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '20',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559038',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002415s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001379s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000217s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001013s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000675s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001003s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001743s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:03+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=10&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559039
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=10&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559039 [运行时间：0.179061s][吞吐率：5.58req/s] [内存消耗：1,849.41kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000369s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004869s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '10',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559039',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002239s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001134s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000582s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001072s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000697s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001080s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001655s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:06+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitychannel/index?sort=weigh&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559040
+[ info ] local.cms.com/activity/activitychannel/index?sort=weigh&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528559040 [运行时间：0.193811s][吞吐率：5.16req/s] [内存消耗：1,849.41kb] [文件加载：78]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000352s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005550s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitychannel',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitychannel?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'weigh',
+  'order' => 'desc',
+  'offset' => '0',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528559040',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.001945s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitychannel.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitychannel->index[ /vagrant/cms/application/admin/controller/activity/Activitychannel.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002234s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000459s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.000990s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000351s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000990s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001534s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:18+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/edit/ids/71?dialog=1
+[ info ] local.cms.com/activity/activitycategory/edit/ids/71?dialog=1 [运行时间：0.524850s][吞吐率：1.91req/s] [内存消耗：2,098.02kb] [文件加载：82]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002291s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011614s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'dialog' => '1',
+  'ids' => '71',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002704s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\common\controller\Backend->edit[ /vagrant/cms/application/admin/library/traits/Backend.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitycategory/edit.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'ChannelList',
+  6 => 'ControlList',
+  7 => 'LevelList',
+  8 => 'statusList',
+  9 => 'row',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001626s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000753s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001729s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.001348s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001908s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.003293s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:18+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528598
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528598 [运行时间：0.108992s][吞吐率：9.17req/s] [内存消耗：625.24kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001552s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008583s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/71?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitycategory',
+  'v' => '1514528598',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.004098s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001078s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:23:20+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/tree?id=71
+[ info ] local.cms.com/activity/activitycategory/tree?id=71 [运行时间：1.652080s][吞吐率：0.61req/s] [内存消耗：2,093.77kb] [文件加载：81]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000338s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004047s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'tree',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/71?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'id' => '71',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.001991s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->tree[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001725s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000477s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.000996s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000764s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000835s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002008s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:47+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/edit/ids/71?dialog=1
+[ info ] local.cms.com/activity/activitycategory/edit/ids/71?dialog=1 [运行时间：0.369622s][吞吐率：2.71req/s] [内存消耗：2,038.41kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001645s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008407s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'dialog' => '1',
+  'ids' => '71',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.004289s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\common\controller\Backend->edit[ /vagrant/cms/application/admin/library/traits/Backend.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitycategory/edit.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'ChannelList',
+  6 => 'ControlList',
+  7 => 'LevelList',
+  8 => 'statusList',
+  9 => 'row',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001305s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001166s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.003820s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.002960s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.004270s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.011209s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:47+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528627
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528627 [运行时间：0.072584s][吞吐率：13.78req/s] [内存消耗：625.24kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000490s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004363s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/71?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitycategory',
+  'v' => '1514528627',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002718s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.000702s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:23:49+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/tree?id=71
+[ info ] local.cms.com/activity/activitycategory/tree?id=71 [运行时间：1.854909s][吞吐率：0.54req/s] [内存消耗：2,092.89kb] [文件加载：81]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000399s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.006019s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'tree',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/71?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'id' => '71',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002395s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->tree[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001002s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000500s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001098s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000680s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000980s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001807s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:53+08:00 ] 10.0.2.15 10.0.2.2 POST /activity/activitycategory/edit/ids/71?dialog=1
+[ info ] local.cms.com/activity/activitycategory/edit/ids/71?dialog=1 [运行时间：0.289801s][吞吐率：3.45req/s] [内存消耗：1,894.20kb] [文件加载：83]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000365s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005988s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'content-length' => '2547',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'origin' => 'http://local.cms.com',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/71?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+)
+[ info ] [ PARAM ] array (
+  'dialog' => '1',
+  'row' => 
+  array (
+    'cate_name' => '玩斗地主癞子玩法初级场20局',
+    'cate_desc' => '',
+    'status' => '1',
+    'activity_id' => '2139',
+    'activity_type' => '1',
+    'sort_value' => '0',
+    'activity_control_id' => '1',
+    'user_level' => '0',
+    'channel_id_str' => '{"2":["110000","310000","440100","440300","120000","130000","140000","150000","210000","220000","230000","320000","330000","340000","350000","360000","370000","410000","420000","430000","440000","450000","460000","500000","510000","520000","530000","540000","610000","620000","630000","640000","650000","710000","810000","820000"],"3":["110000","310000","440100","440300","120000","130000","140000","150000","210000","220000","230000","320000","330000","340000","350000","360000","370000","410000","420000","430000","440000","450000","460000","500000","510000","520000","530000","540000","610000","620000","630000","640000","650000","710000","810000","820000"],"4":["110000","310000","440100","440300","120000","130000","140000","150000","210000","220000","230000","320000","330000","340000","350000","360000","370000","410000","420000","430000","440000","450000","460000","500000","510000","520000","530000","540000","610000","620000","630000","640000","650000","710000","810000","820000"],"31":["110000","310000","440100","440300","120000","130000","140000","150000","210000","220000","230000","320000","330000","340000","350000","360000","370000","410000","420000","430000","440000","450000","460000","500000","510000","520000","530000","540000","610000","620000","630000","640000","650000","710000","810000","820000"]}',
+  ),
+  'ids' => '71',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002228s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\common\controller\Backend->edit[ /vagrant/cms/application/admin/library/traits/Backend.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.021411s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000521s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001120s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000570s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000985s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002121s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_admin_log` [ RunTime:0.001363s ]
+[ sql ] [ SQL ] INSERT INTO `fa_admin_log` (`title` , `content` , `url` , `admin_id` , `username` , `useragent` , `ip` , `createtime`) VALUES ('活动任务 活动目录名称配置管理 编辑' , '{\"dialog\":\"1\",\"row\":{\"cate_name\":\"\\u73a9\\u6597\\u5730\\u4e3b\\u765e\\u5b50\\u73a9\\u6cd5\\u521d\\u7ea7\\u573a20\\u5c40\",\"cate_desc\":\"\",\"status\":\"1\",\"activity_id\":\"2139\",\"activity_type\":\"1\",\"sort_value\":\"0\",\"activity_control_id\":\"1\",\"user_level\":\"0\",\"channel_id_str\":\"{\\\"2\\\":[\\\"110000\\\",\\\"310000\\\",\\\"440100\\\",\\\"440300\\\",\\\"120000\\\",\\\"130000\\\",\\\"140000\\\",\\\"150000\\\",\\\"210000\\\",\\\"220000\\\",\\\"230000\\\",\\\"320000\\\",\\\"330000\\\",\\\"340000\\\",\\\"350000\\\",\\\"360000\\\",\\\"370000\\\",\\\"410000\\\",\\\"420000\\\",\\\"430000\\\",\\\"440000\\\",\\\"450000\\\",\\\"460000\\\",\\\"500000\\\",\\\"510000\\\",\\\"520000\\\",\\\"530000\\\",\\\"540000\\\",\\\"610000\\\",\\\"620000\\\",\\\"630000\\\",\\\"640000\\\",\\\"650000\\\",\\\"710000\\\",\\\"810000\\\",\\\"820000\\\"],\\\"3\\\":[\\\"110000\\\",\\\"310000\\\",\\\"440100\\\",\\\"440300\\\",\\\"120000\\\",\\\"130000\\\",\\\"140000\\\",\\\"150000\\\",\\\"210000\\\",\\\"220000\\\",\\\"230000\\\",\\\"320000\\\",\\\"330000\\\",\\\"340000\\\",\\\"350000\\\",\\\"360000\\\",\\\"370000\\\",\\\"410000\\\",\\\"420000\\\",\\\"430000\\\",\\\"440000\\\",\\\"450000\\\",\\\"460000\\\",\\\"500000\\\",\\\"510000\\\",\\\"520000\\\",\\\"530000\\\",\\\"540000\\\",\\\"610000\\\",\\\"620000\\\",\\\"630000\\\",\\\"640000\\\",\\\"650000\\\",\\\"710000\\\",\\\"810000\\\",\\\"820000\\\"],\\\"4\\\":[\\\"110000\\\",\\\"310000\\\",\\\"440100\\\",\\\"440300\\\",\\\"120000\\\",\\\"130000\\\",\\\"140000\\\",\\\"150000\\\",\\\"210000\\\",\\\"220000\\\",\\\"230000\\\",\\\"320000\\\",\\\"330000\\\",\\\"340000\\\",\\\"350000\\\",\\\"360000\\\",\\\"370000\\\",\\\"410000\\\",\\\"420000\\\",\\\"430000\\\",\\\"440000\\\",\\\"450000\\\",\\\"460000\\\",\\\"500000\\\",\\\"510000\\\",\\\"520000\\\",\\\"530000\\\",\\\"540000\\\",\\\"610000\\\",\\\"620000\\\",\\\"630000\\\",\\\"640000\\\",\\\"650000\\\",\\\"710000\\\",\\\"810000\\\",\\\"820000\\\"],\\\"31\\\":[\\\"110000\\\",\\\"310000\\\",\\\"440100\\\",\\\"440300\\\",\\\"120000\\\",\\\"130000\\\",\\\"140000\\\",\\\"150000\\\",\\\"210000\\\",\\\"220000\\\",\\\"230000\\\",\\\"320000\\\",\\\"330000\\\",\\\"340000\\\",\\\"350000\\\",\\\"360000\\\",\\\"370000\\\",\\\"410000\\\",\\\"420000\\\",\\\"430000\\\",\\\"440000\\\",\\\"450000\\\",\\\"460000\\\",\\\"500000\\\",\\\"510000\\\",\\\"520000\\\",\\\"530000\\\",\\\"540000\\\",\\\"610000\\\",\\\"620000\\\",\\\"630000\\\",\\\"640000\\\",\\\"650000\\\",\\\"710000\\\",\\\"810000\\\",\\\"820000\\\"]}\"},\"ids\":\"71\"}' , '/activity/activitycategory/edit/ids/71?dialog=1' , 1 , 'admin' , 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36' , '10.0.2.2' , 1514528633) [ RunTime:0.002585s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:53+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/index?sort=id&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528555574
+[ info ] local.cms.com/activity/activitycategory/index?sort=id&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514528555574 [运行时间：0.435369s][吞吐率：2.30req/s] [内存消耗：2,136.72kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000568s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007254s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'id',
+  'order' => 'desc',
+  'offset' => '0',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514528555574',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002510s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->index[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.000910s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000419s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001078s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000704s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001079s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001628s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:55+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/edit/ids/70?dialog=1
+[ info ] local.cms.com/activity/activitycategory/edit/ids/70?dialog=1 [运行时间：0.390897s][吞吐率：2.56req/s] [内存消耗：2,059.42kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000390s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011040s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'dialog' => '1',
+  'ids' => '70',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003801s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\common\controller\Backend->edit[ /vagrant/cms/application/admin/library/traits/Backend.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitycategory/edit.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'ChannelList',
+  6 => 'ControlList',
+  7 => 'LevelList',
+  8 => 'statusList',
+  9 => 'row',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.003392s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000506s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001077s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.001983s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001345s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.003215s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:23:55+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528635
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528635 [运行时间：0.167033s][吞吐率：5.99req/s] [内存消耗：625.23kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002726s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010954s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/70?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitycategory',
+  'v' => '1514528635',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003337s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002322s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:23:57+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/tree?id=70
+[ info ] local.cms.com/activity/activitycategory/tree?id=70 [运行时间：1.656500s][吞吐率：0.60req/s] [内存消耗：2,100.72kb] [文件加载：81]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000351s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005554s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'tree',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/70?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'id' => '70',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002438s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->tree[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001150s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000430s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001110s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000730s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001041s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001855s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:24:06+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/edit/ids/69?dialog=1
+[ info ] local.cms.com/activity/activitycategory/edit/ids/69?dialog=1 [运行时间：0.218610s][吞吐率：4.57req/s] [内存消耗：2,059.45kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000352s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.006259s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'edit',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'dialog' => '1',
+  'ids' => '69',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002454s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\common\controller\Backend->edit[ /vagrant/cms/application/admin/library/traits/Backend.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitycategory/edit.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'ChannelList',
+  6 => 'ControlList',
+  7 => 'LevelList',
+  8 => 'statusList',
+  9 => 'row',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002323s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000431s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001322s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000657s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000862s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001774s ]
+---------------------------------------------------------------
+[ 2017-12-29T14:24:06+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528646
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitycategory&v=1514528646 [运行时间：0.076244s][吞吐率：13.12req/s] [内存消耗：625.24kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000356s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.004842s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/69?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitycategory',
+  'v' => '1514528646',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.001927s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001030s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T14:24:08+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/tree?id=69
+[ info ] local.cms.com/activity/activitycategory/tree?id=69 [运行时间：1.665123s][吞吐率：0.60req/s] [内存消耗：2,100.73kb] [文件加载：81]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000461s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.005178s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'tree',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory/edit/ids/69?dialog=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'id' => '69',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.002271s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->tree[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001419s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000563s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.000960s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000715s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000958s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.001709s ]
+---------------------------------------------------------------
+[ 2017-12-29T17:29:52+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory?ref=addtabs
+[ info ] local.cms.com/activity/activitycategory?ref=addtabs [运行时间：0.385130s][吞吐率：2.60req/s] [内存消耗：1,715.30kb] [文件加载：75]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000438s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.031551s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cache-control' => 'max-age=0',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/index/login?url=/',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'ref' => 'addtabs',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003972s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.003378s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001806s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.000962s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.006319s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001145s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002928s ]
+---------------------------------------------------------------
+[ 2017-12-29T17:29:56+08:00 ] 10.0.2.15 10.0.2.2 GET /index/index
+[ info ] local.cms.com/index/index [运行时间：4.129409s][吞吐率：0.24req/s] [内存消耗：2,144.14kb] [文件加载：89]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003077s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.012152s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cache-control' => 'max-age=0',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/index/login?url=/',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.006882s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ RUN ] app\admin\controller\Index->index[ /vagrant/cms/application/admin/controller/Index.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/index/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'menulist',
+  6 => 'title',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001075s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000529s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001103s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000764s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001305s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002176s ]
+---------------------------------------------------------------
+[ 2017-12-29T17:30:00+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=index&v=1514539792
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=index&v=1514539792 [运行时间：0.142577s][吞吐率：7.01req/s] [内存消耗：629.20kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000340s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.009292s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/index/index',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'index',
+  'v' => '1514539792',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003711s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/index.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002267s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T17:30:05+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory?addtabs=1
+[ info ] local.cms.com/activity/activitycategory?addtabs=1 [运行时间：0.352645s][吞吐率：2.84req/s] [内存消耗：1,783.39kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000178s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.012295s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?ref=addtabs',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'addtabs' => '1',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.003745s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->index[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/activity/activitycategory/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'ChannelList',
+  6 => 'ControlList',
+  7 => 'LevelList',
+  8 => 'statusList',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.003020s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002445s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001286s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000729s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001310s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002166s ]
+[ sql ] [ SQL ] SELECT `title`,`remark` FROM `fa_auth_rule` WHERE  `name` = 'activity/activitycategory' LIMIT 1 [ RunTime:0.001244s ]
+---------------------------------------------------------------
+[ 2017-12-29T17:30:05+08:00 ] 10.0.2.15 10.0.2.2 GET /general/config?addtabs=1
+[ info ] local.cms.com/general/config?addtabs=1 [运行时间：0.607495s][吞吐率：1.65req/s] [内存消耗：1,600.46kb] [文件加载：77]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000413s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.012230s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'general.config',
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/general/config?ref=addtabs',
+  'upgrade-insecure-requests' => '1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'addtabs' => '1',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.004564s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/general/config.php
+[ info ] [ RUN ] app\admin\controller\general\Config->index[ /vagrant/cms/application/admin/controller/general/Config.php ]
+[ info ] [ VIEW ] /vagrant/cms/public/../application/admin/view/general/config/index.html [ array (
+  0 => 'breadcrumb',
+  1 => 'site',
+  2 => 'config',
+  3 => 'auth',
+  4 => 'admin',
+  5 => 'siteList',
+  6 => 'typeList',
+  7 => 'groupList',
+) ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001113s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000837s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001282s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.000894s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001326s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002189s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_config` [ RunTime:0.000755s ]
+[ sql ] [ SQL ] SELECT * FROM `fa_config` [ RunTime:0.000673s ]
+---------------------------------------------------------------
+[ 2017-12-29T17:30:09+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=activity.activitycategory&v=1514539805
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=activity.activitycategory&v=1514539805 [运行时间：0.140018s][吞吐率：7.14req/s] [内存消耗：625.41kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000358s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008601s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'activity.activitycategory',
+  'v' => '1514539805',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.004174s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001459s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T17:30:09+08:00 ] 10.0.2.15 10.0.2.2 GET /ajax/lang?callback=define&controllername=general.config&v=1514539805
+[ info ] local.cms.com/ajax/lang?callback=define&controllername=general.config&v=1514539805 [运行时间：0.156403s][吞吐率：6.39req/s] [内存消耗：628.16kb] [文件加载：70]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000378s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.012243s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'ajax',
+    2 => 'lang',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => '*/*',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/general/config?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'callback' => 'define',
+  'controllername' => 'general.config',
+  'v' => '1514539805',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.004562s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\Ajax->lang[ /vagrant/cms/application/admin/controller/Ajax.php ]
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/general/config.php
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.001025s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2017-12-29T17:30:14+08:00 ] 10.0.2.15 10.0.2.2 GET /activity/activitycategory/index?sort=id&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514539806916
+[ info ] local.cms.com/activity/activitycategory/index?sort=id&order=desc&offset=0&limit=10&filter=%7B%7D&op=%7B%7D&_=1514539806916 [运行时间：0.611405s][吞吐率：1.64req/s] [内存消耗：2,138.58kb] [文件加载：80]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000358s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011464s ]
+[ info ] [ LANG ] /vagrant/cms/thinkphp/lang/zh-cn.php
+[ info ] [ BIND ] 'admin'
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'activity.activitycategory',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'local.cms.com',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'content-type' => 'application/json',
+  'cookie' => 'PHPSESSID=i94inucjlm5dne1ellvlcuip32',
+  'proxy-connection' => 'keep-alive',
+  'referer' => 'http://local.cms.com/activity/activitycategory?addtabs=1',
+  'x-lantern-version' => '4.4.1',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+  'sort' => 'id',
+  'order' => 'desc',
+  'offset' => '0',
+  'limit' => '10',
+  'filter' => '{}',
+  'op' => '{}',
+  '_' => '1514539806916',
+)
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.005627s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] /vagrant/cms/public/../application/admin/lang/zh-cn/activity/activitycategory.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\admin\controller\activity\Activitycategory->index[ /vagrant/cms/application/admin/controller/activity/Activitycategory.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.002549s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000747s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_group_access` [ RunTime:0.001622s ]
+[ sql ] [ SQL ] SELECT `AuthGroupAccess`.`uid`,`AuthGroupAccess`.`group_id`,`AuthGroup`.`id`,`AuthGroup`.`pid`,`AuthGroup`.`name`,`AuthGroup`.`rules` FROM `fa_auth_group_access` `AuthGroupAccess` LEFT JOIN `fa_auth_group` `AuthGroup` ON `AuthGroupAccess`.`group_id`=`AuthGroup`.`id` WHERE  (  AuthGroupAccess.uid='1' and AuthGroup.status='normal' ) [ RunTime:0.001326s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.001510s ]
+[ sql ] [ SQL ] SELECT `id`,`pid`,`condition`,`icon`,`name`,`title`,`ismenu` FROM `fa_auth_rule` WHERE  `status` = 'normal' [ RunTime:0.002642s ]

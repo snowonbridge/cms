@@ -1,0 +1,88 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-activity_id" class="control-label col-xs-12 col-sm-2">{:__('Activity_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-activity_id" data-rule="required" data-source="activity/index" class="form-control selectpage" name="row[activity_id]" type="text" value="{$row.activity_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-challege_list" class="control-label col-xs-12 col-sm-2">{:__('Challege_list')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-challege_list" data-rule="required" class="form-control" name="row[challege_list]" type="text" value="{$row.challege_list}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-frequency" class="control-label col-xs-12 col-sm-2">{:__('Frequency')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-frequency" data-rule="required" class="form-control" name="row[frequency]" type="number" value="{$row.frequency}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-gift_list" class="control-label col-xs-12 col-sm-2">{:__('Gift_list')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-gift_list" data-rule="required" class="form-control" name="row[gift_list]" type="text" value='{$row.gift_list}'>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-img_icon" class="control-label col-xs-12 col-sm-2">{:__('Img_icon')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-img_icon" data-rule="required" class="form-control" name="row[img_icon]" type="text" value="{$row.img_icon}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-desc" class="control-label col-xs-12 col-sm-2">{:__('Desc')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-desc" data-rule="required" class="form-control" name="row[desc]" type="text" value="{$row.desc}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-tab_id" class="control-label col-xs-12 col-sm-2">{:__('Tab_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-tab_id" data-rule="required" data-source="tab/index" class="form-control selectpage" name="row[tab_id]" type="text" value="{$row.tab_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-base_activity_id" class="control-label col-xs-12 col-sm-2">{:__('Base_activity_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-base_activity_id" data-rule="required" data-source="base/activity/index" class="form-control selectpage" name="row[base_activity_id]" type="text" value="{$row.base_activity_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-sort" class="control-label col-xs-12 col-sm-2">{:__('Sort')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sort" data-rule="required" class="form-control" name="row[sort]" type="number" value="{$row.sort}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-redirect_id" class="control-label col-xs-12 col-sm-2">{:__('Redirect_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-redirect_id" data-rule="required" data-source="redirect/index" class="form-control selectpage" name="row[redirect_id]" type="text" value="{$row.redirect_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-start_time" class="control-label col-xs-12 col-sm-2">{:__('Start_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-start_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[start_time]" type="text" value="{$row.start_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-end_time" class="control-label col-xs-12 col-sm-2">{:__('End_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-end_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[end_time]" type="text" value="{$row.end_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{$row.create_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

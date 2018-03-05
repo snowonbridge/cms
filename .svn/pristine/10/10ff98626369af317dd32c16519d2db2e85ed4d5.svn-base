@@ -1,0 +1,12 @@
+<?php
+
+return [
+    'mid'  =>  '用户mid',
+    'agent_id'  =>  '上级代理id',
+    'sid'  =>  '游戏平台标志sid',
+    //'bind_type_text'  =>  '关系类型@1直属玩家2代理',
+    'bind_type_text'  =>  '关系类型',
+    'bind_time'  =>  '绑定时间',
+    'bind_level'  =>  '授权等级',
+    'first_agent_id'  =>  '首次父代理id',
+];

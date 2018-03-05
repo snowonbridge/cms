@@ -1,0 +1,83 @@
+<?php
+cms::allow('bag.add');
+(!$cid) && cms::callback('请选择"所属活动"!');
+$file = cms::get('file');
+$sheetCount = cms::get('sheet',1)-1;//页数
+($sheetCount > 9) && cms::callback('excel页数不能大于10!');
+$fileDir = DATA_ROOT . $file;
+if(is_file($fileDir)){
+	include_once LIB_ROOT . 'excel_reader.php';
+	$xlsdata = new Spreadsheet_Excel_Reader($fileDir);
+	for($sheet=0;$sheet<=$sheetCount;$sheet++){
+		$rowcount = $xlsdata->rowcount($sheet);//总行数
+		$key = 0;
+		$data = array();
+		for($i=1;$i<=$rowcount;$i++){
+			if($i==1 || $i==3 || $i==5) continue;//标题行不记录数据
+			if($i==2){
+				if($xlsdata->val($i,1,$sheet)!==''){ $db->value['name'] = addslashes($xlsdata->val($i,1,$sheet)); }else{ cms::callback('"名称"不能为空!'); }
+				continue;
+			}elseif($i==4){
+				$data[$key]['type'] = 'base';
+				$xlsdata->val($i,1,$sheet)!=='' &&  $data[$key]['luck'] = intval($xlsdata->val($i,1,$sheet));
+				$xlsdata->val($i,2,$sheet)!=='' &&  $data[$key]['wmode'] = intval($xlsdata->val($i,2,$sheet));
+				$xlsdata->val($i,8,$sheet)!=='' &&  $data[$key]['start'] = addslashes($xlsdata->val($i,8,$sheet));
+				$xlsdata->val($i,9,$sheet)!=='' &&  $data[$key]['end'] = addslashes($xlsdata->val($i,9,$sheet));
+			}else{
+				if($xlsdata->val($i,1,$sheet)!==''){
+					$arr = array();
+					preg_match('/[a-zA-Z]+$/', $xlsdata->val($i,1,$sheet), $arr);
+					$data[$key]['type'] = addslashes($arr[0]);
+				}else{
+					continue;
+				}
+				if($xlsdata->val($i,2,$sheet)!==''){
+					$arr = array();
+					$xlsval = '';
+					$xlsval = $xlsdata->val($i,2,$sheet);
+					if(strpos($xlsval,'~')!==false){
+						$arr = explode('~',$xlsval);
+						$data[$key]['random0']  = addslashes($arr[0]);
+						$data[$key]['random1']  = addslashes($arr[1]);
+					}elseif(strpos($xlsval,'|')!==false){
+						$arr = explode('|',$xlsval);
+						$data[$key]['enum']  = addslashes($arr[0]);
+						foreach($arr as $k=>$v){
+							if($k==0) continue;
+							$data[$key]['enum']  .= ','.addslashes($v);
+						}
+					}else{
+						if(strpos($xlsval,'x')!==false){
+							$arr = explode('x',$xlsval);
+							$data[$key]['val']  = addslashes($arr[0]);
+							if($data[$key]['type'] == 'bag'){
+								$data[$key]['bagtype']  = addslashes($arr[1]);
+							}else{
+								$data[$key]['num']  = addslashes($arr[1]);
+							}
+						}else{
+							$data[$key]['val']  = addslashes($xlsval);
+						}
+					}
+				}
+				$xlsdata->val($i,8,$sheet)!=='' &&  $data[$key]['pto'] = addslashes($xlsdata->val($i,8,$sheet));
+				$xlsdata->val($i,9,$sheet)!=='' &&  $data[$key]['name'] = addslashes($xlsdata->val($i,9,$sheet));
+			}
+			if($data[$key]['type'] != 'base') $data[$key]['id'] = $i;
+			$xlsdata->val($i,3,$sheet)!=='' &&  $data[$key]['percent'] = addslashes($xlsdata->val($i,3,$sheet));
+			$xlsdata->val($i,4,$sheet)!=='' &&  $data[$key]['limit0'] = addslashes($xlsdata->val($i,4,$sheet));
+			$xlsdata->val($i,5,$sheet)!=='' &&  $data[$key]['limit1'] = addslashes($xlsdata->val($i,5,$sheet));
+			$xlsdata->val($i,6,$sheet)!=='' &&  $data[$key]['limit2'] = addslashes($xlsdata->val($i,6,$sheet));
+			$xlsdata->val($i,7,$sheet)!=='' &&  $data[$key]['limit3'] = addslashes($xlsdata->val($i,7,$sheet));
+			$key++;
+		}
+
+		$db->value['data'] = $data;
+		$db->value = (array)$o->formatValue($db->value);
+		$db->value['sid'] = cms::$sid;
+		$suc = $db->insert();
+		$id = $db->lastId();
+	}
+}else{
+	cms::callback('文件不存在!');
+}

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nihao
+ * Date: 17-10-26
+ * Time: 上午11:56
+ */
+
+namespace app\admin\model;
+
+
+use think\Model;
+
+class AgentSettlementOrder extends Model{
+    protected $connection = 'db_config_agent';
+
+} 

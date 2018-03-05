@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright (c) boyaa.com
+ * Developer - 谭德耀
+ * Last modify - 2013.07.03
+ * Info - 礼包导入类型识别
+ */
+$config['type'] = array(
+	array('游戏币','money'),
+	array('礼物','gift'),
+	array('黄钻','prop'),
+	array('紫钻','prop'),
+	array('红钻','prop'),
+	array('蓝钻','prop'),
+	array('救济卡','prop'),
+	array('踢人卡','prop'),
+	array('淘金赛资格卡','prop'),
+	array('晋级赛第二轮资格卡','prop'),
+	array('晋级赛第三轮资格卡','prop'),
+	array('普通VIP','vip'),
+	array('银卡VIP','vip'),
+	array('金卡VIP','vip'),
+	array('钻石VIP','vip'),
+	array('精英VIP','vip'),
+	array('宝贝表情包','face'),
+	array('虫虫表情包','face'),
+	array('扑克人表情包','face'),
+	array('互动道具','interact'),
+	array('幸运玩偶','collects'),
+	array('博雅币','byb'),
+	array('积分','integral'),
+	array('头衔','levels'),
+	array('经验值','exp')
+);

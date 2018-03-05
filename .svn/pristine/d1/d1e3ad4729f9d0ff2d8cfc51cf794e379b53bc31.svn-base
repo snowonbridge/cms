@@ -1,0 +1,12 @@
+<form onsubmit="sendBag.send();return false">
+	<table class="myTable left">
+		<tr>
+			<td width='120'><i>赠送的礼包必须配置在129活动下</i>{$lang('tomid','msg')$}:</td>
+			<td><textarea name="reciveperson" must="{$lang('plsRecivePerson','msg')$}" style="width:98%;height:200px"></textarea></td>
+		</tr>
+	</table>
+	<div class="myBtns">
+		<input type="submit" value="{$L.btn.sendBag$}" />
+	</div>
+	<div id="errorMsg" style="color:red; text-align:center;"></div>
+</form>

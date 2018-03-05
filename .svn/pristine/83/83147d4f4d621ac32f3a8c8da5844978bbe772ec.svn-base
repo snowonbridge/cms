@@ -1,0 +1,19 @@
+<table class="myTable left">
+	<tr>
+		<td style="vertical-align: top;overflow: hidden;padding:5px;">
+			<input type="button" value="添加空白礼包" onclick="bagworking.editbag();" />
+			<input type="button" value="添加后台礼包" onclick="bagworking.addeditbag();"/>
+			<input type="button" value="清空重置工作台" onclick="bagworking.clean();" />
+			<input type="button" value="手动保存工作台" onclick="bagworking.dosaving();"/>
+			<input type="button" value="读取工作台" onclick="bagworking.getsaving();" />
+			<input type="button" value="提交至demo" onclick="bagworking.submit()"/><br />
+			<div style="padding:5px;" id="copytips"></div>
+		</td>
+		<td style="padding:5px;">
+			<span>添加：{$COMM.getSelect('type', bagworking.radio.type, '<option value="">+</option>', ' onchange="bagworking.type2(this, 1)"')$}<span></span> 名称：<input type="text" name="name" value="" /><input type="button" value="批量添加" onclick="bagworking.copy(this,'adds')" /></span><br />
+			<span>查找：{$COMM.getSelect('type', bagworking.radio.type, '<option value="">+</option>', ' onchange="bagworking.type2(this, 1)"')$}<span></span> 名称：<input type="text" name="name" value="" /><input type="button" value="查找" /><input type="button" value="批量删除" /></span><br />
+			<span>替换：{$COMM.getSelect('type', bagworking.radio.type, '<option value="">+</option>', ' onchange="bagworking.type2(this, 1)"')$}<span></span> 名称：<input type="text" name="name" value="" /><input type="button" value="批量替换" /></span>
+		</td>
+	</tr>
+</table>
+<div id="bagworkingdata" style="overflow-y:scroll;height:85%"></div>

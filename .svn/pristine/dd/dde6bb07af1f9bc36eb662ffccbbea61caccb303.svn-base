@@ -1,0 +1,47 @@
+define(['jquery', 'bootstrap', 'backend', 'form','toastr'], function ($, undefined, Backend, Form, Toastr) {
+
+  var Controller = {
+    index: function () {
+      $("form[role=form]").data("validator-options", {
+        invalid: function (form, errors) {
+          $.each(errors, function (i, j) {
+            Toastr.error(j);
+          });
+        },
+        target: '#errtips'
+      });
+      // 初始化表单参数配置
+      Controller.api.bindevent();
+      //本地验证未通过时提示
+      this.api.init();
+    },
+    api: {
+      bindevent: function () {
+        Form.api.bindevent($("form[role=form]"), null, null, null, function (item) {
+          return '[' + item.uname + '] mid:' + item.id + ',uid:' + item.uid;
+        });
+      },
+      init: function () {
+        $('#search').click(function (e) {
+          e.preventDefault();
+          var keyword = $("#keyword").val();
+          $.ajax({
+            type: "POST",
+            url: "/player/detail/index",
+            data: {keyword:keyword},
+            success: function (data) {
+              if (data && data!==undefined && data !== "") {
+                $('#userInfo').html(data);
+              }else{
+                $('#userInfo').html('没有该用户数据！');
+              }
+            },
+            dataType: 'json'
+          });
+          return false;
+        });
+      }
+    }
+  };
+  return Controller;
+});

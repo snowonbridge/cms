@@ -1,0 +1,64 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-gift_content_id" class="control-label col-xs-12 col-sm-2">{:__('Gift_content_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-gift_content_id" data-rule="required" data-source="gift/content/index" class="form-control " name="row[gift_content_id]" type="text" value="{$row.gift_content_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-num" class="control-label col-xs-12 col-sm-2">{:__('Num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-num" data-rule="required" class="form-control" name="row[num]" type="number" value="{$row.num}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-level" class="control-label col-xs-12 col-sm-2">{:__('Level')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-level" data-rule="required" class="form-control selectpicker" name="row[level]">
+                {foreach name="levelList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.level"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-sort" class="control-label col-xs-12 col-sm-2">{:__('Sort')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sort" data-rule="required" class="form-control" name="row[sort]" type="number" value="{$row.sort}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-base_rate" class="control-label col-xs-12 col-sm-2">{:__('Base_rate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-base_rate" data-rule="required" class="form-control" step="0.01" name="row[base_rate]" type="number" value="{$row.base_rate}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-lucky_value" class="control-label col-xs-12 col-sm-2">{:__('Lucky_value')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-lucky_value" data-rule="required" class="form-control" name="row[lucky_value]" type="number" value="{$row.lucky_value}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{$row.create_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

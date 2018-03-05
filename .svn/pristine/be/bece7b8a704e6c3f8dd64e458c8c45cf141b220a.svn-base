@@ -1,0 +1,96 @@
+<?php
+
+namespace app\admin\model;
+
+
+use helper\Okey;
+use think\Cache;
+use think\Model;
+
+class AgentUserRelation extends Model
+{
+    protected $connection = 'db_config_agent';
+
+    //关系类型（1直属玩家 2代理 ）
+    const BIND_TYPE_PLAYER = 1 ;
+    const BIND_TYPE_AGENT = 2 ;
+
+    protected $autoWriteTimestamp = true;
+    protected $createTime = false;
+    protected $updateTime = 'bind_time';
+
+    protected static function init()
+    {
+        AgentUserRelation::afterWrite(function ($agentUserRelation) {
+            $redis = Cache::store('redis')->handler();
+            $data = $agentUserRelation->data;
+            $redis->setex(Okey::rAgentUserRelationOne($data['mid'],$data['sid']),86400,json_encode($data));
+        });
+    }
+
+    public function agent(){
+        return $this->belongsTo('Agent','agent_id','agent_id');
+    }
+
+    // 追加属性
+    protected $append = [
+        'bind_type_text',
+    ];
+
+    public function getBindTypeTextAttr($value, $data)
+    {
+        $value = $value ? $value : $data['bind_type'];
+        $list = [
+            self::BIND_TYPE_PLAYER => '直属玩家',
+            self::BIND_TYPE_AGENT => '代理',
+        ];
+        return isset($list[$value]) ? $list[$value] : '';
+    }
+
+    public function findRelationByMid($mid,$sid)
+    {
+        return $this->where([
+            'mid' => $mid,
+            'sid' => $sid,
+        ])->find();
+
+    }
+
+    public function isMyChildPlayer($relation,$agent_id){
+        $res = false;
+        if(empty($relation)) return $res;
+        if($relation['agent_id']==$agent_id && $relation['bind_type']==self::BIND_TYPE_PLAYER){
+            $res = true;
+        }
+        return $res;
+    }
+
+    public function isMyChildAgent($relation,$agent_id){
+        $res = false;
+        if(empty($relation)) return $res;
+        if($relation['agent_id']==$agent_id && $relation['bind_type']==self::BIND_TYPE_AGENT){
+            $res = true;
+        }
+        return $res;
+    }
+
+    public function isCanBindPlayer($mid,$sid){
+        $relation = $this->findRelationByMid($mid,$sid);
+        if($relation){
+            return ['code'=>-1,'msg'=>'用户已被绑定'];//已绑定
+        }
+        return ['code'=>1,'msg'=>''];
+    }
+
+    public function isCanBindAgent($mid,$sid,$agent_id){
+        $relation = $this->findRelationByMid($mid,$sid);
+        if($this->isMyChildAgent($relation,$agent_id)){
+            return ['code'=>-1,'msg'=>'已绑定'];//已绑定
+        }
+        if(!$this->isMyChildPlayer($relation,$agent_id)){
+            return ['code'=>0,'msg'=>'该用户不是你的直属玩家，不可授权'];//已绑定
+        }
+        return ['code'=>1,'msg'=>''];
+    }
+
+}

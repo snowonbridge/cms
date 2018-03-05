@@ -1,0 +1,386 @@
+
+<div id="agentInfo" class="row" style="background-color:#fff;height:100%">
+    <div class="row" style="position: relative;top: 10px;">
+        <div class="form-group">
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3"><label class="control-label col-xs-4">头像：</label>
+                <div class="col-xs-12 col-sm-8">
+                   <img :src="user.avartar_url" alt="" style="max-height:90px;max-width:120px" />
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="font-size:12px"><label class="control-label col-xs-4">代理ID：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-control"><span v-text="agentInfo.agent_id"></span></div>
+
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="font-size:12px"><label class="control-label col-xs-4">昵称：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-control"><span v-text="user.uname"></span></div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="font-size:12px"><label class="control-label col-xs-4">手机：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-control"><span v-text="agentInfo.mobile"></span></div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="font-size:12px"><label class="control-label col-xs-4">可提现余额：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-control"><span v-text="agentInfo.money"></span></div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="font-size:12px"><label class="control-label col-xs-4">累计提现：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-control"><span v-text="agentInfo.total_settlement_money"></span></div>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="font-size:12px"><label class="control-label col-xs-4">上次提现时间：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-control"><span v-text="agentInfo.last_settlement_time_text"></span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--<div class="row">-->
+    <div id="toolbar" class="toolbar" style="margin-left: 20px">
+
+        <a @click="addPlayer()" href="javascript:;" class="btn btn-success btn-add {:$auth->check('agent/manage/playerrelation/add')?'':'hide'} " style="margin-left: 20px" >添加直属玩家</a>
+        <a @click="add()" href="javascript:;" class="btn btn-success btn-add {:$auth->check('agent/manage/index/add')?'':'hide'} " style="margin-left: 20px" >授权代理</a>
+
+        <a @click="selectList('all')" href="javascript:;" id="all" class="btn btn-danger " style="margin-left: 20px" >全部</a>
+        <a @click="selectList('today')" href="javascript:;" id="today" class="btn btn-primary " style="margin-left: 20px" >今日</a>
+        <a @click="selectList('week')" href="javascript:;" id="week" class="btn btn-primary " style="margin-left: 20px" >本周</a>
+        <a @click="selectList('month')" href="javascript:;" id="month" class="btn btn-primary " style="margin-left: 20px" >本月</a>
+
+    </div>
+    <!-- </div>-->
+
+    <div v-for="agentDetail in agentDetails">
+
+        <div class="row">
+
+            <div class="form-group col-xs-12 col-sm-12" style="top: 10px;background-color:rgba(242, 242, 242, 1);font-size: 15px"><label class="control-label col-xs-3">{{getSidText(agentDetail.sid)}}</label></div>
+
+            <div class="form-group col-xs-3 col-sm-3">
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">上级代理ID：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <div v-html="agent_info(agentDetail.parent_agent_id)"> </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">上级昵称：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <span v-text="agentDetail.parent_user.uname"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">代理等级：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <span v-text="agentDetail.agent_level"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">直属玩家：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/playerrelation/index?agent_id='+agentInfo.agent_id]" >{{agentDetail.player_count}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">直属代理：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/agentrelation/index?agent_id='+agentInfo.agent_id]" >{{agentDetail.agent_count}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">今日新增玩家：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/playerrelation/index?day=today&agent_id='+agentInfo.agent_id]" >{{agentDetail.player_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">今日新增代理：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/agentrelation/index?day=today&agent_id='+agentInfo.agent_id]" >{{agentDetail.agent_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-4 col-sm-4">绑定时间：</label>
+                        <div class="col-xs-6 col-sm-6">
+                            <span v-text="agentDetail.create_time_text"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group col-xs-7 col-sm-7">
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">总收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.all_sum}}</a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">总充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.all_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">房卡收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.card_sum}}</a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">房卡充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.card_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">金币收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?order_type=2&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.diamond_sum}}</a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">金币充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?order_type=2&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.diamond_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">玩家房卡收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=1,7&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.player_card_sum}}</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">玩家房卡充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=1,7&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.player_card_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">代理房卡收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=2,3&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.agent_card_sum}}</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">代理房卡充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=2,3&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.agent_card_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">隔代房卡收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=4,5&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.gedai_card_sum}}</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">隔代房卡充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=4,5&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.gedai_card_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">全线房卡收益：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=6&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.qx_card_sum}}</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3"><label class="control-label col-xs-7 col-sm-7">全线房卡充值：</label>
+                        <div class="col-xs-4 col-sm-4">
+                            <a :href="['/agent/manage/profitlog/index?profit_type_str=6&order_type=1&agent_id='+agentDetail.agent_id+'&sid='+agentDetail.sid+'&day='+getIdValByClass()]" >{{agentDetail.qx_card_order_sum}}</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group col-xs-2 col-sm-2">
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 "><label class="control-label col-xs-7 col-sm-7"><a @click="edit(agentDetail.id)" href="javascript:;" class="btn btn-success btn-add {:$auth->check('agent/manage/index/edit')?'':'hide'} ">等级</a></label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-7 col-sm-7"><a @click="unbind(agentDetail.mid,agentDetail.sid)" href="javascript:;" class="btn btn-success btn-add {:$auth->check('agent/manage/index/unbind')?'':'hide'} "> 解绑</a></label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-7 col-sm-7"><a :href="['/agent/log/levellog/index?agent_id='+agentInfo.agent_id]" >等级日志</a></label>
+                    </div>
+                </div>
+
+              <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-7 col-sm-7"><a :href="['/agent/log/bindlog/index?mid='+agentInfo.agent_id]" >授权日志</a></label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12"><label class="control-label col-xs-7 col-sm-7"><a :href="['/agent/log/unbindlog/index?mid='+agentInfo.agent_id]" >解绑日志</a></label>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<!--<script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>-->
+<script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: '#agentInfo',
+        data: {
+            agent_id:'',
+            sid:'',
+            agentInfo:{}, /*代理信息*/
+            agentDetails:[],
+            user:{},
+
+        },
+        created: function() {
+            var self = this;
+            var Request = new Object();
+            Request = this.getRequest();
+            self.agent_id = Request.agent_id;
+
+            this.selectList('all');
+
+        },
+        ready: function() {
+
+        },
+        methods: {
+            selectList: function(btn) {
+
+                $(".btn.btn-danger").removeClass("btn btn-danger").addClass('btn btn-primary');
+                $("#"+btn).removeClass().addClass('btn btn-danger');
+
+                var self = this;
+                $.ajax({
+                    url: '/agent/manage/index/info?agent_id='+self.agent_id+'&day='+btn,
+                    type: 'get',
+                    cache: false,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code == '1') {
+                            self.agentInfo = response.data.agentInfo;
+                            self.agentDetails = response.data.agentDetails;
+                            self.user = self.agentInfo.user;
+                        } else {
+                            alert(response.msg);
+                        }
+                    }
+                });
+            },
+
+            getRequest: function() {
+                var url = location.search; //获取url中"?"符后的字串
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            },
+
+            unbind: function(mid,sid){
+                var url = '/agent/manage/index/unbind?mid='+mid+'&sid='+sid;
+                Fast.api.open(url, '解绑', {});
+            },
+
+            edit: function(id){
+                var url = '/agent/manage/index/edit?ids='+id;
+                Fast.api.open(url, '编辑等级', {});
+            },
+
+            add: function(){
+                var url = '/agent/manage/index/add';
+                Fast.api.open(url, '授权代理', {});
+            },
+
+            addPlayer: function(){
+                var url = '/agent/manage/playerrelation/add';
+                Fast.api.open(url, '添加直属玩家', {});
+            },
+
+            getSidText: function(sid){
+                if(sid=='10002'){
+                    return '10002 欢乐棋牌';
+                }else{
+                    return sid+' 其他游戏';
+                }
+            },
+            agent_info: function (value) {
+                if(value.toString()!='7777'){
+                    return '<a href="/agent/manage/index/info?agent_id=' + value +'">' + value + '</a>';
+                }else{
+                    return '<a href="javascript:;">' + value + '</a>';
+                }
+            },
+            getIdValByClass: function(){
+                var idVal = 'all';
+                var val = '';
+                val = $(".btn.btn-danger").attr('id');
+                if(val !='undefined'){
+                    idVal = val;
+                }
+                return idVal;
+            },
+        }
+    });
+</script>

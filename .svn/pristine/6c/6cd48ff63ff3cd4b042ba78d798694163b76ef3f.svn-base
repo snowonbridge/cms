@@ -1,0 +1,1023 @@
+/**
+ * Copyright (c) boyaa.com
+ * Developer - 安凌志
+ * Last modify - 2012.05.21
+ */
+F.init('bagnotice', {
+	'path': 'ac/bagnotice/',
+	'delPath': 'ac/',
+	'model':'one',
+	'type': '*.gif;*.jpg;*.png;*.swf',
+	'checkType': 'gif,jpg,png,swf',
+	'nameformat': 'md5',
+	'pathformat': 'date|ym',
+	'samename': 2,
+	'vw': 50,
+	'vh': 50,
+	'v': 30
+});
+
+var bag = new function(){
+	var NS = 'bag', $I, I = {
+	ids: '',
+	init: function(p){
+		$I = bagform;
+		SYS.bag('init');
+		SYS._bagDef = {'cid':PAR ? PAR : 0};
+		I.cid = PAR;
+		$o('#tpl').loadData({
+			url: CGI[NS] +'?cmd=select&cid='+ PAR,
+			page: p,
+			funPage: I.init,
+			funBase: I,
+			callback: function(){
+				if(vars.api == 2) $.getScript(PATH.data +'map/mbact.js?'+ COMM.version('mbactMap'));
+			}
+		});
+	},
+	leftInit: function(){
+		COMM.actsLeft({
+			'sign': NS,
+			'del': 1,
+			'open': 1
+		});
+	},
+	del: function(re){
+		COMM.del(re, NS);
+	},
+	tplLuck: function(s, rs){
+		if(rs.luck == 2) return '<u>概率错误</u>';
+		return s > 0 ? '<b class="app" fun="bag.rand_'+rs.id+','+ rs.cid +'">'+ L.bag.bagRand +'</b>' : '否';
+	},
+	send: function(){
+		Confirm('该操作将会发布到<span class="case1"><b>demo,no4</b></span>，确定？', function(){
+			var ids = getCheckBox('ids');
+			if(!ids) return Msg.err('请勾选需要发布更新的礼包');
+			Msg.doing();
+			$.JSON(CGI[NS] +'?cmd=send&ids='+ ids, function(ret){
+				Msg.close();
+				COMM.suc(ret, P.ref);
+			});
+		});
+	},
+	radio:{
+
+	},
+	copy: function(){
+		I._copy = getCheckBox('ids');
+		SYS.window('bag/copy.html', '', {width:600,height:350});
+	},
+	refName: function(){//批量刷新ID
+		var ids = getCheckbox('ids');
+		if(!ids) return;
+		ids = ids.split(',');
+		var len = ids.length,
+		time = $D.time(),
+		l = ids.length,
+		run = function(id){
+			var n = len, m = n-ids.length-1;
+			$('#refNameDoing').html('<b>'+ m +'</b>/<b>'+ n +'</b>('+ setNum(m/n*100,2) +'%)');
+			$I._callback = function(){//表单加载完回调
+				$I.refName();
+				$I.lock = 0;
+				$I.submit();
+			};
+			$I._success = function(){//提交成功后执行
+				id = ids.shift();
+				if(id){
+					run(id);//下一个礼包ID
+				}else{
+					$I._callback = '';
+					$I._success = '';
+					M.close();
+					Msg.service('<b>亲，我的工作完成了哦！</b><br>总共耗时<b>'+ ($D.time()-time) +'</b>秒，还满意吧？记得给好评哈^_^', {closeBtn:1});
+				}
+			};
+			SYS.appStr('bagform_'+id);
+		},
+		s = '<b>CMS机器人为您服务，请确认开始执行？</b><br>';
+		if(l > 50){
+			s += '数据比较多，请您先去喝杯茶，我会努力为您工作完的！';
+		}else if(l > 10){
+			s += '数据有点多，请您稍作休息，我会很快为您工作完的！';
+		}else{
+			s += '数据不多，稍等下，秒秒钟就好了！';
+		}
+		Confirm(s, function(){
+			Msg.service('<b>CMS机器人工作中，请勿刷新浏览器...</b><br><img src="'+ SKIN.sys +'loading1.gif" />&nbsp;<span id="refNameDoing"></span>');
+			run(ids.shift());
+		}, {img:'<div style="width:80px">'+ SYS.service(60) +'</div>'});
+	},
+	sendBag: function(){//赠送礼包
+		var ids = getCheckbox('ids');
+		if(!ids) return;
+		I.ids = ids;
+		SYS.window('bag/sendBag.html', '', {width:480,height:300});
+	},
+	importFile: function(){//导入
+		SYS.window('bag/import.html', '', {width:600,height:200});
+	},
+	working: function(){
+		bagworking.init();
+	},
+	sendtimeTpl: function(v){
+		return !v || v==0 ? '-' : v;
+	},
+	edittimeTpl: function(v, rs){
+		return rs.sendtime && d2t(rs.sendtime)>0 && (rs.edittime > rs.sendtime) ? '<span class="case1">'+ v +'</span>' : v;
+	},
+	rand: function(id,cid,v3){//机率测试
+		SYS.window('bag/rand.html?'+id+','+cid+','+int(v3));
+	},
+	form: function(id){
+		SYS.appStr('bagform_'+ id);
+	},
+	_chips: function(key, title, s1, s){//类似游戏币一样的发放通用模板
+		s = s || '';
+		return '<table style="display:none">\
+		<tr id="tpl_'+ key +'">\
+			<td>'+ title +'<input type="hidden" name="[key][type]" value="'+ key +'" title="'+ title +'" /></td>\
+			<td>\
+				<div class="tab_texas"><input style="width:60%" name="[key][val]" value="{val}" title="{val|COMM.number}" onkeyup="bagform.autoName(this);COMM.autoInt(this)" />'+ s +'</div>\
+				<div class="tab_test"><input style="width:60%" name="[key][test_val]" value="{test_val}" title="{test_val|COMM.number}"  onkeyup="COMM.autoInt(this)" /></div>'+ (s1||'') +'\
+			</td>\
+			<td class="tp_random">\
+				<div class="tab_texas">\
+					<input name="[key][random0]" value="{random0}" style="width:30%" title="最小值({random0|COMM.number})" onkeyup="COMM.autoInt(this)" />-\
+					<input name="[key][random1]" value="{random1}" style="width:30%" title="最大值({random1|COMM.number})" onkeyup="COMM.autoInt(this)" />'+ s +'\
+				</div>\
+				<div class="tab_test">\
+					<input name="[key][test_random0]" value="{test_random0}" style="width:30%" title="最小值({test_random0|COMM.number})" onkeyup="COMM.autoInt(this)" />-\
+					<input name="[key][test_random1]" value="{test_random1}" style="width:30%" title="最大值({test_random1|COMM.number})" onkeyup="COMM.autoInt(this)" />\
+				</div>\
+			</td>\
+			<td class="tp_enum">\
+				<div class="tab_texas"><input name="[key][enum]" value="{enum}" style="width:95%" /></div>\
+				<div class="tab_test"><input name="[key][test_enum]" value="{test_enum}" style="width:95%" /></div>\
+			</td>\
+			<td class="tp_attr"></td>\
+			<!--[comm]-->\
+		</tr>\
+	</table>';
+	},
+	_limit1: '<input name="[key][limit0]" value="{limit0}" title="单人日({limit0|COMM.number})" placeholder="单人日" size="5" onkeyup="COMM.autoInt(this)" /><input name="[key][limit1]" value="{limit1}" title="单人总({limit1|COMM.number})" placeholder="单人总" size="5" onkeyup="COMM.autoInt(this)"/>',
+	_limit2: '<input name="[key][limit2]" value="{limit2}" title="全员日({limit2|COMM.number})" placeholder="全员日" size="5" onkeyup="COMM.autoInt(this)" /><input name="[key][limit3]" value="{limit3}" title="全员总({limit3|COMM.number})" placeholder="全员总" size="5" onkeyup="COMM.autoInt(this)" />'
+	};
+	I._limit = I._limit1 + I._limit2;
+	return I;
+};
+
+var bagform = new function(){
+	var $I = bag, NS = 'bagform', I = {
+	init: function(){
+		var js = [PATH.data+'act/bag.js?'+COMM.version('bagExt')];
+		I.sperMid = [327, 438, 803, 1093];
+		if(vars.api == 2) js.push(PATH.data +'map/mbact.js?'+ COMM.version('mbactMap'));
+		$.getScripts(js, I.inits);
+	},
+	radio: {
+		'log':['否','是'],
+		'use':['否','是'],
+		'ogifts':['否','是'],
+		'luck':['否','是'],
+		'xlb':{0:'无','i':'自己','all':'全服'},
+		'notice':{0:'无','1':'1类','2':'2类','3':'3类'},
+		'gift':['游戏币','博雅币'],
+		'vip':COMM.vipCfg(),
+		'face':L.user.face,
+		'bagtype':['仅获得资格','直接发放'],
+		'mycard':{10:'10点',20:'20点',30:'30点',50:'50点',100:'100点',150:'150点',300:'300点',500:'500点',1000:'1000点',2000:'2000点',5000:'5000点'},
+		'bycard':{100:'100点',200:'200点',400:'400点',600:'600点',800:'800点',1000:'1000点',2000:'2000点'},
+		'corona':{11:'狂欢',12:'金色年华'},
+		'levelsForever':['指定天数','永久有效'],
+		'superInter':{0:'不选择','17':'超级飞机', '18':'超级礼花', '19': '烟雾弹', '20':'喝倒彩'}
+	},
+	inits: function(){
+		var def = 'base', s = '';
+		$.each(C.bag, function(k,i){
+			if(!L.bag.typeName[i] || k == 'base') return;
+			s += '<input class="app" fun="'+ NS +'.add_'+ k +'" value="'+ L.bag.typeName[i] +'" type="button" />';
+		});
+		var aid = 0, id = PAR;
+		I._dataid = 0;
+		I.ac3 = '';
+		I.$init = '';
+		I.$callback = '';
+		I.$uiopt = '';
+		I.$notice = '';
+		I.$tool = '';
+		I.$tp = {};
+		if(VAR.mycardArr){//自动获取点数
+			var temp = {};
+			$.each(VAR.mycardArr, function(i,o){
+				if(!o || typeof o !== 'object') return;
+				var a = {};
+				$.each(o, function(k,v){
+					a[v] = v;
+				});
+				temp[i] = a;
+			});
+			VAR.mycardArr = temp;
+		}
+		if(typeof PAR == 'object'){
+			if(PAR.ac3){//v3版活动中心
+				delete PAR.ac3;
+				try{
+					if(PAR.init){
+						I.$init = eval(PAR.init);
+						delete PAR.init;
+					}
+					if(PAR.callback){
+						I.$callback = eval(PAR.callback);
+						delete PAR.callback;
+					}
+					if(PAR.uiopt){
+						I.$uiopt = eval(PAR.uiopt);
+						delete PAR.uiopt;
+					}
+					if(PAR.notice){
+						I.$notice = eval(PAR.notice);
+						delete PAR.notice;
+					}
+					if(PAR.extend){
+						I.$extend = eval(PAR.extend);
+						delete PAR.extend;
+					}
+					if(PAR.tool){
+						I.$tool = eval(PAR.tool);
+						delete PAR.tool;
+						if(I.$tool && typeof I.$tool == 'object') I.$tool[0] = '无';
+					}
+				}catch(e){
+					alert('#ac3初始化参数错误！');
+					console.trace(e);
+				}
+				I.ac3 = PAR;
+			}else{
+				id = PAR[0];
+				aid = PAR[1];
+			}
+		}
+
+		//翻译切换事件
+		var fmtLan = function(){
+			var d = {'all':'全部'};
+			$.each(S.langfixs, function(i,o){
+				d[o] = L.config[o] +'('+ o +')';
+			});
+			I.radio.langcg = d;
+			$o('#dataSel>span:eq(0)').html(TPL.select(S.langfix, '', NS+'.radio.langcg', 'langcg'));
+			$o('[name=langcg]').change(function(){
+				var v = this.value;
+				if(v === 'all'){
+					$o('div[class^="lang_"]').show();
+				}else{
+					$o('div[class^="lang_"]').hide();
+					$o('div.lang_'+v).show();
+				}
+			}).change();
+		};
+
+		//表单加载完的事件
+		var initEnd = function(){
+			fmtLan();
+			I.radio.tp = {};
+			$o('#dataObj tr:eq(0) td').each(function(i,o){
+				var tp = $(o).attr('class');
+				if(!tp) return;
+				tp = tp.replace('tp_','');
+				if(!tp) return;
+				I.radio.tp[tp] = $(o).html().split('<')[0];
+			});
+
+			$o('#dataSel>span:eq(1)').html(TPL.checkbox('', '', NS+'.radio.tp', 'tp'));
+			var ipt = $o('#dataSel span input'),
+			fn = function(v, show){
+				var id = 'bag_tp_'+ v;
+				if(show){//显示
+					$('#'+id).remove();
+				}else{//隐藏
+					$(document.body).append('<style id="'+ id +'">.tp_'+ v +'{display:none}</style>');
+				}
+				if(!I.lock) I.tblSize();
+			};
+			$('[id^="bag_tp_"]').remove();
+			ipt.each(function(){
+				var v = $(this).val();
+				fn(v);//全部隐藏先
+			});
+			ipt.click(function(){
+				var o = $(this), v = o.val();
+				setTimeout(function(){
+					fn(v, o.attr('checked'));
+				}, 10);
+			});
+			$.each(I.$tp, function(i,o){
+				ipt.filter('[value="'+ i +'"]').click();
+			});
+			setTimeout(function(){
+				I.setSize();
+				I.lock = 0;
+			}, 10);
+			WIN[0].chgWinSize = I.setSize;//窗口切换大小时事件
+			var pos = getPosition($o('[name="data[0][type]"]').parents('tr')[0], RIGHT[0]);
+			$o('#base_more').css('top', pos.top+5);
+		};
+		//表单是通过tplData加载的
+		if(I.ac3 || id > 0 || id && id.toString().indexOf('b') == 0){//编辑
+			$o('#tpl').loadData({
+				url: CGI.bag +'?cmd=edit'+ (I.ac3 ? '' : '&id='+ id +'&aid='+ aid),
+				par: I.ac3 ? {ac3:I.ac3} : '',
+				success: function(rs){
+					aid = rs.cid;//这句有什么用？安凌志
+					$I.cid = rs.cid;
+					if(vars.api == 2){
+						I.actArr = VAR.actArr;
+						VAR.actArr = VAR.mbactMap;
+					}
+					return rs;
+				},
+				callback: function(rs){
+					WIN[0].appendTitle(rs.bid ? 'b'+rs.bid : rs.id);
+					$o('#typeList').html(s);//分类列表
+					$o('[name=cid]').attr('disabled', true).after('<a onclick="'+ NS +'.uncid(this)">[解锁]</a>');//分类不让随意修改
+					I.extend(rs);
+					if(typeof I._callback == 'function') I._callback(rs);
+					if(typeof I.$init == 'function') I.$init(rs);//ac3参数传进来的初始化函数
+					if(!I.ac3) LOG.init({'obj':$o('#tpl'),'filter':['langcg','tp']});
+					initEnd();
+				}
+			});
+		}else{//添加
+			var data = SYS._bagDef || {}, par = data;
+			if(vars.api == 2){
+				par = {
+					success: function(){
+						I.actArr = VAR.actArr;
+						VAR.actArr = VAR.mbactMap;
+						return data;
+					},
+					callback: function(){
+						VAR.actArr = I.actArr;
+					}
+				};
+			}
+			$o('#tpl').loadData(par);
+			$o('#typeList').html(s);//分类列表
+			I.autoWmode();
+			if(typeof SYS._bagInit == 'object'){//初始化礼包配置
+				$.each(SYS._bagInit, function(x, o){
+					if(o[0] != 'base') I.add(o[0]);
+					if(typeof o[1] != 'object') return;
+					$.each(o[1], function(k, v){
+						$o('[name="data['+ I.i +']['+ k +']"]').val(v);
+					});
+				});
+				SYS._bagInit = '';
+			}
+			initEnd();
+		}
+	},
+	uncid: function(my){
+		Confirm('<b style="color:red">礼包是按分类ID做子目录归类的，请勿随意修改！</b><br>确定要解锁吗？', function(){
+			$(my).remove();
+			$o('[name=cid]').attr('disabled', false);
+		});
+	},
+	bid: function(v){
+		return '子ID：b<input name="bid" value="'+ v +'" size="5" /><i class="help" title="子ID是基于某个活动的一系列礼包编号，可以通用oo::bag(398)->act($mid,\'b1\')进行发放"><i/>';
+	},
+	autoWmode: function(){
+		var fn = function(){
+			var o = $o('[name=cid]'), cid = o.val(), wmode = cookie('wmode_'+cid);
+			$I.cid = cid;
+			$o('[name="data[0][wmode]"]').val(wmode||'');
+			I.extend();
+		};
+		$o('[name=cid]').change(fn);
+		fn();
+	},
+	extend: function(d){
+		var db = {}, id;
+		if(d && d.data){//要将数据以ID作key
+			$.each(d.data, function(i,o){
+				db[o.id||0] = o;
+			});
+		}
+		$o('#tpl .extend').each(function(i,o){//添加礼包时，所属活动改变后，需要动态地加载扩展配置
+			o = $(this);
+			i = o.attr('key');
+			id = i.split('[')[1].split(']')[0];
+			o.html(I.tplExtend('', '', i, db[id]));
+		});
+	},
+	tplExtend: function(v,rs,k,data){//也用于增加子项时模板替换
+		var set, ac3 = 0;
+		if(I.ac3){
+			ac3 = 1;
+			set = I.$extend;
+			if(!set) return '无';
+		}else{
+			set = VAR.bagExt[$I.cid];
+			if(!set) set = VAR.bagExt[0];
+		}
+		if(!set) return '无';
+		data = obj(data);
+		var s = [], name, title, val;
+		$.each(set, function(i,o){
+			if(ac3){
+				name = o.name;
+				title = o.title;
+			}else{
+				name = o[0];
+				title = o[1];
+			}
+			val = data[name];
+			if(typeof val == 'undefined') val = '';
+			var tag = I.extTag(k, o, val);
+			if(tag) s.push(title +'：'+ tag);
+		});
+		s = s.join(k=='data[0]'?'':'<br>');
+		return s || '无';
+	},
+	extTag: function(k, set, val){
+		var tag = '', name = k +'['+ set[0] +']', type = set[2], def = set[3], attr = set[4] || 'size="10"', help = set[5], ac3 = 0;
+		if(I.ac3 && I.$extend){
+			ac3 = 1;
+			name = k +'['+ set.name +']';
+			type = set.type;
+			def = set.def;
+			attr = set.attr;
+			help = set.help;
+		}
+		if(val == '' && typeof def != 'undefined'){
+			val = type == 'date' ? eval(def) : def;
+		}
+		if(!I.ac3 && !val && (set[0] == 'sign' || set[0] == 'sign2')) return '';//原来的扩展，如果没有值就不再显示了
+		if(val && k != 'data[0]') I.$tp['extend'] = 1;//有一个有值，都需要把此栏显示出来
+		switch(type){
+			case 'upload':
+				if(ac3){
+					tag = TPL.upload(val, '', attr, name, {attr:'size="10"'});
+				}else{
+					var path = 'act/'+ $I.cid +'/';
+					if(attr == 'lanfix') path += S.langfix +'/';
+					F.act.path = F.act.delPath = path;
+					tag = TPL.upload(val, '', 'act', name, {attr:'size="10"'});
+				}
+				break;
+			case 'date':
+				tag = '<input onclick="D.init(this,\''+ attr +'\')" name="'+ name +'" value="'+ val +'" readonly="true" />';
+				break;
+			case 'color':
+				tag = TPL.color(val, '', '', name);
+				break;
+			case 'radio':
+			case 'checkbox':
+				if(typeof attr == 'object'){
+					var ck;
+					$.each(attr, function(i,o){
+						ck = type == 'radio' ? i == val : (','+ val +',').indexOf(','+ i +',') >= 0;
+						tag += '<input type="'+ type +'" name="'+ name +'" title="'+ name +'" value="'+ i +'" '+ (ck?'checked="true"':'') +' />'+ o +'&nbsp;';
+					});
+				}else{
+					tag = '<u title="配置错误：'+ type +'配置属性应该为对象">'+ name +'</u>';
+				}
+				break;
+			default://input
+				var tit = name, iv = int(val);
+				if(iv == val && iv > 10000){
+					var n = COMM.number(val);
+					tit += '('+ n +')';
+				}
+				tag = '<input name="'+ name +'" title="'+ tit +')" value="'+ val +'" '+ attr +' />';
+		}
+		return tag + (help?'<i class="help" title="'+ help +'" style="margin-left:0px"></i>':'') +'&nbsp;&nbsp;';
+	},
+	_isSelect: ['face','vip'],
+	tplSelect: function(v, rs, p, tag, par){
+		var cg = '';
+		if($.inArray(par[1], I._isSelect) >= 0) cg = 'onchange="'+ NS +'.autoName(this)"';
+		var set = I.radio[par[1]], s = '<select id="'+ par[1] +'" name="'+ par[0] +'" '+ cg +'>', ck;
+		$.each(set, function(i,o){
+			ck = v == i ? ' selected="true"' : '';
+			s += '<option value="'+ i +'"'+ ck +'>'+ o + '</option>';
+		});
+		return s +'</select>';
+	},
+	tplVcard: function(v, rs, par, tag){//虚拟卡
+		rs = rs || {};
+		var typeid = rs.typeid || 0, nm = par+'[typeid]', nmv = par+'[val]',
+		s = TPL.select(typeid, rs, 'VAR.mycardtypeArr', nm);
+		s += TPL.select(v, rs, 'VAR.mycardArr['+ typeid +']', nmv) +'点';
+		s += TPL.script(function(v, rs, nm, nmv){
+			$o('[name="'+ nm +'"]').change(function(){
+				$o('[name="'+ nmv +'"]').replaceWith(TPL.select(v, rs, 'VAR.mycardArr['+ this.value +']', nmv));
+			});
+		}, v, rs, nm, nmv);
+		return s;
+	},
+	tplXlb: function(v, rs, par){
+		var r = '', t = rs.tool || {}, base = par == 'data[0]', br = base ? '' : '<br>';
+		v = v ? obj(v) : {};
+		v.to = v.to || 0;
+		if(I.ac3){//ac3版活动
+			if(I.$uiopt && typeof I.$uiopt == 'object'){
+				if(base) r += '广播/通知：';
+				r += TPL.select(v.to, rs, NS+'.radio.xlb', par+'[xlb][to]');
+				r += '<span style="display:none">'+ br +'提示框：';
+				r += TPL.select(v.ui||1, '', NS+'.$uiopt', par +'[xlb][ui]');
+				r += br +'图片：'+ TPL.upload(v.pic||'', rs, 'bagnotice', par+'[xlb][pic]', {attr:'size="10"'});
+				r += '</span>';
+				if(!base && v.to) I.$tp['xlb'] = 1;//有一个有值，都需要把此栏显示出来
+			}
+			r += '</td><td class="tp_notice">';
+			if(I.$notice && typeof I.$notice == 'object'){
+				r += (base?'动态时报：':'') + TPL.select(rs.notice, rs, NS+'.$notice', par+'[notice]');
+				if(!base && rs.notice) I.$tp['notice'] = 1;//有一个有值，都需要把此栏显示出来
+			}
+			r += '</td><td class="tp_tool">';
+			if(I.$tool){
+				r += (base?'活动道具：':'') +TPL.select(t[0], rs, NS+'.$tool', par+'[tool][0]');
+				r += '<input name="'+ par +'[tool][1]" value="'+ (t[1]||'') +'" placeholder="数量" size="1" onkeyup="COMM.autoInt(this)" title="0表示动态取当前礼包项的数量，仅对于随机游戏币项有意义。" />';
+				if(!base && t[0]) I.$tp['tool'] = 1;//有一个有值，都需要把此栏显示出来
+			}
+			r += '</td><td class="tp_cback">';//还有个回调的位置要补齐
+		}else{
+			if(base) r += '广播/通知：';
+			r += TPL.select(v.to, rs, NS+'.radio.xlb', par+'[xlb][to]');
+			r += '<span style="display:none">'+ br +'资源ID：';
+			r += '<input name="'+ par +'[xlb][ui]" value="'+ (v.ui||'') +'" size="5" title="对应新活动框架“入口与资源”的资源ID" />';
+			r += br +'图片：'+ TPL.upload(v.pic||'', rs, 'bagnotice', par+'[xlb][pic]', {attr:'size="10"'});
+			r += '</span>';
+			if(!base && v.to) I.$tp['xlb'] = 1;//有一个有值，都需要把此栏显示出来
+			r += '</td><td class="tp_notice">';
+			r += '<span title="前端接口可以通用不同的参数“1/2/3”获取相应的时报数据。">';
+			r += (base?'动态时报：':'') + TPL.select(rs.notice, rs, NS+'.radio.notice', par+'[notice]');
+			if(!base && rs.notice) I.$tp['notice'] = 1;//有一个有值，都需要把此栏显示出来
+			r += '</span>';
+			r += '</td><td class="tp_tool">';
+			r += (base?'活动道具：':'') +'<input name="'+ par +'[tool][0]" value="'+ (t[0]||'') +'" placeholder="ID" size="1" onkeyup="COMM.autoChar(this)" title="请输入新活动的道具ID" /><input name="'+ par +'[tool][1]" value="'+ (t[1]||'') +'" placeholder="数量" size="1" onkeyup="COMM.autoInt(this)" title="0表示动态取当前礼包项的数量，仅对于随机游戏币项有意义。" />';
+			if(!base && t[0]) I.$tp['tool'] = 1;//有一个有值，都需要把此栏显示出来
+			r += '</td><td class="tp_cback">';
+			if(!base){
+				r += (base?'<t>回调：</t>':'') +'<input name="'+ par +'[cback]" value="'+ (rs.cback||'') +'" placeholder="Key别名.子ID" style="width:95%" title="Key别名.子ID" onkeyup="COMM.autoChar(this)"  />';
+				if(!base && rs.cback) I.$tp['cback'] = 1;//有一个有值，都需要把此栏显示出来
+			}
+		}
+		if(base){
+			if(r.indexOf('：') == -1) return '无';
+			r = r.replace(' class="tp_tool"', '').replace(' class="tp_notice"', '');
+		}
+		return r;
+	},
+	xlbInit: function(){//广播通知事件
+		var aid = int(I.ac3.fid),
+		sel = $o('[name$="[xlb][to]"]'),
+		fn = function(o){
+			var v = o.val();
+			if(v == 'i' || v == 'all'){
+				o.parent().find('span').show();
+				if(aid >= 3078){//潘多拉活动才开发的，兼容以前
+					var opt = clone(I.$uiopt), y = 0;
+					$.each(opt, function(k,s){
+						if(s && s.indexOf('|'+v) != -1){
+							opt[k] = s.replace('|'+v, '');
+							y = 1;
+						}else{
+							delete opt[k];
+						}
+					});
+					if(!y){
+						var nm = o.attr('name').replace('data[', '').replace('][xlb][to]', '');
+						nm = nm == 0 ? '综合属性' : 'ID='+ nm;
+						Msg.err(nm +'：广播/通知无【'+ o.find('[value="'+ v +'"]').html() +'】提示框配置，若需要，请联系开发人员！',{time:10000});
+						o.find('[value=0]').attr('selected', true);
+						return o.change();
+					}
+					I.$uiopt2 = opt;
+					var sel = o.next().find('select'), nm = sel.attr('name'), html = TPL.select(sel.attr('defval'), '', NS+'.$uiopt2', nm)
+					sel.replaceWith(html);
+				}
+			}else{
+				o.next().hide();
+			}
+		};
+		if(sel.attr('xlb') == 'ed') return;//初始化过了
+		sel.change(function(){
+			fn($(this));
+		});
+		sel.each(function(i,o){
+			fn($(o));
+		});
+		sel.attr('xlb', 'ed');
+	},
+	tplBase: function(v,rs){
+		var s;
+		if(v && typeof v == 'object'){
+			$.each(v, function(i, o){
+				if(o.type == 'base'){
+					s = I.add(o.type, o);
+					return true;
+				}
+			});
+		}
+		if(!s) s = I.add('base', {'type':'base'});
+		return s;
+	},
+	tplData: function(v,rs){
+		if(!v) return '';
+		var s = '';
+		$.each(v, function(i, o){
+			if(o.type == 'base') return;
+			s += I.add(o.type, o);
+			I.tpInit(o);
+		});
+		return s;
+	},
+	tpInit: function(o){
+		if(o.random0 || o.random1 || o.test_random0 || o.test_random1) I.$tp['random'] = 1;
+		if(o.enum || o.test_enum) I.$tp['enum'] = 1;
+		if(o.type == 'interact' && int(o.propid)) I.$tp['attr'] = 1;//互动道具-超级道具
+		if(o.type == 'prop' && (o.use == 1 || o.ogifts == 1 || o.end || o.end2)) I.$tp['attr'] = 1;//道具
+		if(o.type == 'real' && o.price) I.$tp['attr'] = 1;//实体等值游戏币
+		if((o.type == 'mycard' || o.type == 'bycard' || o.type == 'vcard') && o.msgid) I.$tp['attr'] = 1;//消息ID
+		if(o.type == 'addchips' && o.end)  I.$tp['attr'] = 1;//加赠券有效期
+		if(o.lc) I.$tp['lc'] = 1;
+		if(o.percent || o.test_percent) I.$tp['percent'] = 1;
+		if(o.pto || o.test_pto) I.$tp['pto'] = 1;
+		if(o.id || o.test_id) I.$tp['id'] = 1;
+		if(o.limit0 || o.limit1) I.$tp['limit0'] = 1;
+		if(o.limit2 || o.limit3) I.$tp['limit2'] = 1;
+		if(o.wmode) I.$tp['wmode'] = 1;
+		if(o.log) I.$tp['log'] = 1;
+	},
+	refName: function(){//同步礼包编辑时批量填充名称
+		var i, o;
+		for(i = 0; i<=I.i; i++){
+			o = $o('[name="data['+ i +'][val]"]')[0];
+			if(o) I.autoName(o);
+		}
+	},
+	maxid: function(){
+		var i = 0;
+		$o('[name$="[id]"]').each(function(k,v){
+			if(v.value == '{id}' || !v) return;
+			i = Math.max(v.value, i);
+		});
+		return i+1;
+	},
+	add: function(t, data){//添加子元素
+		var tit = L.bag.typeName[C.bag[t]], limit = {'base':1,'bag':5};
+		if(limit[t] && $o('.bag_'+t).length >= limit[t]){
+			Msg.err('【'+ tit +'】个数已经达到上限【'+ limit[t] +'】！');
+			return '';
+		}
+		var tpl = $o('#tpl_'+t).html(), comm = $o('#tpl_comm').html(), i;
+		if(data){
+			if(data.type == 'base'){
+				i = 0;
+			}else{
+				if(!data.id) data.id = ++I._dataid;
+				i = data.id;
+			}
+		}else{
+			i = t == 'base' ? 0 : I.maxid();
+		}
+		if(tpl) tpl = tpl.replace('<!--[comm]-->', comm).replace(/\[key\]/g,'data['+ i +']');
+		if(t !== 'base') tpl = '<td style="text-align:center;cursor:pointer" onclick="'+ NS +'.close(this)"><img src="'+ SKIN.img +'del.gif" /></td>'+ tpl;
+		var o = new Tpl(), _data = data || {'id':i};
+		if(!data && t == 'integral') _data.ilmode = 48;
+		o.tpl = tpl;
+		o.data = _data;
+		o.exec();
+		tpl = '<tr id="data'+ i +'" class="bag_'+ t +'" onclick="'+ NS +'.check(this)">'+ o.content +'</tr>';
+		I.i = i;
+		if(data) return tpl;//编辑时的模板函数
+		$o('#bagData').append(tpl);
+		I.show(i);
+		if($.inArray(t, I._isSelect) >= 0){
+			var o = $o('[name="data['+i+'][val]"]')[0];
+			if(o) I.autoName(o);
+		}
+		I.setSize();
+	},
+	setSize: function(){
+		I.xlbInit();
+		$o('#tpl input:disabled').width(50);
+		$o('[name$="random1]"]').css('margin-left',3);
+		$o('#tpl').width(0).height(0).css('overflow','hidden');//若此dom太宽，RIGHT会被撑大
+		var w = RIGHT.width() - 1, h = RIGHT.height();
+		$o('#tpl').width('auto').height('auto').css('overflow','hidden');//还原属性
+		var h2 = $o('#tpl>table').outerHeight() + $o('#typeList').outerHeight() + $o('#dataSel').outerHeight();
+		$o('#dataObj').width(w).height(h-h2-60);
+		I.tblSize();
+	},
+	tblSize: function(){
+		var ww = 0;
+		$o('#dataObj tr:eq(0) td:visible').each(function(i,o){
+			ww += int($(o).attr('width'));
+		});
+		ww = Math.max(ww, RIGHT.width()-1);
+		var o = $o('#dataObj'), h = o.height(), h2 = o[0] ? o[0].scrollHeight : 0;
+		if(h2 > h) ww -= 20;
+		$o('#dataObj>table').width(ww);
+	},
+	autoName: function(o, k1, k2){
+		if(!o) return;
+		var k, n, val, num, type, type2;
+		k = o.name.split(']')[0] +']';
+		type = $o('[name="'+ k +'[type]"]').val();
+		if(!type) return;
+		var autoName2 = function(k, type, v, type2){
+			type2 = type2 || type;
+			var n, val;
+			$.each(S.langfixs, function(i,lan){
+				n = VAR.bag2lang[lan][type2];
+				if(!n) return;
+				val = l(n, v);
+				$o('[name="'+ k +'[name'+ (lan==S.langfix?'':'_'+lan) +']"]').val(val);
+			});
+			if($.inArray(S.langfix, ['th','zh']) >= 0) return;//以下为外语版自动填充LC名称
+			n = VAR.bag2lang['zh'][type2];
+			if(!n) return;
+			if((type == 'gift') || (type == 'levels')) v[0] = v[2];
+			val = l(n, v);
+			$o('[name="'+ k +'[lc]"]').val(val);
+		};
+		if($.inArray(type, ['money','byb','interact','integral','exp']) >= 0){//val=#0
+			val = o.value;
+			if(!val) return;
+			if(type == 'money') val = COMM.chips2Char(val * S.blowup);
+			autoName2(k, type, [val]);
+		}else{//type_val num=#0的情况
+			k1 = k1 || 'val';
+			k2 = k2 || 'num';
+			val = $o('[name="'+ k +'['+ k1 +']"]').val();
+			if(val == '' ||  type != 'prop' && val.indexOf(',') > 0) return;//多个物品
+			num = $o('[name="'+ k +'['+ k2 +']"]').val();
+			type2 = type +'_'+ val;
+			if(type == 'gift'){
+				autoName2(k, type, [VAR.giftArr[val], num, VAR.giftMap[val]]);
+				return;
+			}else if(type == 'prop'){
+				if(val.indexOf(',') > 0){
+					var ret = I.getPropNum(val);
+					if(!ret || !ret.num) return;
+					num = ret.num;
+					type2 = type +'_'+ ret.val;
+				}else{
+					num = 1;
+				}
+			}else if(type == 'levels'){
+				autoName2(k, type, [VAR.levelsArr[val], num, VAR.levelsMap[val]]);
+				return;
+			}else if(type == 'collects'){
+				autoName2(k, type, [VAR.collectsArr[val], num]);
+				return;
+			}else if(type == 'addchips'){
+				autoName2(k, type, [val,Math.max(int(num),1)]);
+				return;
+			}
+			autoName2(k, type, [num], type2);
+		}
+	},
+	getPropNum: function(val){
+		var arr = val.split(','), temp = {}, n = 0;
+		$.each(arr, function(i,o){
+			if(!temp[o]){
+				temp[o] = 1;
+			}else{
+				temp[o] += 1;
+			}
+		});
+		$.each(temp, function(i,o){
+			if(n == 0 || o > n){
+				n = o;
+				val = i;
+			}
+		});
+		return {'num':n,'val':val};
+	},
+	show: function(i){//功能为滚动到具体位置
+		I.check($o('#data'+i));
+	},
+	check: function(my){
+		$(my).addClass('on').siblings().removeClass('on');
+	},
+	close: function(my){
+		if(!$o('[name=delConfirm]').attr('checked') && !confirm('确定删除？')) return;
+		var p = $(my).parent(), i = p.attr('id').replace('data',''), re = p.prev();
+		if(!re[0]) re = p.next();
+		$o('#data'+i).remove();
+		if(!re[0]) return;
+		i = re.attr('id').replace('data','');
+		I.show(i);
+	},
+	errorEvt: function(errn){
+		if(errn && errn.substr(0,4) == 'data'){
+			errn = errn.split(']')[0].replace('data[','');
+			I.show(errn);
+			return errn;
+		}
+		return '';
+	},
+	name2id: function(nm){//name转当前子id
+		return nm ? nm.split(']')[0].replace('data[','') : '';
+	},
+	erron: function(o, msg){//错误信息并转到指定dom
+		var e = o ? o.attr('name') : '';
+		if(e && e.substr(0,4) == 'data'){
+			e = I.name2id(e);
+			I.show(e);
+			o.focus();
+			if(msg) Msg.err(msg);
+		}
+	},
+	moneylimit: function(){//钱限量检测
+		var e = false;
+		for(var i=0; i<4; i++){
+			$('[name$="[limit'+ i +']"]',$o('#dataObj')).each(function(){
+				var v = int(this.value);
+				if(!v) return;
+				var id = I.name2id(this.name), tp = $o('[name="data['+ id +'][type]"]').val();
+				if(tp != 'money' && tp != 'byb') return;
+				var o = this, ck = function(n){
+					var val = int($o('[name="data['+ id +']['+ n +']"]').val());
+					if(val > v){
+						e = $(o);
+						return false;
+					}
+					return true;
+				};
+				if(!ck('val')) return false;
+				if(!ck('test_val')) return false;
+				if(!ck('random1')) return false;
+				if(!ck('test_random1')) return false;
+			});
+			if(e) break;
+		}
+		if(e) I.erron(e, '游戏币与博雅币是按数量进行限量，限量配置值不足以发放一次！');
+		return e;
+	},
+	submit: function(){
+		var f = new Form($o('#tpl')), levels = $o('span.levels'), levelsErr = 0;
+		if(levels[0]){
+			levels.each(function(i,o){
+				var ipt = $(o).find('input:eq(0)');
+				if(!ipt[0]) return;
+				var v = ipt.val(), n = ipt.attr('name'), n2 = n.replace('[val]', '[use]'), v2 = $o('[name="'+ n2 +'"]').val();
+				if(!v || !v2) return;
+				if((','+v+',').indexOf(','+v2+',') == -1){
+					levelsErr = 1;
+					I.show(n.split(']')[0].replace('data[',''));
+					Msg.err('所选使用头衔不在发放头衔列表中！');
+					return false;
+				}
+			});
+			if(levelsErr) return;
+		}
+
+		if(!f.check(I.lock)) return I.erron(f.el);
+		if(I.moneylimit()) return;//钱限量检测
+		
+		if(!C.dev && !MY.ac3dev && $.inArray(MY.id, I.sperMid) == -1 && MY.gid <= 2){
+			if (f.data.id != 619) {
+				Msg.err('为防止程序员配置出错而运营不知情，因此，开发人员禁止配置礼包！');
+				return;
+			}else{
+				Msg.err('619仅作为测试使用，慎重！！！');
+			}
+		}
+		if(f.data['data[0][limit0]'] == '' && f.data['data[0][limit1]'] == '' && f.data['data[0][limit2]'] == '' && f.data['data[0][limit3]'] == ''){
+			I.show(0);
+			$o('[name="data[0][limit0]"]').focus();
+			Msg.err('请至少输入一个礼包限量属性！');
+			return;
+		}
+		Msg.doing();//数据提交效果，同时锁屏
+		cookie('wmode_'+f.data.cid, f.data['data[0][wmode]'], {time:1800});//30分钟
+		if(!I.ac3) LOG.submit(f.data);
+		f.data.diffData = WIN[0].$diffData;
+		if(typeof I.ac3 === 'object'){
+			f.data.ac3 = I.ac3;
+			f.data.ac3.bid2 = f.data.bid2;
+		}
+		$.POST(CGI.bag +'?cmd=update', f.data, function(ret){
+			Msg.close();
+			COMM.suc(ret,function(){
+				WIN[0].close();
+				if(typeof I.$callback === 'function') return I.$callback(ret, f.data);//ac3参数进来的
+				if(I.ac3) return;
+				if(typeof SYS._bagCallback == 'function' && ret.id){//其它地方的礼包控制
+					SYS._bagCallback(ret.id);
+					SYS._bagCallback = '';
+				}else if(typeof I._success == 'function' && ret.id){//批量处理时用到
+					I._success(ret.id);
+				}else{
+					P.ref();
+				}
+			});
+		});
+	}
+	};return I;
+};
+
+//机率测试
+var bagrand = {
+	init: function(){
+		bagrand.submit();
+		$o('[name=id]').focus();
+	},
+	submit: function(){
+		var cid = 0, id = PAR, v3 = 0;
+		if(typeof PAR == 'object'){
+			id = PAR[0];
+			cid = PAR[1];
+			v3 = PAR[2];
+		}
+		var f = new Form(RIGHT);
+		if(!f.check()) return;
+		Msg.doing();
+		$o('#suc').load(CGI.bag+'?cmd=rand&id='+ id +'&cid='+ cid +'&v3='+ int(v3) +'&'+f.value, function(){
+			Msg.close();
+		});
+	}
+};
+
+//礼包赠送
+var sendBag = {
+	init: function(){},
+	send: function(){
+		//if(vars.server == 1) return Msg.err('请到内网操作此功能!');
+		var f = new Form(RIGHT);
+		if(!f.check()) return;
+		var d = f.data.reciveperson;
+		if(d) d = d.replace(/[\r|\n|，|\s]/g, ',');   //将所有回车用逗号替换掉
+		var tp = [];
+		$.each(d.split(','), function(i,n){
+			if(n > 0) tp.push(n);
+		})
+		d = tp.join(',');
+		$o('[name=reciveperson]').val(tp.join("\n"));
+		if(bag.ids){
+			var aIds = bag.ids.split(','), temp = {}, aid = '';
+			$.each(aIds, function(i,o){
+				aid = $('.cid'+o).html();
+				temp[aid] = 1;
+			});
+			var icount = 0;
+			$.each(temp, function(i,o){
+				icount++ ;
+			});
+			if(icount>1){
+				Msg.err('不能同时选择多个活动的礼包！');
+				return false;
+			}
+			if(vars.server == 1) return TPL.auditcom('SBAG|1|22|'+ bag.ids +'|reciveperson:'+ d +'_aid:'+ aid);
+		}else{
+			return; false;
+		}
+
+		RIGHT.loadData({
+			jsonp: true,
+			url: S.cmsapi+'bag.php?cmd=sendBag&reciveperson='+ d +"&ids="+ bag.ids +"&aid="+ aid,
+			callback: function(rs){
+				Msg.close();//关闭doing
+				if (!rs.ok){
+					$o('#errorMsg').html(rs.msg);
+				}else{
+					COMM.suc(rs,function(){
+						WIN[0].close();
+					});
+				}
+				P.ref();
+			}
+		});
+	}
+};
+
+//导入
+var bagimport = {
+	init: function(){
+		$o('#tpl').loadData({'cid':bag.PAR});
+	},
+	submit: function(){
+		var cid = $o("select[name=cid] option:selected").val();
+		var file = $o('input[name="pic"]').val();
+		var sheet = $o('input[name="sheet"]').val();
+		if(!cid){ Msg.err('请选择"所属活动"!');return; }
+		if(!file){ Msg.err('请选择文件!');return; }
+		if(sheet>10){ Msg.err('excel页数不能大于10!');return; }
+		Msg.doing();
+		$.JSON(CGI.bag +'?cmd=update&isImport=1&file='+file+'&sheet='+sheet+'&cid='+cid, function(ret){
+			Msg.close();
+			if(ret){
+				COMM.suc(ret,function(){
+					WIN[0].close();
+				});
+				P.ref();
+			}
+		});
+	}
+};

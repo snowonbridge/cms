@@ -1,0 +1,52 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-channel_name" class="control-label col-xs-12 col-sm-2">{:__('Channel_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-channel_name" data-rule="required" class="form-control" name="row[channel_name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-channel_no" class="control-label col-xs-12 col-sm-2">{:__('Channel_no')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-channel_no" data-rule="required" class="form-control" name="row[channel_no]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="1"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-weigh" class="control-label col-xs-12 col-sm-2">{:__('Weigh')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-weigh" data-rule="required" class="form-control" name="row[weigh]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-province" class="control-label col-xs-12 col-sm-2">{:__('Province')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-province" data-rule="required" class="form-control selectpicker" multiple="" name="row[province][]">
+                {foreach name="provinceList" item="vo"}
+                    <option value="{$key}" {in name="key" value="台湾省,江西省,甘肃省,青海省,贵州省,云南省,四川省,海南省,福建省,江苏省,浙江省,安徽省,陕西省,山西省,山东省,湖北省,河南省,河北省,吉林省,辽宁省,黑龙江省,广东省,湖南省"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

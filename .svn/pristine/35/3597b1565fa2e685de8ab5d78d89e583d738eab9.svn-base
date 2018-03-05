@@ -1,0 +1,104 @@
+/**
+ * Created by soulgame0089 on 2017/9/9.
+ */
+$.POST = function(l, d, f, t) {
+    l = $.cmsAjax(l);
+    if (!t) t = 'json';
+    $.post(l, d, f, t)
+};
+$.JSON = function(l, d, f) {
+    if (typeof(d) == 'function') {
+        f = d;
+        d = null
+    }
+    d = obj(d);
+    l = $.cmsAjax(l);
+    $.ajax({
+        type: 'GET',
+        url: l,
+        data: d,
+        dataType: 'json',
+        success: function(ret) {
+            COMM.jsonCb(ret, f)
+        }
+    })
+};
+$.cmsapi = function(l, d, f, t) {
+    if (!l) {
+        Msg.err('$.cmsapi地址错误');
+        return
+    }
+    if (typeof t == 'undefined') t = 'json';
+    var fn = function(ret) {
+        $.sendToExec(ret);
+        if (typeof f == 'function') f(ret)
+    };
+    l = PATH.api + 'post.php?_cmsapi_url=' + encode(l.replace(S.cmsapi, ''));
+    $.POST(l, d, fn, t)
+};
+
+$.JSONP = function(l, d, f) {
+    d =  {};
+        var p = VAR.cmsKey;
+        if (!p || !p.by_time || !p.by_key) {
+            alert(L.errpar);
+            return
+        }
+
+        var ajax = function() {
+            d = obj(d);
+            p = p ? clone(p) : VAR.cmsKey;
+            $.extend(d, p);
+            VAR.cmsKey = p
+            d = $.cmsAjax('', d);
+            $.ajax({
+                type: 'GET',
+                url: l,
+                data: d,
+                dataType: 'jsonp',
+                success: function(ret) {
+                }
+            })
+        };
+        if ($D.time() - p.by_time > 170) {
+            $.JSON(CGI.login + '?cmd=sign', function(ret) {
+                p = VAR.cmsKey = ret;
+                ajax()
+            })
+        } else {
+            ajax()
+        }
+};
+
+function clone(obj) {
+    if (typeof(obj) != 'object' || obj == null) return obj;
+    var newObj = obj instanceof Array ? [] : {};
+    for (var i in obj) {
+        newObj[i] = clone(obj[i])
+    }
+    return newObj
+}
+function obj(o) {
+    return typeof o == 'object' && o ? o : {}
+}
+$.cmsAjax = function(url, par) {
+    var d = {};
+    if (par && typeof par == 'object') $.extend(d, par);
+    if (url && typeof url == 'string') {
+        url += (url.indexOf('?') > 0 ? '&' : '?') + $.param(d);
+        return url
+    }
+    return d
+};
+$.sendToExec = function(ret) {
+    if (ret && ret.sendTo && ret.sendTo.file) {
+        Msg.close();
+        Msg.doing('文件【' + ret.sendTo.file + '】发布中...');
+        $.JSON(CGI.ajax + '?cmd=sendTo', {
+            sendTo: ret.sendTo
+        }, function(r) {
+            Msg.close();
+            COMM.suc(r)
+        })
+    }
+};

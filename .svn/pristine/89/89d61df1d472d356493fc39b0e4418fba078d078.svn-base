@@ -1,0 +1,178 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'version/index',
+                    add_url: 'version/add',
+                    edit_url: 'version/edit',
+                    del_url: 'version/del',
+                    multi_url: 'version/multi',
+                    send_url: 'version/send',
+                    dragsort_url: 'ajax/weigh',
+                    table: 'version',
+                }
+            });
+
+            var table = $("#table");
+
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                sortName: 'weigh',
+                columns: [
+                    [
+                        {field: 'state', checkbox: true},
+                        {field: 'id', title: __('Id')},
+                        {field: 'pidversion', title: __('Pidversion')},
+                        {field: 'version', title: __('Version')},
+                        {field: 'packagesize', title: __('Packagesize')},
+                        {field: 'content', title: __('Content')},
+                        {field: 'downloadurl', title: __('Downloadurl'), formatter: Table.api.formatter.url},
+                        {field: 'enforce', title: __('Enforce')},
+                        {field: 'createtime', title: __('Createtime'), formatter: Table.api.formatter.datetime},
+                        {field: 'updatetime', title: __('Updatetime'), formatter: Table.api.formatter.datetime},
+                        {field: 'weigh', title: __('Weigh')},
+                        {field: 'status', title: __('Status'), formatter: Table.api.formatter.status},
+                        {field: 'os', title: __('Os'), formatter: this.api.formatter.os},
+                        {field: 'unid', title: __('Unid'), formatter: this.api.formatter.unid},
+                        {field: 'gameid', title: __('Gameid'), formatter: this.api.formatter.gameid},
+                        {field: 'area', title: __('Area'), formatter: this.api.formatter.area},
+                        {field: 'scene', title: __('Scene'), formatter: this.api.formatter.scene},
+                        {field: 'operate', title: __('Operate'),  table: table,events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                    ]
+                ]
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            },
+            formatter: {
+                os: function (value, row, index, custom) {
+                    var colorArr = {'1': __('Android'), '2': __('Ios'), '3': __('Pc')};
+
+                    if(typeof value === 'undefined' ||  value == null){
+                        return '';
+                    }
+                    //如果有自定义状态,可以按需传入
+                    if (typeof custom !== 'undefined') {
+                        colorArr = $.extend(colorArr, custom);
+                    }
+                    //渲染Flag
+                    var html = [];
+                    var arr = value.split(',');
+                    $.each(arr, function (i, value) {
+                        value = value.toString();
+                        if (value == '')
+                            return true;
+                        var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : '';
+                        html.push('<span class="label label-success">' + color + '</span>');
+                    });
+                    return html.join(' ');
+                },
+                unid: function (value, row, index, custom) {
+                    var colorArr = {'0':__('Unid_0'),'1': __('Unid_1'), '2': __('Unid_2')};
+                    if(typeof value === 'undefined' ||  value == null){
+                        return '';
+                    }
+
+                    //如果有自定义状态,可以按需传入
+                    if (typeof custom !== 'undefined') {
+                        colorArr = $.extend(colorArr, custom);
+                    }
+                    //渲染Flag
+                    var html = [];
+                    var arr = value.split(',');
+                    $.each(arr, function (i, value) {
+                        value = value.toString();
+                        if (value == '')
+                            return true;
+                        var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : '';
+                        html.push('<span class="label label-success">' + color + '</span>');
+                    });
+                    return html.join(' ');
+                },
+                gameid: function (value, row, index, custom) {
+                    var colorArr = {'0':__('Game_0'),'1001': __('Game_1001'), '1002': __('Game_1002'), '1003': __('Game_1003'), '1004': __('Game_1004'), '1005': __('Game_1005')};
+
+                    if(typeof value === 'undefined' ||  value == null){
+                        return '';
+                    }
+                    //如果有自定义状态,可以按需传入
+                    if (typeof custom !== 'undefined') {
+                        colorArr = $.extend(colorArr, custom);
+                    }
+                    //渲染Flag
+                    var html = [];
+                    var arr = value.split(',');
+                    $.each(arr, function (i, value) {
+                        value = value.toString();
+                        if (value == '')
+                            return true;
+                        var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : '';
+                        html.push('<span class="label label-success">' + color + '</span>');
+                    });
+                    return html.join(' ');
+                },
+                area: function (value, row, index, custom) {
+                    var colorArr = {'0':__('Area_0'),'1': __('Area_1'), '2': __('Area_2')};
+
+                    if(typeof value === 'undefined' ||  value == null){
+                        return '';
+                    }
+                    //如果有自定义状态,可以按需传入
+                    if (typeof custom !== 'undefined') {
+                        colorArr = $.extend(colorArr, custom);
+                    }
+                    //渲染Flag
+                    var html = [];
+                    var arr = value.split(',');
+                    $.each(arr, function (i, value) {
+                        value = value.toString();
+                        if (value == '')
+                            return true;
+                        var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : '';
+                        html.push('<span class="label label-success">' + color + '</span>');
+                    });
+                    return html.join(' ');
+                },
+                scene: function (value, row, index, custom) {
+                    var colorArr = {'1':__('Scene_1'), '2': __('Scene_2')};
+
+                    if(typeof value === 'undefined' ||  value == null){
+                        return '';
+                    }
+
+                    //如果有自定义状态,可以按需传入
+                    if (typeof custom !== 'undefined') {
+                        colorArr = $.extend(colorArr, custom);
+                    }
+                    //渲染Flag
+                    var html = [];
+                    var arr = value.split(',');
+                    $.each(arr, function (i, value) {
+                        value = value.toString();
+                        if (value == '')
+                            return true;
+                        var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : '';
+                        html.push('<span class="label label-success">' + color + '</span>');
+                    });
+                    return html.join(' ');
+                },
+            }
+        }
+    };
+    return Controller;
+});

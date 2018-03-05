@@ -1,0 +1,16 @@
+<style>#typeList input{padding:3px}</style>
+<div id="tpl">
+	<table class="myTable left"><!--
+		{cid|TPL.catalog_VAR.actArr}
+		<tr>
+			<td>请选择礼包文件：</td>
+			<td>{pic|TPL.upload_bagimport}<u>(目前仅支持xls文件)</u></td>
+		</tr>
+		<tr>
+			<td>excel页数：</td>
+			<td><input name="sheet" size="10" /><u>(一次不能超过10页，默认为1;)</u></td>
+		</tr>
+		-->
+	</table>
+	<div class="myBtns"><input type="button" value="导入"  onclick="importBag.submit();" /></div>
+</div>

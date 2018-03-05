@@ -1,0 +1,118 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'items/index',
+                    add_url: 'items/add',
+                    edit_url: 'items/edit',
+                    del_url: 'items/del',
+                    send_url: 'items/send',
+                    multi_url: 'items/multi',
+                    table: 'items_config',
+                }
+            });
+
+            var table = $("#table");
+
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                pk: 'tlid',
+                sortName: 'tlid',
+                columns: [
+                    [
+                        {checkbox: true},
+                        {field: 'tlid', title: __('Tlid')},
+                        {field: 'name', title: __('Name')},
+                        {field: 'name', title: __('Name')},
+                        {field: 'desc', title: __('Desc'),visible:false},
+                        {field: 'type_id_text', title: __('Type_id'), operate: false},
+                        {field: 'tool_type_text', title: __('Tool_type'), operate: false},
+                        {field: 'usable_text', title: __('Usable'), operate: false},
+                        {field: 'show_text', title: __('Show'), operate: false},
+                        {field: 'keeptime', title: __('Keeptime')},
+                        {field: 'persitime', title: __('Persitime')},
+                        {field: 'vip', title: __('Vip')},
+                        {field: 'm', title: __('M')},
+                        {field: 'mday', title: __('Mday')},
+                        {field: 'chgsmax', title: __('Chgsmax')},
+                        {field: 'reward', title: __('Reward'),visible:false},
+                        {field: 'icon_image', title: __('Icon_image'), formatter: Table.api.formatter.image},
+                        {
+                            field: 'operate',
+                            title: __('Operate'),
+                            table: table,
+                            events: Table.api.events.operate,
+                            formatter: Table.api.formatter.operate
+                        }
+                    ]
+                ]
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+
+            $("form.edit-form").data("validator-options", {
+                display: function (elem) {
+                    return $(elem).closest('tr').find("td:first").text();
+                }
+            });
+            Form.api.bindevent($("form.edit-form"));
+
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+        },
+        api: {
+            bindevent: function () {
+                $(document).on("change", "#c-type_id", function () {
+                    if ($(this).val() == 1) {
+                        $(this).parents().closest('.form-group').nextAll().find('input,select,checkbox,textarea').prop('disabled', true);
+                        //$(this).parents().closest('.form-group').nextAll().find('input,select,checkbox,textarea').prop('disabled', true).hide();
+                    } else {
+                        $(this).parents().closest('.form-group').nextAll().find('input,select,checkbox,textarea').prop('disabled', false).show();
+                    }
+                });
+
+                $(document).on("click", ".fieldlist .append", function () {
+                    var rel = parseInt($(this).closest("dl").attr("rel")) + 1;
+                    var name = $(this).closest("dl").data("name");
+                    $(this).closest("dl").attr("rel", rel);
+                    var $doc = $(this);
+                    $(this).closest("dd").prev().clone()
+                        .find("select[name$='[type]']").attr("name", 'row[' + name + '][' + rel + '][type]').end()
+                        .find("input[name$='[val]']").attr("name", 'row[' + name + '][' + rel + '][val]').end()
+                        .find("input[name$='[name]']").attr("name", 'row[' + name + '][' + rel + '][name]')
+                        .end().insertBefore($doc.parent());
+                    $('.selectpicker').data('selectpicker', null);
+                    $('.bootstrap-select').find("button:first").remove();
+                    $('.selectpicker').selectpicker();
+                });
+                $(document).on("click", ".fieldlist dd .btn-remove", function () {
+                    $(this).parent().remove();
+                });
+                //拖拽排序
+                require(['dragsort'], function () {
+                    //绑定拖动排序
+                    $("dl.fieldlist").dragsort({
+                        itemSelector: 'dd',
+                        dragSelector: ".btn-dragsort",
+                        dragEnd: function () {
+
+                        },
+                        placeHolderTemplate: "<dd></dd>"
+                    });
+                });
+
+                Form.api.bindevent($("form[role=form]"));
+            }
+        },
+    };
+    return Controller;
+});

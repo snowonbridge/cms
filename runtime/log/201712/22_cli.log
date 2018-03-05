@@ -1,0 +1,8 @@
+[ 2017-12-22T20:05:51+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001809s ]
+[ info ] [ LOG ] INIT File
+[ 2017-12-22T20:05:51+08:00 ][ info ] [ CACHE ] INIT File
+[ 2017-12-22T20:05:51+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.022516s ]
+[ 2017-12-22T20:05:52+08:00 ][ info ] [ DB ] INIT mysql
+[ 2017-12-22T20:05:52+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000578s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2017-12-22T20:05:52+08:00 ][ sql ] [ SQL ] SHOW TABLE STATUS LIKE 'activity_province' [ RunTime:0.001650s ]
+[ 2017-12-22T20:05:52+08:00 ][ sql ] [ SQL ] SELECT * FROM `information_schema`.`columns` WHERE TABLE_SCHEMA = 'cms' AND table_name = 'activity_province' ORDER BY ORDINAL_POSITION [ RunTime:0.001507s ]

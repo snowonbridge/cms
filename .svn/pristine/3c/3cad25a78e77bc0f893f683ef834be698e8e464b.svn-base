@@ -1,0 +1,165 @@
+<?php
+
+namespace app\admin\controller\player;
+
+use app\common\controller\Backend;
+use think\Db;
+
+/**
+ * 单页管理
+ *
+ * @icon fa fa-circle-o
+ * @remark 用于管理普通的单页面,通常用于关于我们、联系我们、商务合作等单一页面
+ */
+class Detail extends Backend
+{
+
+    protected $model = null;
+    protected $relationSearch = true;
+
+    public function _initialize()
+    {
+        $actionname = strtolower($this->request->action());
+        if($actionname == 'index' && $this->request->isAjax()){
+            $this->layout = '';
+        }
+        parent::_initialize();
+        $this->model = model('User');
+    }
+
+    /**
+     * 查看
+     */
+    public function index()
+    {
+
+        $data = [];
+        if ($this->request->isAjax()) {
+            $uid = $this->request->request('keyword');
+            $list = Db::connect('database.db_config1')
+                ->view('poker_usergame', 'id,uid,chip,ulevel,exp,vip,roomcard,diamond,activetime,sid_regtime
+                invite,ldays,cldays,prestige,gameid,charge,prestige_level,mentercount,
+                wincnt,losecnt,drawcnt,lwincnt,subsidy_count,novitiate_receive_count,
+                sid_regtime', null, 'LEFT')
+                ->view('poker_user_map', 'sid,mid', 'poker_user_map.uid=poker_usergame.uid', 'LEFT')
+                ->view('poker_user', 'openid,usertype,unid,usex,uname,avartar,avartar_type,gid,ustatus,uemail,devid,regtime',
+                    'poker_user.id=poker_user_map.mid', 'LEFT')
+                ->view('poker_online', 'olkey,ollogintime,refreshtime,area,gameid,tid,svid,usertype,unid,ip', 'poker_online.uid=poker_user_map.uid', 'LEFT')
+                ->where('poker_usergame.uid', '=', $uid)
+                ->find();
+            if($list){
+                if($list['avartar_type']==2 && strpos($list['avartar'],'http')==false){
+                    $list['avartar'] = '/common/img/head/pic_head'.($list['avartar'] < 10 ? '0'.$list['avartar'] : $list['avartar']).'.png';
+                }
+                if($list['ip']){
+                    $list['ip'] = long2ip($list['ip']);
+                }
+                if($list['sid']){
+                    $list['sid'] = isset(config('sidList')[$list['sid']]) ? config('sidList')[$list['sid']] : '未知平台';
+                }
+
+                if(isset($list['ustatus'])){
+                    $list['ustatus'] = ($list['ustatus']!=0) ? '被封' : '正常';
+                }
+                if(isset($list['sid_regtime']) && $list['sid_regtime']){
+                    $list['regtime'] = $list['sid_regtime'];
+                }
+            }
+
+            $this->view->assign('data', $list);
+            return $this->view->fetch('base');
+        }
+        $this->view->assign('data', $data);
+        return $this->view->fetch();
+    }
+
+
+
+    /**
+     * Selectpage的实现方法
+     *
+     * 当前方法只是一个比较通用的搜索匹配,请按需重载此方法来编写自己的搜索逻辑,$where按自己的需求写即可
+     * 这里示例了所有的参数，所以比较复杂，实现上自己实现只需简单的几行即可
+     *
+     */
+    public function selectpage()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags', 'htmlspecialchars']);
+
+        //搜索关键词,客户端输入以空格分开,这里接收为数组
+        $word = (array)$this->request->request("q_word/a");
+        //当前页
+        $page = $this->request->request("page");
+        //分页大小
+        $pagesize = $this->request->request("per_page");
+        //搜索条件
+//        $andor = $this->request->request("and_or");
+        //排序方式
+        $orderby = (array)$this->request->request("order_by/a");
+        //显示的字段
+        $field = $this->request->request("field");
+        //主键
+        $primarykey = $this->request->request("pkey_name");
+        //主键值
+        $primaryvalue = $this->request->request("pkey_value");
+        //搜索字段
+//        $searchfield = (array) $this->request->request("search_field/a");
+        foreach ($word as $keyWord) {
+            if ($keyWord !== '' && is_numeric($keyWord)) {
+                $searchfield = (array)['poker_user.id', 'poker_user_map.uid'];
+            } elseif ($keyWord !== '' && !is_numeric($keyWord)) {
+                $searchfield = (array)['poker_user.uname'];
+            } else {
+                $searchfield = (array)['poker_user.uname', 'poker_user.id', 'poker_user_map.uid'];
+            }
+            break;//只处理一个
+        }
+
+        //自定义搜索条件
+        $custom = (array)$this->request->request("custom/a");
+        $order = [];
+        foreach ($orderby as $k => $v) {
+            $order[$v[0]] = $v[1];
+        }
+        $field = $field ? $field : 'uname';
+
+        //如果有primaryvalue,说明当前是初始化传值
+//        if ($primarykey) {
+//            $where = [$primarykey => ['in', $primaryvalue]];
+//        } else {
+            $where = function ($query) use ($word, $field, $searchfield, $custom) {
+                foreach ($word as $k => $v) {
+                    foreach ($searchfield as $m => $n) {
+                        $query->whereOr($n, "like", "%{$v}%");
+                    }
+                }
+                if ($custom && is_array($custom)) {
+                    foreach ($custom as $k => $v) {
+                        $query->whereOr($k, '=', $v);
+                    }
+                }
+            };
+//        }
+        $list = [];
+        $total = Db::connect('database.db_config1')
+            ->view('poker_user_map', 'uid,sid,mid', null, 'LEFT')
+            ->view('poker_user', 'id,uname', 'poker_user_map.mid=poker_user.id', 'LEFT')
+            ->whereOr($where)
+            ->count();
+        if (true or $total > 0) {
+            $list = Db::connect('database.db_config1')
+                ->view('poker_user', 'id,uname', null, 'LEFT')
+                ->view('poker_user_map', 'uid,sid,mid', 'poker_user_map.mid=poker_user.id', 'LEFT')
+                ->order($order)
+                ->page($page, $pagesize)
+                ->field("{$primarykey},{$field}")
+                ->where($where)
+                ->select();
+        }
+
+        //这里一定要返回有list这个字段,total是可选的,如果total<=list的数量,则会隐藏分页按钮
+        return json(['list' => $list, 'total' => $total]);
+    }
+
+}

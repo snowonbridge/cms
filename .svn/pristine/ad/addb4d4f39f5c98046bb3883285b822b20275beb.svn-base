@@ -1,0 +1,155 @@
+<?php
+
+namespace app\admin\controller;
+
+use app\common\controller\Backend;
+
+use fast\OutFile;
+use fast\SendFile;
+use think\Controller;
+use think\Request;
+
+/**
+ * 版本管理
+ *
+ * @icon fa fa-circle-o
+ */
+class Version extends Backend
+{
+
+    protected $model = null;
+
+    public function _initialize()
+    {
+        parent::_initialize();
+
+        $this->view->assign("packTypeList", $this->getPackTypeList());
+        $this->view->assign("gameidsList", $this->getGameidsList());
+        $this->view->assign("sceneList", $this->getSceneList());
+        $this->view->assign("areaList", $this->getAreaList());
+        $this->view->assign("unidList", $this->getUnidList());
+        $this->view->assign("osList", $this->getOsList());
+        $this->model = model('Version');
+    }
+
+
+
+
+    /**
+     * 发布
+     */
+    public function send($ids = "")
+    {
+        if ($ids)
+        {
+            $list = $this->model->where('id', 'in', $ids)->where('status', '=', 'normal')->field('id,pidversion,packname,version,packagesize,content,downloadurl,enforce,createtime,updatetime,weigh,unid,scene,packtype,gameid,area,os,status')->select();
+            $appenv = defined('APPENV')?  APPENV : 'product';
+            $file = "cfg/".$appenv."/download.php";
+            $ret = [];
+
+            //"url" => "包地址", "size" => 包大小, "version" => 版本号,"scene"=>场景(1游戏外，2游戏中),
+            //"packType"=>包类型:apk包1,热更包2,"os"=>支持的系统,"unid"=>支持渠道,"area"=>支持的地区,"gameid"=>游戏ID,0不区分
+            foreach($list as $item){
+                $each['url'] =  (string)$item['downloadurl'];
+                $each['size'] =  (string)$item['packagesize'];
+                $each['packname'] =  (string)$item['packname'];
+                $each['version'] =  (string)$item['version'];
+                $each['remark'] =  (string)$item['content'];
+                $each['scene'] =  (int)$item['scene'];
+                $each['packType'] =  (int)$item['packtype'];
+                $each['gameid'] =  (int)$item['gameid'];
+                $each['os'] =  explode(",",(string)$item['os']);
+                $each['unid'] =  explode(",",(string)$item['unid']);
+                $each['area'] =  explode(",",(string)$item['area']);
+                $ret[]=$each;
+            }
+            $outfile = new OutFile();
+            $outfile->php($file, $ret);
+            $send = new SendFile();
+            $send->file($file, '', false,config('send_url'));
+            $this->success();
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+
+
+
+    /**
+     * 添加
+     */
+    public function copy($ids = "")
+    {
+        if ($ids) {
+            $list = $this->model->where('id', 'in', $ids)
+                ->field('pidversion,packname,version,packagesize,content,downloadurl,enforce,weigh,unid,scene,packtype,gameid,area,os,status')
+                ->select();
+            $rows = [];
+            if ($list) {
+                foreach($list as $key => $it){
+                    $rows[] = $it->toArray();
+//                    foreach ($item as $k => &$v) {
+//                        $v = is_array($v) ? implode(',', $v) : $v;
+//                    }
+                }
+                try {
+                    $result = $this->model->saveAll($rows);
+                    if ($result !== false) {
+                        $this->success();
+                    } else {
+                        $this->error($this->model->getError());
+                    }
+                } catch (\think\exception\PDOException $e) {
+                    $this->error($e->getMessage());
+                }
+                $this->success();
+            }
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+
+
+
+    public function getPackTypeList()
+    {
+        //包类型:apk包1,热更包2
+        return ['1' => __('PackType_1'),'2' => __('PackType_2')];
+    }
+
+    public function getGameidsList()
+    {
+        //游戏ID[1001=>'炸金花',1002=>'龙虎斗',1003=>'牛牛',1004=>'斗地主',10005=>'麻将']; 示例:{...,"param":
+        return ['0' => __('Game_0'),'1001' => __('Game_1001'),'1002' => __('Game_1002'),'1003' => __('Game_1003'),'1004' => __('Game_1004'),'1005' => __('Game_1005')];
+    }
+
+    public function getSceneList()
+    {
+        //1游戏外，2游戏中
+        return ['1' => __('Scene_1'),'2' => __('Scene_2')];
+    }
+
+
+    /**
+     * 渠道列表
+     * @return array
+     */
+    public function getUnidList()
+    {
+
+       return  ['1' => 'appstore[1]', '2' => '三星[2]', '3' => '魅族[3]', '4' => '联想[4]', '5' => '酷派[5]', '6' => '金立[6]', '7' => '华为[7]', '8' => '步步高[8]', '9' => '百度多酷[9]', '10' => '百度手机助手[10]', '11' => '百度91[11]', '12' => '百度贴吧[12]', '13' => '阿里云[13]', '14' => 'wifi万能钥匙2[14]', '15' => 'wifi万能钥匙[15]', '16' => 'UC[16]', '17' => 'm4399[17]', '18' => '优酷[18]', '19' => '豌豆荚[19]', '20' => 'OPPO[20]', '21' => '移动MM[21]', '22' => '小米[22]', '23' => '腾讯应用宝[23]', '24' => '腾讯管家[24]', '25' => '腾讯QQ浏览器[25]', '26' => '奇虎360[26]', '27' => '灵游科技[27]', '28' => '联通沃商店[28]', '29' => '基地咪咕[29]', '30' => '电信爱游戏[30]', '31' => '电信爱动漫[31]', '32' => '奥软[32]', '33' => '乐视[33]', '34' => '爱奇艺[34]', '35' => '安智[35]', '36' => 'taptap[36]'];
+       // return ['1' => __('Unid_1'),'2' => __('Unid_2')];
+    }
+
+    public function getAreaList()
+    {
+        return ['0'=>__('Area_0'),'1' => __('Area_1'),'2' => __('Area_2')];
+    }
+
+
+    public function getOsList()
+    {
+        return ['1' => __('Os_1'),'2' => __('Os_2'),'3' => __('Os_3')];
+    }
+
+
+
+}

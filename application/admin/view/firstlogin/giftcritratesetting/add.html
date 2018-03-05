@@ -1,0 +1,40 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-gift_crit_rate" class="control-label col-xs-12 col-sm-2">{:__('Gift_crit_rate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-gift_crit_rate" data-rule="required" class="form-control" name="row[gift_crit_rate]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-multiplying_power" class="control-label col-xs-12 col-sm-2">{:__('Multiplying_power')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-multiplying_power" data-rule="required" class="form-control" step="0.01" name="row[multiplying_power]" type="number" value="0.00">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-user_role" class="control-label col-xs-12 col-sm-2">{:__('User_role')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_role" data-rule="required" class="form-control" name="row[user_role]" type="number" value="2">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status" data-rule="required" class="form-control" name="row[status]" type="number" value="1">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

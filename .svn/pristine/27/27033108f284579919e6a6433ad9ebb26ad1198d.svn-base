@@ -1,0 +1,77 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nihao
+ * Date: 17-10-17
+ * Time: 上午10:49
+ */
+
+namespace app\admin\controller\turn\test;
+
+
+use app\common\controller\Backend;
+use GuzzleHttp\Handler\CurlFactory;
+use think\Controller;
+
+
+use think\Exception;
+use think\exception\ErrorException;
+use think\Request;
+/**
+ * 抽奖兑换测试
+ *
+ * @icon fa fa-circle-o
+ */
+class Test extends Backend{
+
+    public function _initialize()
+    {
+        parent::_initialize();
+    }
+
+    public function index()
+    {
+        $uid = Request::instance()->get('uid',0);
+        $lottery_id = Request::instance()->get('lottery_id',0);
+        $counts = Request::instance()->get('counts',1);
+        $client = new \GuzzleHttp\Client();
+        $i=0;
+
+        if($uid)
+        {
+
+            $result=[];
+            while($i <$counts)
+            {
+                try{
+                    $res = $client->request('POST', 'http://localhost:9005/turn-lottery/lottery', ['form_params'=>[
+                        'uid' => $uid,
+                        'lottery_id' => $lottery_id
+                    ], ]);
+                    $response['http_code']  = $res->getStatusCode();
+                    $response['response_body']  = json_decode($res->getBody(),true);
+                    $result[] = $response;
+                }catch (Exception $e)
+                {
+                    $error_flag = 1;
+                    $result = [];
+                    $this->assign('error',"请求出现异常,请重试") ;
+                }
+
+
+                $i++;
+            }
+            if(isset($error_flag))
+            {
+                $result = [];
+            }
+            $this->assign('data',$result) ;
+        }else{
+            $this->assign('data',[]) ;
+        }
+
+        return $this->fetch('turn/test/test/index');
+    }
+
+
+} 

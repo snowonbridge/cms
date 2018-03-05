@@ -1,0 +1,6 @@
+<div style="margin:10px">
+	<form onsubmit="bagrand.submit();return false">
+		模拟运行次数<input name="num" size="10" value="1000" must="请输入模拟运行次数" /><input type="submit" value="提交" />
+	</form><br />
+	<div id="suc"></div>
+</div>

@@ -1,0 +1,151 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-desc" class="control-label col-xs-12 col-sm-2">{:__('Desc')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-desc" class="form-control" name="row[desc]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-cprc" class="control-label col-xs-12 col-sm-2">{:__('Cprc')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cprc" class="form-control" name="row[cprc]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-type_id" class="control-label col-xs-12 col-sm-2">{:__('Type_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  id="c-type_id" class="form-control selectpicker" name="row[type_id]">
+                {foreach name="typeIdList" item="vo"}
+                <option value="{$key}" {in name="key" value="2"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-tool_type" class="control-label col-xs-12 col-sm-2">{:__('Tool_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  id="c-tool_type" class="form-control selectpicker" name="row[tool_type]">
+                {foreach name="toolTypeList" item="vo"}
+                <option value="{$key}" {in name="key" value="2"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-usable" class="control-label col-xs-12 col-sm-2">{:__('Usable')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  id="c-usable" class="form-control selectpicker" name="row[usable]">
+                {foreach name="usableList" item="vo"}
+                <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-show" class="control-label col-xs-12 col-sm-2">{:__('Show')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  id="c-show" class="form-control selectpicker" name="row[show]">
+                {foreach name="showList" item="vo"}
+                <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-keeptime" class="control-label col-xs-12 col-sm-2">{:__('Keeptime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-keeptime" class="form-control datetimepicker" data-date-format="H" data-use-current="true" name="row[keeptime]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-persitime" class="control-label col-xs-12 col-sm-2">{:__('Persitime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-persitime" class="form-control datetimepicker" data-date-format="H" data-use-current="true" name="row[persitime]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-vip" class="control-label col-xs-12 col-sm-2">{:__('Vip')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-vip" class="form-control" name="row[vip]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-m" class="control-label col-xs-12 col-sm-2">{:__('M')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-m" class="form-control" name="row[m]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mday" class="control-label col-xs-12 col-sm-2">{:__('Mday')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mday" class="form-control" name="row[mday]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-chgsmax" class="control-label col-xs-12 col-sm-2">{:__('Chgsmax')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-chgsmax" class="form-control" name="row[chgsmax]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-reward" class="control-label col-xs-12 col-sm-2">{:__('Reward')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <dl class="fieldlist" rel="0" data-name="reward">
+                <dd  id="c-reward">
+                    <ins>{:__('Tool type')}</ins>
+                    <ins style="width: 100px">{:__('Tool val')}</ins>
+                    <ins >{:__('Tlid')}</ins>
+                    <ins>{:__('Tool name')}</ins>
+                </dd>
+                <dd class="form-inline">
+                    <select   class="form-control selectpicker col-xs-4" name="row[reward][0][type]"  size="2">
+                        {foreach name="rewardList" item="vo"}
+                        <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                        {/foreach}
+                    </select>
+                    <input type="text" name="row[reward][0][val]" placeholder="数量" class="form-control" value="" size="4" />
+                    <input type="text" name="row[reward][0][id]" placeholder="金币/钻石/房卡/道具等ID" class="form-control" value="" size="15" />
+                    <input type="text" name="row[reward][0][name]" placeholder="" class="form-control" value="" size="8" />
+                    <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                    <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                </dd>
+                <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> {:__('Append')}</a></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-icon_image" class="control-label col-xs-12 col-sm-2">{:__('Icon_image')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-inline">
+                <input id="c-icon_image" class="form-control" size="50" name="row[icon_image]" type="text" value="">
+                <span><button type="button" id="plupload-icon_image" class="btn btn-danger plupload" data-input-id="c-icon_image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-icon_image"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                <span><button type="button" id="fachoose-icon_image" class="btn btn-primary fachoose" data-input-id="c-icon_image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                <span class="msg-box n-right" for="c-icon_image"></span>
+                <ul class="row list-inline plupload-preview" id="p-icon_image"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

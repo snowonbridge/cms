@@ -1,0 +1,283 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-k" class="control-label col-xs-12 col-sm-2">{:__('Start')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-k" class="form-control" name="row[start]" value="{$row.start}" readonly>
+        </div>
+    </div>
+    <p>下注信息:</p>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-1">天门:</label>
+        <label for="c-bet_info_robot_1" class="control-label col-xs-12 col-sm-1">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_robot_1" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.bet_info.robot.0}" readonly>
+        </div>
+        <label for="c-bet_info_player_1" class="control-label col-xs-12 col-sm-1">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_player_1" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.bet_info.player.0}" readonly>
+        </div>
+        <label for="c-bet_info_ratio_1" class="control-label col-xs-12 col-sm-1">比例:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_ratio_1" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.bet_info.ratio.0}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-1">地门:</label>
+        <label for="c-bet_info_robot_2" class="control-label col-xs-12 col-sm-1">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_robot_2" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value={$row.bet_info.robot.1} readonly>
+        </div>
+        <label for="c-bet_info_player_2" class="control-label col-xs-12 col-sm-1">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_player_2" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.bet_info.player.1}" readonly>
+        </div>
+        <label for="c-bet_info_ratio_2" class="control-label col-xs-12 col-sm-1">比例:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_ratio_2" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.bet_info.ratio.0}" readonly>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-1">玄门:</label>
+        <label for="c-bet_info_robot_3" class="control-label col-xs-12 col-sm-1">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_robot_3" class="form-control" name="row[bet_info][robot][2]" type="number"
+                   value={$row.bet_info.robot.2} readonly>
+        </div>
+        <label for="c-bet_info_player_2" class="control-label col-xs-12 col-sm-1">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_player_3" class="form-control" name="row[bet_info][player][2]" type="number"
+                   value="{$row.bet_info.player.2}" readonly>
+        </div>
+        <label for="c-bet_info_ratio_3" class="control-label col-xs-12 col-sm-1">比例:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_ratio_3" class="form-control" name="row[bet_info][ratio][0]" type="number"
+                   value="{$row.bet_info.ratio.0}" readonly>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-1">黄门:</label>
+        <label for="c-bet_info_robot_4" class="control-label col-xs-12 col-sm-1">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_robot_4" class="form-control" name="row[bet_info][robot][3]" type="number"
+                   value={$row.bet_info.robot.3} readonly>
+        </div>
+        <label for="c-bet_info_player_4" class="control-label col-xs-12 col-sm-1">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_player_4" class="form-control" name="row[bet_info][player][3]" type="number"
+                   value="{$row.bet_info.player.3}" readonly>
+        </div>
+
+        <label for="c-bet_info_ratio_4" class="control-label col-xs-12 col-sm-1">比例:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-bet_info_ratio_4" class="form-control" name="row[bet_info][ratio][0]" type="number"
+                   value="{$row.bet_info.ratio.0}" readonly>
+        </div>
+    </div>
+
+
+    <p>Y值:</p>
+    <div class="form-group">
+        <label for="c-last_y" class="control-label col-xs-12 col-sm-2">上局Y值:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-last_y" class="form-control" name="row[yvalue][0]" type="number" value="{$row.yvalue.0}"
+                   readonly>
+        </div>
+        <label for="c-rate" class="control-label col-xs-12 col-sm-2">抽水率:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-rate" class="form-control" name="row[rate]" type="number" value="{$row.rate}" readonly>
+        </div>
+    </div>
+
+    <p>提留:</p>
+    <div class="form-group">
+        <label for="c-reserves_0" class="control-label col-xs-12 col-sm-2">本局Y提留:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reserves_0" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.reserves.0}" readonly>
+        </div>
+
+        <label for="c-reserves_1" class="control-label col-xs-12 col-sm-2">历史Y提留:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reserves_1" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.reserves.1}" readonly>
+        </div>
+
+        <label for="c-reserves_2" class="control-label col-xs-12 col-sm-2">本局系统提留:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reserves_2" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.reserves.2}" readonly>
+        </div>
+
+        <label for="c-reserves_3" class="control-label col-xs-12 col-sm-2">历史系统提留:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reserves_3" class="form-control" name="row[robot_banker_cnt]" type="number"
+                   value="{$row.reserves.3}" readonly>
+        </div>
+    </div>
+    <p>走表信息:</p>
+    <div class="form-group">
+        <label for="c-strategy_index" class="control-label col-xs-12 col-sm-2">走:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-strategy_index" class="form-control" name="row[strategy][index]"
+                   value="{$row.strategy.index}档" readonly>
+        </div>
+        <label for="c-strategy_action" class="control-label col-xs-12 col-sm-2">杀/放:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-strategy_action" class="form-control" name="row[strategy][action]"
+                   value="{$row.strategy.action}" readonly>
+        </div>
+    </div>
+
+
+    <p>奖池信息:</p>
+    <div class="form-group">
+        <label for="c-reward_total" class="control-label col-xs-12 col-sm-2">总奖池:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_total" class="form-control" name="row[reward][total]"
+                   value="{$row.reward.total}" readonly>
+        </div>
+        <label for="c-reward_robot" class="control-label col-xs-12 col-sm-2">机器人:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_robot" class="form-control" name="row[reward][robot]"
+                   value="{$row.reward.robot}" readonly>
+        </div>
+
+
+        <label for="c-reward_player" class="control-label col-xs-12 col-sm-2">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_player" class="form-control" name="row[reward][player]"
+                   value="{$row.reward.player}" readonly>
+        </div>
+        <label for="c-reward_ratio" class="control-label col-xs-12 col-sm-2">比例:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_ratio" class="form-control" name="row[reward][ratio]"
+                   value="{$row.reward.ratio}" readonly>
+        </div>
+
+        <label for="c-reward_type" class="control-label col-xs-12 col-sm-2">开彩类型:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_type" class="form-control" name="row[reward][type]"
+                   value="{$row.reward.type}" readonly>
+        </div>
+
+        <label for="c-reward_pay" class="control-label col-xs-12 col-sm-2">本局奖池额外支出:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_pay" class="form-control" name="row[reward][[pay]"
+                   value="{$row.reward.pay}" readonly>
+        </div>
+
+        <label for="c-reward_open" class="control-label col-xs-12 col-sm-2">是否开彩:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-reward_open" class="form-control" name="row[reward][open]"
+                   value="{$row.reward.open}" readonly>
+        </div>
+    </div>
+
+
+    <p>开牌结果:</p>
+    <div class="form-group">
+        <label for="c-reward_total" class="control-label col-xs-12 col-sm-2">牌型:</label>
+        <div class="col-xs-12 col-sm-10" style="line-height:2.5;height: 32px" >
+           {$row.poker.poker}
+        </div>
+        <label for="c-reward_total" class="control-label col-xs-12 col-sm-2">结果:</label>
+        <div class="col-xs-12 col-sm-10" style="line-height:2.5;height: 32px" >
+            {$row.poker.ret}
+        </div>
+    </div>
+
+
+    <p>押注信息:</p>
+    <div class="form-group">
+        <label for="c-robot_bet" class="control-label col-xs-12 col-sm-2">总押注:</label>
+        <label for="c-robot_bet" class="control-label col-xs-12 col-sm-2">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-robot_bet" class="form-control" name="row[robot][2]"
+                   value="{$row.robot.2}" readonly>
+        </div>
+
+        <label for="c-player_bet" class="control-label col-xs-12 col-sm-2">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-player_bet" class="form-control" name="row[player][2]"
+                   value="{$row.player.2}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-robot_score" class="control-label col-xs-12 col-sm-2">总得分:</label>
+        <label for="c-robot_score" class="control-label col-xs-12 col-sm-2">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-robot_score" class="form-control" name="row[robot][1]"
+                   value="{$row.robot.1}" readonly>
+        </div>
+
+        <label for="c-player_score" class="control-label col-xs-12 col-sm-2">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-player_score" class="form-control" name="row[player][1]"
+                   value="{$row.player.1}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-robot_reward" class="control-label col-xs-12 col-sm-2">押中额:</label>
+        <label for="c-robot_reward" class="control-label col-xs-12 col-sm-2">机器:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-robot_reward" class="form-control" name="row[robot][0]"
+                   value="{$row.robot.0}" readonly>
+        </div>
+
+        <label for="c-player_reward" class="control-label col-xs-12 col-sm-2">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-player_reward" class="form-control" name="row[player][0]"
+                   value="{$row.player.0}" readonly>
+        </div>
+    </div>
+
+    <p>庄家信息:</p>
+    <div class="form-group">
+        <label for="c-banker_score" class="control-label col-xs-12 col-sm-2">得分:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-banker_score" class="form-control" name="row[banker][gold][2]"
+                   value="{$row.banker.gold.2}" readonly>
+        </div>
+
+        <label for="c-banker_uid" class="control-label col-xs-12 col-sm-2">谁当庄:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-banker_uid" class="form-control" name="row[banker][uid]"
+                   value="{$row.banker.uid}" readonly>
+        </div>
+        <label for="c-banker_value" class="control-label col-xs-12 col-sm-2">庄值:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-banker_value" class="form-control" name="row[banker][value]"
+                   value="{$row.banker.value}" readonly>
+        </div>
+    </div>
+
+    <p>上局开彩结果:</p>
+    <div class="form-group">
+        <label for="c-banker_score" class="control-label col-xs-12 col-sm-2">机器人:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-last_reward_robot" class="form-control" name="row[last][reward][robot]"
+                   value="{$row.last.reward.robot}" readonly>
+        </div>
+
+        <label for="c-banker_uid" class="control-label col-xs-12 col-sm-2">玩家:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-last_reward_player" class="form-control" name="row[reward][uid]"
+                   value="{$row.last.reward.player}" readonly>
+        </div>
+        <label for="c-last_reward_ratio" class="control-label col-xs-12 col-sm-2">比例:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-last_reward_ratio" class="form-control" name="row[last][reward][ratio]"
+                   value="{$row.last.reward.ratio}" readonly>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,619 @@
+
+//Tandy 2014.05.03 礼包工作台
+var bagworking = new function(){
+	I = this;
+	I.bagnum = 0;//礼包序号
+	I.bagids = '';//工作台上的礼包id
+	I.copydata = '';//复制数据
+	I.radio = {
+//		'type':  {'money':'游戏币', 'vip':'VIP', 'face':'表情包', 'interact':'互动道具', 'prop':'道具', 'gift':'礼物', 'exp':'经验值', 'integral':'积分', 'byb':'博雅币', 'levels':'头衔', 'collects':'玩偶', 'bag':'礼包', 'nothing':'空值'},
+		'type':  {'money':'金币', 'vip':'VIP', 'face':'表情', 'interact':'互动', 'prop':'道具', 'gift':'礼物', 'exp':'经验', 'integral':'积分', 'byb':'博币', 'levels':'头衔', 'collects':'玩偶', 'bag':'礼包', 'nothing':'空值'},
+		'sectype':['vip', 'face'],//存在二级分类的类别
+//		'vip':COMM.vipCfg(),//vip二级分类
+		'vip':['普通', '银卡', '金卡', '钻石', '精英'],//vip二级分类
+//		'face':L.user.face,//表情包二级分类
+		'face':['开心', '虫虫', '扑克', '鹿贱', 'deddy'],//表情包二级分类
+		'bag':['仅获得资格','直接发放'],
+		'numtype':{//数量类型
+			'_z_':['直发', '抽奖'],
+			'_prop_gift_collects_':['数量', '枚举'],
+			'_money_exp_integral_byb_':['数量', '随机'],
+			'_vip_face_interact_levels_bag_nothing_':['数量']},
+		'tpl':{//各项模板归类
+			'a':['vip', 'face','bag'],
+			'b':['prop', 'gift', 'levels', 'collects'],
+			'c':['money', 'exp','integral', 'byb', 'nothing','interact'],
+			'd':[],//没有概率项
+			'e':['money', 'gift','collects', 'byb', 'integral', 'exp'],//有随机类型 游戏币 礼物 幸运玩偶 博雅币 积分 经验
+			'f':['money', 'gift', 'prop','collects', 'byb','integral', 'exp'],//有枚举类型  游戏币 礼物 道具 幸运玩偶 博雅币 积分 经验 (礼物积分)
+		},
+	};
+	I.init = function(){
+		if($.inArray(MY.id, [438,104,803,228,420]) == -1){
+			return Msg.err('开发中…');
+		}
+		I.cid = PAR;
+		I.bagnum = 0;//礼包序号
+		I.bagids = '';//工作台上的礼包id
+		I.copydata = '';//复制数据
+		var ids = getCheckBox('ids');
+		I.bagids = '';//制空工作台上的礼包id
+		Msg.doing();
+		SYS.window('bag/working.html', function(){
+			Msg.close();
+			if(ids){
+				RIGHT.loadData({
+					url: CGI.bag +'?cmd=editbw&ids='+ ids,
+					callback:function(ret){
+						bagworking.editbag(ret);
+						bagworking.lock = 0;
+					}
+				});
+			}else{
+				RIGHT.loadData({
+					callback:function(){
+						bagworking.lock = 0;
+					}
+				});
+			}
+		}, {width:'1200', height:'850', title:'礼包工作台'});
+	};
+	I.editbag = function(obj, pas){//pas 1粘贴元素 2粘贴礼包；3批量添加；4读取工作台存档；( 备注：后续可将addbag，addtype进行二次封装进来 )
+		if(obj && typeof(obj) != 'object') return Msg.err('参数出错！');
+		var html = '', disabled = I.cid ? 'disabled="disabled"' : '';
+		if(pas && obj && obj.my && I.copydata){
+			if(pas == 1){
+				var bagid = $o(obj.my).parent().parent().find('[name$="[bagid]"]').val();
+				var typeid = bagworking.maxid($o(obj.my).parent().prev().find('[name$="[id]"]'));
+				I.copydata[0].data[1].id = typeid ? typeid : '';
+			}else if(pas == 2){
+				I.copydata[0].id = '';
+			}
+			obj.ret = I.copydata;
+		}
+		if(!obj){
+			var bagnum = bagworking.maxid($o('#bagworkingdata').find('[name$="[bagid]"]'));
+			var obj = {ret:[{id:bagnum, bagid:bagnum, bid:'', name:'', add:1, data:[{id:1,type:''}]}]};
+		}
+
+		$.each(obj.ret, function(i, o){//遍历多个礼包
+			var add = '', isout = 0, typehtml = '',page1 = '', page2 = '' ,pagetag = '', numtype = '', typedata = (typeof(o.data) != 'object') ? eval('('+ o.data +')') : o.data;//获得礼包子元素数据
+			if(pas==2){
+				o.id = bagworking.maxid($o(obj.my).parent().parent().find('[name$="[id]"]'));
+			}else{
+				if(o.id){
+					if(bagworking.bagids.indexOf(','+ o.id +',') != -1) return;
+					bagworking.bagids += !bagworking.bagids ? ','+ o.id +',' : o.id +',';
+				}else{
+					o.id = bagid ? bagid : o.bagid;
+				}
+			}
+			$.each(typedata, function(k, j){
+				if(j.type == 'base' || !j.id) return;
+				if(j.enum){//不支持有枚举类型的
+					isout = 1;
+					return;
+				}
+				var random = (j.random0 || j.random1) ? 1 : 0;
+				$.each(bagworking.radio.numtype, function(m, n){
+					if(m.indexOf('_'+ j.type +'_') != -1){
+						numtype = '类型：'+ COMM.getSelect('bagdata['+ o.id +'][data]['+ j.id +'][numtype]', n, '', ' onchange="bagworking.numtype(this)"', random);
+						return;
+					}
+				});
+				var tmp = '',type = j.type, add2 = '<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][percent]" value="'+ (j.percent || '') +'" size="2" onkeyup="COMM.autoInt(this,1);bagworking.getpercent(this);">%<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][pto]" value="'+ (j.pto || '') +'" size="2" onkeyup="COMM.autoInt(this)">',
+				add3 = '<span style="position:absolute ;right:0px;">{add2}'+
+							'<span style="float:right;position:relative;z-index:1;">'+
+								'<input class="she" type="button" value="设" onclick="bagworking.showhandle(this)">'+
+								'<div class="shetext" showtype="" style="border:1px #ccc solid;top: -8px; bottom: auto; display: none;right: 30px;top: 22px;width: 250px;z-index: 50;padding: 10px;position: absolute;background-color: white;">'+
+									'<input type="button" value="复制" onclick="bagworking.copy(this)">'+
+									'<input type="button" value="删除" onclick="bagworking.deltype(this)">'+
+									'<span style="float:right" class="numtype">'+ numtype +'</span><br />'+
+									'名称：<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][name]" value="'+ (j.name || '') +'" size="20"><br />'+
+									'限量：<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][limit0]" value="'+ (j.limit0 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+									'<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][limit1]" value="'+ (j.limit1 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+									'<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][limit2]" value="'+ (j.limit2 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+									'<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][limit3]" value="'+ (j.limit3 || '') +'" size="5" onkeyup="COMM.autoInt(this)"><br />'+
+									'扩展：<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][img]" value="'+ (j.img || '') +'" size="5" />'+
+									'<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][img2]" value="'+ (j.img2 || '') +'" size="5" />'+
+									'<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][sign]" value="'+ (j.sign || '') +'" size="5" />'+
+									'<input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][sign2]" value="'+ (j.sign2 || '') +'" size="5" />'+
+								'</div>'+
+							'</span>'+
+						'</span>',
+				add4 = ( $.inArray(type, bagworking.radio.tpl.d) != -1 ) ? add3.replace('{add2}', '') : add3.replace('{add2}', add2);//不带概率输入框
+				if($.inArray(type, bagworking.radio.tpl.a) != -1){//vip,表情包,礼包项模板
+					tmp = type == 'bag' ? '' : 'must="请输入'+ bagworking.radio.type[type] +'天数"';
+					add =  COMM.getSelect('bagdata['+ o.id +'][data]['+ j.id +'][val]', bagworking.radio[type], '', '', j.val) +'<input type="text" value="'+ j.num +'" name="bagdata['+ o.id +'][data]['+ j.id +'][num]" size="5" '+ tmp +' onkeyup="bagworking.autoName(this);COMM.autoInt(this)" />'+ (tmp?'天':'') + add4;
+				}else if($.inArray(type, bagworking.radio.tpl.b) != -1){//道具,礼物,头衔,玩偶项模板
+					tmp = (type == 'gift' || type == 'levels') ? '天' : (type == 'prop' ? '' : '个');
+					add = '<span class="numlist">'+ COMM.checkpack(j.val, {model:'bagworking'}, j.type, 'bagdata['+ o.id +'][data]['+ j.id +'][val]') +'</span>'+ (j.type=='prop' ? '' : '<input type="text" value="'+ j.num +'" name="bagdata['+ o.id +'][data]['+ j.id +'][num]" size="5" must="请输入'+ bagworking.radio.type[type] + tmp +'数" />')+ tmp + add4;
+				}else if($.inArray(type, bagworking.radio.tpl.c) != -1){//游戏币,经验,积分,博雅币,空值项模板
+					tmp = (type == 'nothing') ? 'name' : 'val';
+					var ilmode = type == 'integral' ? '<input type="hidden" name="bagdata['+ o.id +'][data]['+ j.id +'][ilmode]" value="48"/>' : '';
+					if(j.random0 || j.random1){
+						add = '<span class="val"><input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][random0]" value="'+ (j.random0 || '') +'" size="6" onkeyup="bagworking.autoName(this);COMM.autoInt(this)"> - <input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][random1]" value="'+ (j.random1 || '') +'" size="6" onkeyup="bagworking.autoName(this);COMM.autoInt(this)"></span>'+ add4 + ilmode;
+					}else{
+						add = '<span class="val"><input type="text" name="bagdata['+ o.id +'][data]['+ j.id +']['+ tmp +']" value="'+ (j[tmp] || '') +'" size="'+ ( type=='nothing' || type=='integral' ? '30' : '6' ) +'" onkeyup="bagworking.autoName(this);COMM.autoInt(this)"></span>'+ add4 + ilmode;
+					}
+				}
+				typehtml = '<div style="position:relative;"><input type="text" name="bagdata['+ o.id +'][data]['+ j.id +'][id]" value="'+ j.id +'" size="1" />'+
+					COMM.getSelect('bagdata['+ o.id +'][data]['+ j.id +'][type]', bagworking.radio.type, '<option value="">+</option>', ' onchange="bagworking.type2(this)"', j.type) +'<span>'+ add +'</span></div>';
+//				if(k > 10){
+//					pagetag = '<span style="display:-moz-inline-box;display:inline-block;width:18px;height:18px;border:1px #ccc solid;margin-left:5px;text-align:center" onclick="bagworking.page(this,1)"><a><</a></span>'+
+//						'<span style="display:-moz-inline-box;display:inline-block;width:18px;height:18px;border:1px #ccc solid;margin-left:5px;text-align:center" onclick="bagworking.page(this,2)"><a>></a></span>';
+//					page2 += typehtml;
+//				}else{
+//					page1 += typehtml;
+//				}
+				page1 += typehtml;
+			});
+
+			if(pas == 1 && page1){
+				$o(obj.my).parent().parent().find('.page1').append(page1);
+				o.id = '';
+				Msg.ok('粘贴成功！');
+				return;
+			}
+			if(isout) return;//不支持有枚举类型的
+			html += '<div class="bagdata" style="width:32%;height:330px;border:1px #ccc solid;margin:5px;float:left;">'+
+					'<div style="margin:5px;"><span class="case1">'+ (pas==2 || o.add || bagworking.bagids.indexOf(','+ o.id +',') == -1 ? 'NEW' : o.id) +'<input type="hidden" name="bagdata['+ o.id +'][id]" value="'+ (pas==2 || o.add ? '' : o.id) +'"/><input type="hidden" name="bagdata['+ o.id +'][bagid]" value="'+ o.id +'"/></span> b<input type="text" name="bagdata['+ o.id +'][bid]" value="'+ o.bid +'" size="5"><input type="text" name="bagdata['+ o.id +'][name]" value="'+ o.name +'"><span style="float:right;"><a style="background: url(skin/icon/closeAll.png);width: 18px;height: 18px;display: inline-block;margin: 2px;" onclick="bagworking.delbag(this)"></a></span></div>'+
+					'<div style="margin-left:5px;border-bottom:1px #ccc dashed;padding-bottom:5px;margin-bottom:5px;">'+
+						'<input type="hidden" name="bagdata['+ o.id +'][data][0][type]" value="base"/>'+
+						'限：<input type="text" name="bagdata['+ o.id +'][data][0][limit0]" value="'+ (typedata[0].limit0 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+						'<input type="text" name="bagdata['+ o.id +'][data][0][limit1]" value="'+ (typedata[0].limit1 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+						'<input type="text" name="bagdata['+ o.id +'][data][0][limit2]" value="'+ (typedata[0].limit2 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+						'<input type="text" name="bagdata['+ o.id +'][data][0][limit3]" value="'+ (typedata[0].limit3 || '') +'" size="5" onkeyup="COMM.autoInt(this)">'+
+						'<span style="float:right;position:relative;z-index:1;">'+
+							'<input class="she" type="button" value="设" intype = "z" onclick="bagworking.showhandle(this)">'+
+							'<div class="shetext" style="border:1px #ccc solid;top: -8px; bottom: auto; display: none;right: 50px;top: 22px;width: 250px;z-index: 50;padding: 10px;position: absolute;background-color: white;">'+
+								L.activitename +'：'+ COMM.getSelect({
+									'name': 'bagdata['+ o.id +'][cid]',
+									'data': VAR.actArr,
+									'add': '<option value="">'+ L.mustactive +'</option>',
+									'attr': ' must="'+ L.mustactive +'" '+ disabled,
+									'def': o.cid ? o.cid : I.cid,
+									'showId': 1
+								}) + (I.cid ? '<a onclick="bagworking.uncid(this)">[解锁]</a>' : '') +
+								'<br /><input type="button" value="复制" onclick="bagworking.copy(this,\'bag\')">'+
+								'<span style="float:right">'+
+									'wmode：<input type="text" name="bagdata['+ o.id +'][data][0][wmode]" value="'+ (typedata[0].wmode || '') +'" size="5" onkeyup="COMM.autoInt(this)">&nbsp;&nbsp;'+
+									'类型：'+ COMM.getSelect('bagdata['+ o.id +'][data][0][luck]', bagworking.radio.numtype['_z_'], '', '', typedata[0].luck) +
+								'</span><br />	'+
+								'扩展：<input type="text" name="bagdata['+ o.id +'][data][0][img]" value="'+ (typedata[0].img || '') +'" size="5" />'+
+								'<input type="text" name="bagdata['+ o.id +'][data][0][img2]" value="'+ (typedata[0].img2 || '') +'" size="5">'+
+								'<input type="text" name="bagdata['+ o.id +'][data][0][sign]" value="'+ (typedata[0].sign || '') +'" size="5">'+
+								'<input type="text" name="bagdata['+ o.id +'][data][0][sign2]" value="'+ (typedata[0].sign2 || '') +'" size="5">'+
+							'</div>'+
+						'</span>'+
+					'</div>'+
+					'<div class="page1 pagedata" style="overflow-y:scroll;height:235px;border-bottom:1px #ccc dashed;">'+ page1 +'</div>'+
+//					'<div class="page2 pagedata" style="height:235px;border-bottom:1px #ccc dashed;display:none;">'+ page2 +'</div>'+
+					'<div style="margin-left:10px;margin-top:2px;">'+
+						'<input type="button" value="添加" onclick="bagworking.addtype(this);">'+
+						'<input type="button" value="粘贴" onclick="bagworking.paste(this)">'+
+						'<span class="par" style="margin-left:20px;">0%</span>'+
+						'<span class="pagetag" style="margin-left:120px;">'+ pagetag +'</span>'+
+					'</div>'+
+				'</div>';
+		});
+		if(pas == 4){//读取存档
+			$('#bagworkingdata').html(html);
+		}else{
+			$('#bagworkingdata').append(html);
+		}
+
+
+		Msg.close();
+		if(obj.my){
+			Msg.ok('粘贴成功！');
+		}else if(!obj.ret[0] || !obj.ret[0].add){
+			Msg.ok("数据加载成功！");
+		}
+	};
+	I.addeditbag = function(){
+		Msg.doing();
+		SYS.window('bag/addeditbag.html', function(){
+			Msg.close();
+			addfun = function(){
+				var f = new Form($o('#addeditbag'));
+				if(!f.check()) return;
+				var ids = f.data.ids.replace(' ',',').replace('，',',').replace('\n',',');
+				$.JSON(CGI.bag +'?cmd=editbw&ids='+ ids, function(ret){
+					if(!ret || !ret.ok) return;
+					COMM.suc(ret,function(){
+						bagworking.editbag(ret);
+						WIN[0].close();
+					});
+				});
+			};
+		}, {width:'400', height:'200', title:'添加礼包'});
+	};
+	I.delbag = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v);
+		Confirm('确定删除该礼包？', function(){
+			var bagid = obj.parent().parent().find('[name$="[bagid]"]').val();
+			bagworking.bagids = bagworking.bagids.replace(','+ bagid +',', ",");
+			obj.parent().parent().parent().remove();
+		});
+	};
+	I.clean = function(){
+		Confirm('确定清空重置工作台？', function(){
+			bagworking.bagnum = '';//礼包序号
+			bagworking.bagids = '';//工作台上的礼包id
+			$o('#bagworkingdata').html('');
+		});
+	};
+	I.addtype = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v), num1=0, num2=0, pageclass = 'page1', pagetag = '', typeid = 0,
+//		bagnum = obj.parent().parent().find('[name$="[bagid]"]').val();
+		bagnum = obj.parents('.bagdata:eq(0)').find('[name$="[bagid]"]').val();
+//		num1 = obj.parent().parent().find('.page1').children().length;
+//		num1 = num1 ? num1+1 : 1;
+//		num2 = obj.parent().parent().find('.page2').children().length;
+//		num2 = num2 ? num2+1 : 1;
+//		if(num1 > 10){
+//			pageclass = 'page2';//添加到page2标签里面
+//			pagetag = '<span style="display:-moz-inline-box;display:inline-block;width:18px;height:18px;border:1px #ccc solid;margin-left:5px;text-align:center" onclick="bagworking.page(this,1)"><a><</a></span>'+
+//				'<span style="display:-moz-inline-box;display:inline-block;width:18px;height:18px;border:1px #ccc solid;margin-left:5px;text-align:center" onclick="bagworking.page(this,2)"><a>></a></span>';
+//			obj.parent().find('.pagetag').html(pagetag);//添加分页标签
+//		}
+//		if(num2 > 10) return Msg.err('单个礼包最多只能添加20项目！');
+//		if(obj.parent().parent().find('.page1').children().length > 19) return Msg.err('单个礼包最多只能添加20项目！');
+		if(obj.getParent('page1','class').children().length > 19) return Msg.err('单个礼包最多只能添加20项目！');
+		typeid = bagworking.maxid(obj.parent().prev().find('[name$="[id]"]'));
+		var html = '<div style="position:relative;"><input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][id]" value="'+ typeid +'" size="1" />'+
+					COMM.getSelect('bagdata['+ bagnum +'][data]['+ typeid +'][type]', bagworking.radio.type, '<option value="">+</option>', ' onchange="bagworking.type2(this)"') +'<span></span></div>';
+		obj.parents('.bagdata:eq(0)').find('.'+ pageclass).append(html);
+		obj.parents('.bagdata:eq(0)').find('.'+ pageclass).find('[name$="[id]"][value='+ typeid +']').focus();
+	};
+	I.type2 = function(o, t){
+		if(typeof(o) != 'object') return Msg.err('参数出错！');
+		var obj = $o(o), add = '', type = obj.val(), tmp = '', add4 = '', numtype = '',mytype = 0,
+		bagnum = obj.parent().parent().parent().find('[name$="[bagid]"]').val();
+		var tit = L.bag.typeName[C.bag[type]], limit = {'base':1,'bag':5};
+		if(limit[type]){
+			$.each(obj.parent().parent().find('[name$="[type]"]'), function(i, o){
+				if(o.value == type) mytype++;
+			});
+			if(mytype-1 >= limit[type]){
+				Msg.err('【'+ tit +'】个数已经达到上限【'+ limit[type] +'】！');
+				obj.val(0);
+				return '';
+			}
+		}
+		var typeid = obj.parent().find('[name$="[id]"]').val();
+		$.each(bagworking.radio.numtype, function(i, o){
+			if(i.indexOf('_'+ type +'_') != -1){
+				numtype = '类型：'+ COMM.getSelect('bagdata['+ bagnum +'][data]['+ typeid +'][numtype]', o, '', ' onchange="bagworking.numtype(this)"');
+				return;
+			}
+		});
+
+		var add2 = '<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][percent]" value="" size="2" onkeyup="COMM.autoInt(this,1);bagworking.getpercent(this)">%<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][pto]" value="" size="2" onkeyup="COMM.autoInt(this)">',
+		add3 = '<span style="position:absolute ;right:0px;">{add2}'+
+					'<span style="float:right;position:relative;z-index:1;">'+
+						'<input class="she" type="button" value="设" onclick="bagworking.showhandle(this)">'+
+						'<div class="shetext" style="border:1px #ccc solid;top: -8px; bottom: auto; display: none;right: 30px;top: 22px;width: 250px;z-index: 50;padding: 5px;position: absolute;background-color: white;">'+
+							'<input type="button" value="复制" onclick="bagworking.copy(this)">'+
+							'<input type="button" value="删除" onclick="bagworking.deltype(this)">'+
+							'<span style="float:right" class="numtype">'+ numtype +'</span><br />'+
+							'名称：<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][name]" value="" size="20"><br />'+
+							'限量：<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][limit0]" value="" size="5" onkeyup="COMM.autoInt(this)">'+
+							'<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][limit1]" value="" size="5" onkeyup="COMM.autoInt(this)">'+
+							'<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][limit2]" value="" size="5" onkeyup="COMM.autoInt(this)">'+
+							'<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][limit3]" value="" size="5" onkeyup="COMM.autoInt(this)"><br />'+
+							'扩展：<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][img]" value="" size="5" />'+
+							'<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][img2]" value="" size="5" />'+
+							'<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][sign]" value="" size="5" />'+
+							'<input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][sign2]" value="" size="5" />'+
+						'</div>'+
+					'</span>'+
+				'</span>';
+		add4 = ( $.inArray(type, bagworking.radio.tpl.d) != -1 ) ? add3.replace('{add2}', '') : add3.replace('{add2}', add2);//不带概率输入框
+		if(t == 1) add4 = '';
+		if($.inArray(type, bagworking.radio.tpl.a) != -1){//vip,表情包,礼包项模板
+			tmp = type == 'bag' ? '' : 'must="请输入'+ bagworking.radio.type[type] +'天数"';
+			add = COMM.getSelect('bagdata['+ bagnum +'][data]['+ typeid +'][val]', bagworking.radio[type]) +'<input type="text" value="" name="bagdata['+ bagnum +'][data]['+ typeid +'][num]" size="5" '+ tmp +' onkeyup="bagworking.autoName(this);COMM.autoInt(this)" />'+ (tmp?'天':'') + add4;
+		}else if($.inArray(type, bagworking.radio.tpl.b) != -1){//道具,礼物,头衔,玩偶项模板
+			tmp = (type == 'gift' || type == 'levels') ? '天' : (type == 'prop' ? '' : '个');
+			add = '<span class="numlist"><a class="app" fun="checkpack_'+ type +',bagdata['+ bagnum +'][data]['+ typeid +'][val],bagworking">[选取]</a></span>'+ (type=='prop' ? '' : '<input type="text" value="" name="bagdata['+ bagnum +'][data]['+ typeid +'][num]" size="5" must="请输入'+ bagworking.radio.type[type] + tmp +'数" />') + tmp + add4;
+		}else if($.inArray(type, bagworking.radio.tpl.c) != -1){//游戏币,经验,积分,博雅币,空值项模板,互动道具
+			if(type == 'nothing'){
+				add = add4;
+			}else{
+				var ilmode = type == 'integral' ? '<input type="hidden" name="bagdata['+ bagnum +'][data]['+ typeid +'][ilmode]" value="48"/>' : '';
+				add = '<span class="val"><input type="text" name="bagdata['+ bagnum +'][data]['+ typeid +'][val]" value="" size="'+ ( type=='nothing' || type=='integral' ? '20' : '10' ) +'" onkeyup="bagworking.autoName(this);COMM.autoInt(this)"></span>'+ add4 + ilmode;
+			}
+		}
+		obj.next().html(add);
+		if($.inArray(type, bag._isSelect) >= 0) bagworking.autoName(obj.next().find('[name$="[val]"]')[0]);
+	};
+	I.deltype = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v);
+		Confirm('确定删除该项？', function(){
+			obj.parent().parent().parent().parent().parent().remove();
+		});
+	};
+	I.showhandle = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v) ,color = '';
+		if(obj.next().is(":hidden")){
+			obj.parents('.bagdata:eq(0)').find('.shetext').hide().css("color",'black');
+			obj.parents('.bagdata:eq(0)').find('.she').css("color",'black');
+		}
+		obj.next().toggle(function(){
+			if(obj.next().is(":hidden")){
+				color = "black";
+			}else{
+				color = "red";
+				obj.parent().find('[name$="[img]"]').focus();
+			}
+			obj.css("color",color);
+		});
+	};
+	I.numtype = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var html = '',name = '', obj = $o(v), tmp = obj.parent().parent().parent().parent().parent(),
+			val = tmp.find('.val'), type = tmp.parent().find('[name$="[type]"]').val();
+		if($.inArray(type, bagworking.radio.tpl.e) == -1) return;
+		if(obj.val() == 1){
+			obj.getParent('shetext','class').find('[name$="[name]"]').val('');
+			html = '<input type="text" name="'+ obj.attr('name').replace('numtype', 'random0') +'" value="" size="6" onkeyup="bagworking.autoName(this);COMM.autoInt(this)"> - <input type="text" name="'+ obj.attr('name').replace('numtype', 'random1') +'" value="" size="6" onkeyup="bagworking.autoName(this);COMM.autoInt(this)">';
+		}else{
+			name = obj.attr('name').replace('numtype', 'val');
+			html = '<input type="text" name="'+ name +'" value="" size="10" onkeyup="bagworking.autoName(this);COMM.autoInt(this)">';
+		}
+		val.html('');
+		val.prepend(html);
+	};
+	I.page = function(v, p){//分页显示
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v).parent().parent().parent(), pageshow = '', pagehide = '';
+		pageshow = 'page'+ p;
+		pagehide = 'page'+ (p==1 ? 2 : 1);
+		obj.find('.'+ pageshow).show().css('height','235px');
+		obj.find('.'+ pagehide).hide().css('height','0');
+	};
+	I.maxid = function(obj){
+		if(typeof(obj) != 'object') return Msg.err('参数出错！');
+		var i = 0;
+		obj.each(function(k,v){
+			if(v.value == '{id}' || !v) return;
+			i = Math.max(v.value, i);
+		});
+		return i+1;
+	};
+	I.submit2 = function(){
+		var f = new Form($o('#bagworkingdata'));
+		if(!f.check()) return;
+	};
+	I.uncid = function(my){
+		if(typeof(my) != 'object') return Msg.err('参数出错！');
+		obj = $o(my);
+		Confirm('<b style="color:red">礼包是按分类ID做子目录归类的，请勿随意修改！</b><br>确定要解锁吗？', function(){
+			obj.prev().attr('disabled', false);
+			obj.remove();
+		});
+	};
+	I.submit = function(){
+		var obj = $o('#bagworkingdata');
+		var f = new Form(obj);
+		if(!f.check(bagworking.lock)) return;
+		if(JSON.stringify(f.data) == '{}') return Msg.err('数据出错！');
+		if(!C.dev && MY.gid <= 2 && MY.id != 438 && MY.id != 803){
+			if (f.data.bagdata.id != 619) {
+				Msg.err('为防止程序员配置出错而运营不知情，因此，开发人员禁止配置礼包！');
+				return;
+			}else{
+				Msg.err('619仅作为测试使用，慎重！！！');
+			}
+		}
+		var limitid = [];//需要强制填写限量的礼包id
+		var bagids = bagworking.bagids.split(',');
+		$.each(bagids, function(k, v){
+			if(!v) return;
+			if(f.data['bagdata['+ v +'][data][0][limit0]'] == '' && f.data['bagdata['+ v +'][data][0][limit1]'] == '' && f.data['bagdata['+ v +'][data][0][limit2]'] == '' && f.data['bagdata['+ v +'][data][0][limit3]'] == ''){
+				limitid.push(v);
+			}
+		});
+		if(limitid.length > 0){
+			$o('[name="bagdata['+ limitid[0] +'][data][0][limit0]"]').focus();
+			Msg.err('请每个礼包至少输入一个礼包限量属性！');
+			return;
+		}
+
+		Msg.doing();//数据提交效果，同时锁屏
+		$.each(bagids, function(k, v){
+			cookie('wmode_'+f.data['bagdata['+ v +'][cid]'], f.data['bagdata['+ v +'][data][0][wmode]'], {time:1800});//30分钟
+		});
+		LOG.submit(f.data);
+		f.data['diffData'] = WIN[0].$diffData;
+		$.POST(CGI.bag +'?cmd=updatebw', f.data, function(ret){
+			Msg.close();//关闭doing
+			if(ret.prop){
+				Msg.err('所添加道具有效期过短,请重新填写！！');
+				return;
+			}
+			COMM.suc(ret,function(){
+				WIN[0].close();
+				if(typeof SYS._bagCallback == 'function' && ret.id){//其它地方的礼包控制
+					SYS._bagCallback(ret.id);
+					SYS._bagCallback = '';
+				}else if(typeof bagform._success == 'function' && ret.id){//批量处理时用到
+					bagform._success(ret.id);
+				}else{
+					P.ref();
+				}
+			});
+		});
+	};
+	I.autoName = function(o, k1, k2){
+		var obj = $o(o), k, n, val, num, type, type2;
+		k = o.name.split(']')[0] +']';
+		type = obj.parent().parent().find('[name$="[type]"]').val();
+		if(!type) type =  obj.parent().parent().parent().find('[name$="[type]"]').val();
+		if(!type) return;
+		if($.inArray(type, ['money','byb','interact','integral','exp']) >= 0){//val=#0
+			val = o.value;
+			if(!val) return;
+			if(type == 'money') val = COMM.chips2Char(val * S.blowup);
+			bagworking.autoName2(o, k, type, [val]);
+		}else{//type_val num=#0的情况
+			k1 = k1 || 'val';
+			k2 = k2 || 'num';
+			val = obj.parent().find('[name$="['+ k1 +']"]').val();
+			if(val == '' ||  type != 'prop' && val.indexOf(',') > 0) return;//多个物品
+			num = obj.parent().parent().find('[name$="['+ k2 +']"]').val();
+			type2 = type +'_'+ val;
+			if(type == 'gift'){
+				bagworking.autoName2(o, k, type, [VAR.giftArr[val], num, VAR.giftMap[val]]);
+				return;
+			}else if(type == 'prop'){
+				if(val.indexOf(',') > 0){
+					var ret = bagworking.getPropNum(val);
+					if(!ret || !ret.num) return;
+					num = ret.num;
+					type2 = type +'_'+ ret.val;
+				}else{
+					num = 1;
+				}
+			}
+			bagworking.autoName2(o, k, type, [num], type2);
+		}
+	};
+	I.autoName2 = function(o, k, type, v, type2){
+		type2 = type2 || type;
+		var n = LL.bag.type[type2], val, obj = $o(o);
+		if(!n) return;
+		val = l(n, v);
+		if(type2 == 'money'){
+			obj.parent().parent().find('[name$="[name]"]').val(val);
+		}else{
+			obj.parent().find('[name$="[name]"]').val(val);
+		}
+		if($.inArray(S.langfix, ['th','zh']) >= 0) return;//外语版自动填充LC名称
+		n = L.bag.type[type2];
+		if(!n) return;
+		if(type == 'gift') v[0] = v[2];
+		val = l(n, v);
+		obj.parent().parent().find('[name$="[lc]"]').val(val);
+	};
+	I.getPropNum = function(val){
+		var arr = val.split(','), temp = {}, n = 0;
+		$.each(arr, function(i,o){
+			if(!temp[o]){
+				temp[o] = 1;
+			}else{
+				temp[o] += 1;
+			}
+		});
+		$.each(temp, function(i,o){
+			if(n == 0 || o > n){
+				n = o;
+				val = i;
+			}
+		});
+		return {'num':n,'val':val};
+	};
+	I.getpercent = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v).parent().parent().parent().parent(), par = 0, ret = '';
+		$.each(obj.find('[name$="[percent]"]'), function(i, o){
+			par = int(par) + int(o.value);
+		});
+		if(par > 100){
+			ret = '<span class="case1">'+ par +'% (概率总和不能超过100%)</span>'
+			Msg.err('概率总和不能超过100%');
+		}else{
+			ret = par +'%'
+		}
+		obj.parent().find('.par').html(ret);
+
+	};
+	I.dosaving = function(){
+		var obj = $o('#bagworkingdata');
+		var f = new Form(obj);
+		if(!f.check()) return;
+		Msg.doing();
+		$.POST(CGI.bag +'?cmd=dosaving', f.data, function(ret){
+			Msg.close();//关闭doing
+			COMM.suc(ret);
+		});
+	};
+	I.getsaving = function(){
+		Msg.doing();
+		SYS.window('bag/saving.html', function(){
+			Msg.close();
+			$o('#tpl').loadData({
+				url: CGI.bag +'?cmd=getsaving',
+				callback:function(ret){
+
+				}
+			});
+		}, {width:'50%', height:'50%', title:'礼包工作台存档'});
+	};
+	I.loadsaving = function(id){
+		Msg.doing();
+		$.JSON(CGI.bag +'?cmd=loadsaving&id='+ id, function(rs){
+			var d = {ret:eval('('+ rs.data +')')};
+			bagworking.editbag(d, 4);
+			Msg.close();
+			WIN[0].close();
+		});
+	};
+	I.copy = function(v, t){//t bag复制礼包，adds批量添加，默认复制礼包元素
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		var obj = $o(v).parent().parent().parent().parent(), html = '', tmp = {0:{data:{1:{}}}};
+		if(t == 'adds'){
+			obj = obj.parent();
+		}else if(t == 'bag'){
+
+		}else{
+			obj =  obj.parent();
+		}
+		var f = new Form(obj), ktmp = '';
+		f.getValue();
+		$.each(f.data, function(i, o){
+			if(!i.split('[')[4] && i.split('[')[2]){
+				tmp[0][i.split('[')[2].replace(']', '')] = o;
+			}else{
+				if(t == 'bag'){
+					ktmp = i.split('[')[3].replace(']', '');
+					if(!tmp[0]['data'][ktmp]) tmp[0]['data'][ktmp] = {};
+					tmp[0]['data'][ktmp][i.split('[')[4].replace(']', '')] = o;
+				}else{
+					if(i.split('[')[4]){
+						tmp[0]['data'][1][i.split('[')[4].replace(']', '')] = o;
+					}else{
+						tmp[0]['data'][1][i] = o;
+					}
+				}
+			}
+		});
+		I.copydata = tmp;
+		if(I.copydata){
+			$o('#copytips').html('复制内容：'+ (tmp[0].name ? tmp[0].name : (tmp[0].data[1].name ? tmp[0].data[1].name : 'NEW')));
+			Msg.ok('复制成功！');
+		}else{
+			Msg.err('复制失败！');
+		}
+		if(t == 'bag'){
+			bagworking.editbag({my:obj}, 2);
+		}else if(t == 'adds'){
+			$.each(obj.parent().find('.bagdata'), function(i, o){
+				bagworking.editbag({my:$o(o).find('.par')}, 1);
+			});
+		}else{
+			$o(v).parent().hide();
+			$o(v).parent().parent().find('.she').css('color','black');
+		}
+	};
+	I.paste = function(v){
+		if(typeof(v) != 'object') return Msg.err('参数出错！');
+		bagworking.editbag({my:v}, 1);
+	};
+}

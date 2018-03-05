@@ -1,0 +1,58 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-game_list" class="control-label col-xs-12 col-sm-2">{:__('Game_list')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-game_list" data-rule="required" class="form-control" name="row[game_list]" type="text" value="{$row.game_list}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-game_num" class="control-label col-xs-12 col-sm-2">{:__('Game_num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-game_num" data-rule="required" class="form-control" name="row[game_num]" type="number" value="{$row.game_num}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-own_open_room" class="control-label col-xs-12 col-sm-2">{:__('Own_open_room')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-own_open_room" data-rule="required" class="form-control" name="row[own_open_room]" type="number" value="{$row.own_open_room}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-friends_num" class="control-label col-xs-12 col-sm-2">{:__('Friends_num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-friends_num" data-rule="required" class="form-control" name="row[friends_num]" type="number" value="{$row.friends_num}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-win_result" class="control-label col-xs-12 col-sm-2">{:__('Win_result')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-win_result" data-rule="required" class="form-control" name="row[win_result]" type="number" value="{$row.win_result}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{$row.create_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status" data-rule="required" class="form-control" name="row[status]" type="number" value="{$row.status}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

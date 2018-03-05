@@ -1,0 +1,79 @@
+<?php
+
+namespace app\admin\model;
+
+use think\cache\driver\Redis;
+use think\Model;
+
+class ActivityControl extends Model
+{
+    // 表名
+    protected $table = 'activity_control';
+    
+    // 自动写入时间戳字段
+    protected $autoWriteTimestamp = false;
+
+    // 定义时间戳字段名
+    protected $createTime = false;
+    protected $updateTime = false;
+    
+    // 追加属性
+    protected $append = [
+        'status_text'
+    ];
+    protected $connection="db_config2";
+
+
+
+
+    public function getStatuslist()
+    {
+        return ['1' => 'normal','0' => 'hidden'];
+    }     
+
+
+    public function getStatusTextAttr($value, $data)
+    {        
+        $value = $value ? $value : $data['status'];
+        $list = $this->getStatusList();
+        return isset($list[$value]) ? $list[$value] : '';
+    }
+    public function getList()
+    {
+        $list = $this->select();
+        foreach($list as $k=>$item)
+        {
+            $result[$item['id']] = $item;
+        }
+        return $result;
+    }
+
+    //AT_25
+    public  static $redisKey = 'AT_26';
+
+    public static function getKey($model)
+    {
+        return self::$redisKey;
+    }
+    protected static function init()
+    {
+        ActivityControl::beforeInsert(function ($model) {
+            $redis = new Redis(config('redis'));
+            $redis->rm(self::getKey($model));
+        });
+        ActivityControl::beforeUpdate(function ($model) {
+            $redis = new Redis(config('redis'));
+            $redis->rm(self::getKey($model));
+        });
+
+        ActivityControl::beforeDelete(function ($model) {
+            $redis = new Redis(config('redis'));
+            $redis->rm(self::getKey($model));
+        });
+        ActivityControl::beforeWrite(function ($model) {
+            $redis = new Redis(config('redis'));
+            $redis->rm(self::getKey($model));
+        });
+    }
+
+}

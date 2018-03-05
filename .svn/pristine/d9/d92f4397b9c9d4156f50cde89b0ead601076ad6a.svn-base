@@ -1,0 +1,36 @@
+<div class="myPage"></div>
+<table class="myTable">
+	<tr>
+		<td colspan="10" class="searchForm">
+			<h1 style="color:red">注：礼包提交保存后不再自动发布配置文件，如需发布请选择左边菜单所属活动，批量勾选要发布的礼包后点击“发布”按钮即可（复制礼包需要重新提交保存）-- 2014-08-01更新</h1>
+		</td>
+	</tr>
+	<tr class="myTableTitle">
+		<td width="30"><input type="checkbox" class="app" fun="checkAll_ids" /></td>
+		<td class="search" key="id" width="50">ID</td>
+		<td class="search" key="bid" width="50">子ID</td>
+		<td width="50">预览</td>
+		<td class="left search" key="name"><i>【所属活动】</i>{$lang('name')$}(点击修改)</td>
+		<td width="50">抽奖券</td>
+		<td>{$lang('adminname')$}</td>
+		<td class="search times" key="edittime">{$lang('edittime')$}</td>
+		<td class="search times" key="sendtime">最后发布时间</td>
+	</tr>
+	<tbody id="tpl">
+		<!--{loop}
+		<tr {del|TPL.del}>
+			<td height="28"><input type="checkbox" value="{id}" name="ids" title="ID:{id}" /></td>
+			<td><u>{id}</u></td>
+			<td><u><i style="margin:0">b</i>{bid}</u></td>
+			<td onclick="SYS.bagView({id},event)"><a>[预览]</a></td>
+			<td class="left name{id}"><a class="app" fun="bag.form_{id}">{$L.btn.edits$} <i>【{cid|TPL.cid_VAR.actMap}-{cid}】</i>{name}</a></td>
+			<td>{luck|tplLuck}</td>
+			<td>{uid|TPL.uid}</td>
+			<td>{edittime|bag.edittimeTpl}</td>
+			<td>{sendtime|bag.sendtimeTpl}</td>
+			<td class="cid{id}" style="display:none;">{cid}</td>
+		</tr>
+		{/loop}-->
+	</tbody>
+</table>
+<div class="myPage"></div>

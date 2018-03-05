@@ -1,0 +1,39 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nihao
+ * Date: 17-10-26
+ * Time: 下午7:34
+ */
+
+namespace helper;
+
+
+class Constant {
+
+
+    //订单类型（0无 1房卡 2钻石）
+    const  ORDER_TYPE_NONE=0;
+    const  ORDER_TYPE_ROOMCARD=1;
+    const  ORDER_TYPE_DIAMOND=2;
+
+    //收益类型（1直属玩家 2下级代理 3下级代理直属玩家 4隔代代理 5隔代直属玩家 6全线业绩 7代理自身充值）
+    const PROFIT_TYPE_UNDER_PLAYER=1;
+    const PROFIT_TYPE_UNDER_AGENT=2;
+    const PROFIT_TYPE_UNDER_AGENT_BY_PLAYER=3;
+    const PROFIT_TYPE_GRAND_AGENT=4;
+    const PROFIT_TYPE_GRAND_PLAYER=5;
+    const PROFIT_TYPE_ALL_LOWER_LEVEL=6;
+    const PROFIT_TYPE_AGENT_SELF=7;
+
+    //关系类型（1直属玩家 2代理 ）
+    const BIND_TYPE_PLAYER = 1 ;
+    const BIND_TYPE_AGENT = 2 ;
+
+
+    const GAME_ID_ZJH = 1001;//炸金花	2	1	1
+    const GAME_ID_LHD = 1002;//	龙虎斗	4	1	1
+    const GAME_ID_NN = 1003;//	牛牛	5	1	1
+    const GAME_ID_DDZ = 1004;//	斗地主	1	1	1
+    const GAME_ID_MJ = 1005;//	麻将	3	1	1
+} 

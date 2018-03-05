@@ -1,0 +1,42 @@
+[ 2018-01-26T16:05:57+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000137s ]
+[ info ] [ LOG ] INIT File
+[ 2018-01-26T16:05:57+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-01-26T16:05:57+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013814s ]
+[ 2018-01-26T16:05:57+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-01-26T16:05:57+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000427s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-01-26T16:05:57+08:00 ][ sql ] [ SQL ] SELECT 1 [ RunTime:0.000580s ]
+[ 2018-01-26T16:09:06+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000135s ]
+[ info ] [ LOG ] INIT File
+[ 2018-01-26T16:09:06+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-01-26T16:09:06+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007627s ]
+[ 2018-01-26T16:09:06+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-01-26T16:09:06+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000404s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-01-26T16:09:06+08:00 ][ sql ] [ SQL ] SELECT 1 [ RunTime:0.000244s ]
+[ 2018-01-26T16:12:43+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000108s ]
+[ info ] [ LOG ] INIT File
+[ 2018-01-26T16:12:43+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-01-26T16:12:43+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007896s ]
+[ 2018-01-26T16:12:43+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-01-26T16:12:43+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000385s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-01-26T16:12:43+08:00 ][ sql ] [ SQL ] SELECT 1 [ RunTime:0.000227s ]
+[ 2018-01-26T16:13:02+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000125s ]
+[ info ] [ LOG ] INIT File
+[ 2018-01-26T16:13:02+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-01-26T16:13:02+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007329s ]
+[ 2018-01-26T16:13:02+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-01-26T16:13:02+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000384s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-01-26T16:13:02+08:00 ][ sql ] [ SQL ] SELECT 1 [ RunTime:0.000228s ]
+[ 2018-01-26T16:13:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000103s ]
+[ info ] [ LOG ] INIT File
+[ 2018-01-26T16:13:05+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-01-26T16:13:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.008110s ]
+[ 2018-01-26T16:13:05+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-01-26T16:13:05+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000389s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-01-26T16:13:05+08:00 ][ sql ] [ SQL ] SELECT 1 [ RunTime:0.000253s ]
+[ 2018-01-26T16:13:24+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000106s ]
+[ info ] [ LOG ] INIT File
+[ 2018-01-26T16:13:24+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-01-26T16:13:24+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.007530s ]
+[ 2018-01-26T16:13:24+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-01-26T16:13:24+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000382s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-01-26T16:13:24+08:00 ][ sql ] [ SQL ] SELECT 1 [ RunTime:0.000239s ]

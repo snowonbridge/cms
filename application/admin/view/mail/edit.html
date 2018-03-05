@@ -1,0 +1,91 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-title" class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[title]" type="text" value="{$row.title}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-content" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-content" class="form-control" name="row[content]" type="text" value="{$row.content}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-con_type" class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-type" class="form-control selectpicker" name="row[type]">
+                {foreach name="TypeList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group" id="c-type-c">
+        <label for="c-content" class="control-label col-xs-12 col-sm-2">{:__('Uids')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-uids" class="form-control" name="row[uids]" placeholder="玩家ID,多个请用英文逗号隔开" type="text" value="{$row.uids}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-con_type" class="control-label col-xs-12 col-sm-2">{:__('Con_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-con_type" class="form-control selectpicker" name="row[con_type]">
+                {foreach name="conTypeList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.con_type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-keepday" class="control-label col-xs-12 col-sm-2">{:__('Keepday')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-keepday" class="form-control" name="row[keepday]" type="number" value="{$row.keepday}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-sendtime" class="control-label col-xs-12 col-sm-2">{:__('Sendtime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sendtime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[sendtime]" type="text" value="{$row.sendtime|datetime}">
+        </div>
+    </div>
+    <div class="form-group" id="c-reward">
+        <label for="c-reward" class="control-label col-xs-12 col-sm-2">{:__('Reward')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <dl class="fieldlist" rel="0" data-name="reward">
+                <dd  >
+                    <ins>{:__('item id')}</ins>
+                    <ins>{:__('item num')}</ins>
+                </dd>
+                {empty name="row.reward"}
+                <dd class="form-inline">
+                    <input type="text" name="row[reward][0][id]" placeholder="物品ID,参考物品管理" class="form-control" value="" size="20" />
+                    <input type="text" name="row[reward][0][num]" class="form-control" value="" size="10" />
+                    <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                    <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                </dd>
+                {/empty}
+                {foreach $row.reward as $item}
+                <dd class="form-inline">
+                    <input type="text" name="row[reward][0][id]" placeholder="物品ID,参考物品管理" class="form-control" value="{$item.id}" size="20" />
+                    <input type="text" name="row[reward][0][num]" class="form-control" value="{$item.num}" size="10" />
+                    <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                    <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                </dd>
+                {/foreach}
+                <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> {:__('Append')}</a></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

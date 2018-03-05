@@ -1,0 +1,175 @@
+<?php
+
+namespace app\admin\controller;
+
+use app\common\controller\Backend;
+
+use fast\Func;
+use fast\Http;
+use fast\OutFile;
+use fast\SendFile;
+
+/**
+ * 物品管理
+ *
+ * @icon fa fa-circle-o
+ */
+class Goods extends Backend
+{
+
+
+
+
+
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->view->assign("ptypeList", $this->getPtypeList());
+        $this->view->assign("categoryList", $this->getCategoryList());
+        $this->view->assign("statusList", $this->getStatusList());
+        $this->view->assign("tabletypesList", $this->getTabletypesList());
+        $this->view->assign("inroomList", $this->getInroomList());
+        $this->view->assign("gameidsList", $this->getGameidsList());
+        $this->view->assign("osList", $this->getOsList());
+        $this->view->assign("sidList", $this->getSidList());
+        $this->view->assign("imageTypeList", $this->getImageTypeList());
+        $this->view->assign("goodList", $this->getGoodList());
+    }
+
+
+
+
+
+    /**
+     * 添加
+     */
+    public function add()
+    {
+        if ($this->request->isPost())
+        {
+            $params = $this->request->post("row/a");
+            if ($params)
+            {
+                try
+                {
+                    //是否采用模型验证
+                    if ($this->modelValidate)
+                    {
+                        $name = basename(str_replace('\\', '/', get_class($this->model)));
+                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.add' : true) : $this->modelValidate;
+                        $this->model->validate($validate);
+                    }
+
+                    if (isset($params['reward']) && is_array($params['reward']))
+                    {
+                        $params['reward'] = array_values($params['reward']);
+                        $params['reward'] = $params['reward'] ? json_encode($params['reward'], JSON_UNESCAPED_UNICODE) : '';
+                    }
+                    else
+                    {
+                        $params['reward'] = '[]';
+                    }
+                    $result = $this->model->save($params);
+                    if ($result !== false)
+                    {
+                        $this->success();
+                    }
+                    else
+                    {
+                        $this->error($this->model->getError());
+                    }
+                }
+                catch (\think\exception\PDOException $e)
+                {
+                    $this->error($e->getMessage());
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        return $this->view->fetch();
+    }
+
+    /**
+     * 编辑
+     */
+    public function edit($ids = NULL)
+    {
+        $row = [];
+        $ret = Func::gameApiRequest($this->request,'goodGet');
+        if($ret['ret']==1){
+            $reqBack = json_decode($ret['msg'], TRUE);
+            $row = $reqBack['data'];
+        }
+        if(!$row)
+            $this->error(__('No Results were found'));
+        $this->view->assign("row", $row);
+        return $this->view->fetch();
+    }
+
+
+    /**
+     * 发布
+     */
+    public function send($ids = ""){}
+
+    public function getPtypeList()
+    {
+        return ['5' => __('Ptype_id 5'),'4' => __('Ptype_id 4'),'3' => __('Ptype_id 3'),'2' => __('Ptype_id 2'),'1' => __('Ptype_id 1')];
+    }
+    public function getCategoryList()
+    {
+        return ['4' => __('Ptype_id 4'),'3' => __('Ptype_id 3'),'2' => __('Ptype_id 2'),'1' => __('Ptype_id 1')];
+    }
+
+    public function getStatusList()
+    {
+        return ['on' => __('On'),'off' => __('Off')];
+    }
+    public function getTabletypesList()
+    {
+        return ['0' => __('tabletypes_0'),'1' => __('tabletypes_1'),'2' => __('tabletypes_2'),'3' => __('tabletypes_3'),'4' => __('tabletypes_4')];
+    }
+
+    public function getInroomList()
+    {
+        return ['0' => __('no'),'1' => __('yes')];
+    }
+
+    public function getGameidsList()
+    {
+        //游戏ID[1001=>'炸金花',1002=>'龙虎斗',1003=>'牛牛',1004=>'斗地主',10005=>'麻将']; 示例:{...,"param":
+        return ['0' => __('All Game'),'1001' => __('Game_1001'),'1002' => __('Game_1002'),'1003' => __('Game_1003'),'1004' => __('Game_1004'),'1005' => __('Game_1005')];
+    }
+    public function getOsList()
+    {
+        //游戏ID[1001=>'炸金花',1002=>'龙虎斗',1003=>'牛牛',1004=>'斗地主',10005=>'麻将']; 示例:{...,"param":
+        return ['0' => __('All_OS'),'1' => __('OS_1'),'2' => __('OS_2'),'3' => __('OS_3')];
+    }
+
+
+    public function getSidList()
+    {
+        return ['10001' => __('SID_1'),'10002' => __('SID_2')];
+    }
+
+    public function getImageTypeList()
+    {
+        return ['1' => 1,'2' =>2,'3' =>3,'4' =>4,'5' =>5,'6' =>6];
+    }
+
+
+    public function getGoodList()
+    {
+        $data = [];
+        $ret = Func::gameApiRequest($this->request,'goodList');
+        if($ret['ret']){
+            $data = json_decode($ret['msg'],true);
+            if($data){
+                $data = [0=>'无'] + $data;
+            }
+        }
+        return $data;
+    }
+
+
+}

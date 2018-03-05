@@ -1,0 +1,148 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-pid" class="control-label col-xs-12 col-sm-2">{:__('Pid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pid" class="form-control" name="row[pid]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pmode" class="control-label col-xs-12 col-sm-2">{:__('Pmode')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pmode" data-rule="required" class="form-control" name="row[pmode]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-uid" class="control-label col-xs-12 col-sm-2">{:__('Uid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-uid" data-rule="required" class="form-control" name="row[uid]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-openid" class="control-label col-xs-12 col-sm-2">{:__('Openid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-openid" data-rule="required" class="form-control" name="row[openid]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-usertype" class="control-label col-xs-12 col-sm-2">{:__('Usertype')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-usertype" data-rule="required" class="form-control" name="row[usertype]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-unid" class="control-label col-xs-12 col-sm-2">{:__('Unid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-unid" data-rule="required" class="form-control" name="row[unid]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-deviceid" class="control-label col-xs-12 col-sm-2">{:__('Deviceid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-deviceid" class="form-control" name="row[deviceid]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-system" class="control-label col-xs-12 col-sm-2">{:__('System')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-system" data-rule="required" class="form-control" name="row[system]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pip" class="control-label col-xs-12 col-sm-2">{:__('Pip')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pip" data-rule="required" class="form-control" name="row[pip]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-appid" class="control-label col-xs-12 col-sm-2">{:__('Appid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-appid" data-rule="required" class="form-control" name="row[appid]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-goodid" class="control-label col-xs-12 col-sm-2">{:__('Goodid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-goodid" data-rule="required" class="form-control" name="row[goodid]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-price" class="control-label col-xs-12 col-sm-2">{:__('Price')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-price" data-rule="required" class="form-control" name="row[price]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pnum" class="control-label col-xs-12 col-sm-2">{:__('Pnum')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pnum" data-rule="required" class="form-control" name="row[pnum]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pdiamond" class="control-label col-xs-12 col-sm-2">{:__('Pdiamond')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pdiamond" data-rule="required" class="form-control" name="row[pdiamond]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pstatus" class="control-label col-xs-12 col-sm-2">{:__('Pstatus')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pstatus" data-rule="required" class="form-control" name="row[pstatus]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pstime" class="control-label col-xs-12 col-sm-2">{:__('Pstime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pstime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[pstime]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-sendstatus" class="control-label col-xs-12 col-sm-2">{:__('Sendstatus')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sendstatus" data-rule="required" class="form-control" name="row[sendstatus]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-petime" class="control-label col-xs-12 col-sm-2">{:__('Petime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-petime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[petime]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pname" class="control-label col-xs-12 col-sm-2">{:__('Pname')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pname" data-rule="required" class="form-control" name="row[pname]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-vlevel" class="control-label col-xs-12 col-sm-2">{:__('Vlevel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-vlevel" data-rule="required" class="form-control" name="row[vlevel]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-payed" class="control-label col-xs-12 col-sm-2">{:__('Payed')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-payed" data-rule="required" class="form-control" name="row[payed]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pdealno" class="control-label col-xs-12 col-sm-2">{:__('Pdealno')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pdealno" data-rule="required" class="form-control" name="row[pdealno]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pbankno" class="control-label col-xs-12 col-sm-2">{:__('Pbankno')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pbankno" data-rule="required" class="form-control" name="row[pbankno]" type="text">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

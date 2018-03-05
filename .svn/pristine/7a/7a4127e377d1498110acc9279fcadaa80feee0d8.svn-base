@@ -1,0 +1,105 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="" >
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('sid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control">{$row.sid}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="control-label col-xs-12 col-sm-2">{:__('agent_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control">{$row.agent_id}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">上级代理id:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control">{$row.parent_agent_id}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">代理等级:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control">{$row.agent_level}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">姓名:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.agent.truename}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">手机:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.agent.mobile}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">昵称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.user.uname} </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">头像:</label>
+        <div class="col-xs-12 col-sm-8">
+            <img src="{$row.user.avartar_url}" alt="" style="max-height:90px;max-width:120px" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直属玩家数量:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control">{$row.player_count}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直属代理数量:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.agent_count}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">历史总收益:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.agent.total_balance}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">可提现余额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.agent.money}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">该游戏收益:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.total_profit}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">该游戏房卡收益:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.roomcard_profit}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">该游戏钻石收益:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.diamond_profit}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">上次提现时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.agent.last_settlement_time_text}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">代理创建时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-control" >{$row.create_time_text}</div>
+        </div>
+    </div>
+</form>

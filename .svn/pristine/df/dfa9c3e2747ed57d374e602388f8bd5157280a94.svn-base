@@ -1,0 +1,127 @@
+<?php
+
+namespace app\admin\model;
+
+
+use helper\Code;
+use think\Model;
+
+class AgentDetails extends Model
+{
+    protected $connection = 'db_config_agent';
+
+    //状态（0失效 1正常 ）
+    const STATUS_ON = 1;//正常
+    const STATUS_OFF = 0;//失效
+
+    //当前代理等级（1一级代理 2二级代理 3三级代理）
+    const AGENT_LEVEL_ONE = 1;
+    const AGENT_LEVEL_TWO = 2;
+    const AGENT_LEVEL_THREE = 3;
+
+    protected $auto = [];
+    protected $insert = [
+        'player_count'=>0,
+        'agent_count' =>0,
+        'status' => self::STATUS_ON,
+    ];
+
+    protected $update = [
+
+    ];
+
+    protected $autoWriteTimestamp = true;
+    protected $createTime = 'create_time';
+    protected $updateTime = 'update_time';
+
+    public function agent(){
+        return $this->belongsTo('Agent','agent_id','agent_id');
+    }
+
+    public function user(){
+        return $this->belongsTo('PokerUser','mid','id');
+    }
+
+    // 追加属性
+    protected $append = [
+        'status_text',
+        'create_time_text',
+    ];
+
+
+    public function getStatusTextAttr($value, $data)
+    {
+        $value = $value ? $value : $data['status'];
+        $list = [self::STATUS_OFF => __('status 0'),self::STATUS_ON => __('status 1')];
+        return isset($list[$value]) ? $list[$value] : '';
+    }
+
+    public function getCreateTimeTextAttr($value, $data)
+    {
+        $value = $value ? $value : $data['create_time'];
+        return date('Y-m-d H:i:s',$value);
+    }
+
+    public function getTotalProfitAttr($value)
+    {
+        $value = $value/100 ;
+        return $value;
+    }
+
+    public function getRoomcardProfitAttr($value)
+    {
+        $value = $value/100 ;
+        return $value;
+    }
+
+    public function getDiamondProfitAttr($value)
+    {
+        $value = $value/100 ;
+        return $value;
+    }
+
+    public function isAgent($agent_id,$sid)
+    {
+        return $this->where([
+            'agent_id' => $agent_id,
+            'sid' => $sid,
+            'status' => self::STATUS_ON,
+        ])->find();
+
+    }
+
+    public function deleteAgentDetails($agent_id,$sid)
+    {
+        $agent = $this->where(['agent_id'=>$agent_id,'sid'=>$sid])->find();
+        if($agent){
+            $updateAgent = $this->where(['agent_id'=>$agent_id,'sid'=>$sid])->save(['status'=>self::STATUS_OFF]);
+            if( $updateAgent){
+                $res = ['code' => Code::SUCCESS, 'msg' => '成功'];
+            }else{
+                $res = ['code' => Code::OPERATE_EXCEPTION, 'msg' => '数据库更新出错'];
+            }
+
+        }else{
+            $res = ['code' => Code::CODE_ERR_PARAM, 'msg' => '不存在的代理'];
+        }
+        return $res;
+    }
+
+    public function unDeleteAgentDetails($agent_id,$sid)
+    {
+        $agent = $this->where(['agent_id'=>$agent_id,'sid'=>$sid])->find();
+        if($agent){
+            $updateAgent = $this->where(['agent_id'=>$agent_id,'sid'=>$sid])->save(['status'=>self::STATUS_ON]);
+            if( $updateAgent){
+                $res = ['code' => Code::SUCCESS, 'msg' => '成功'];
+            }else{
+                $res = ['code' => Code::OPERATE_EXCEPTION, 'msg' => '数据库更新出错'];
+            }
+
+        }else{
+            $res = ['code' => Code::CODE_ERR_PARAM, 'msg' => '不存在的代理'];
+        }
+        return $res;
+    }
+
+}

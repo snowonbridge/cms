@@ -1,0 +1,70 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-apply_no" class="control-label col-xs-12 col-sm-2">{:__('Apply_no')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-apply_no" data-rule="required" class="form-control" name="row[apply_no]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-admin_id" class="control-label col-xs-12 col-sm-2">{:__('Admin_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-admin_id" data-rule="required" data-source="admin/index" data-field="nickname" class="form-control selectpage" name="row[admin_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-admin_name" class="control-label col-xs-12 col-sm-2">{:__('Admin_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-admin_name" data-rule="required" class="form-control" name="row[admin_name]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-agent_id" class="control-label col-xs-12 col-sm-2">{:__('Agent_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-agent_id" data-rule="required" data-source="agent/index" class="form-control selectpage" name="row[agent_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-agent_name" class="control-label col-xs-12 col-sm-2">{:__('Agent_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-agent_name" data-rule="required" class="form-control" name="row[agent_name]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-before_money" class="control-label col-xs-12 col-sm-2">{:__('Before_money')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-before_money" data-rule="required" class="form-control" name="row[before_money]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-settlement_money" class="control-label col-xs-12 col-sm-2">{:__('Settlement_money')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-settlement_money" data-rule="required" class="form-control" name="row[settlement_money]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-after_money" class="control-label col-xs-12 col-sm-2">{:__('After_money')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-after_money" data-rule="required" class="form-control" name="row[after_money]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-remark" class="control-label col-xs-12 col-sm-2">{:__('Remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-remark" data-rule="required" class="form-control " rows="5" name="row[remark]" cols="50"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

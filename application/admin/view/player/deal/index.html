@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>测试脚本</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="__CDN__/static/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md5">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>加钱\房卡\钻石(负数减钱)</legend>
+            </fieldset>
+            <form class="layui-form layui-form-pane" action="?do=addMoney" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">MID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="mid" autocomplete="off" placeholder="请输入MID" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">平台</label>
+                    <div class="layui-input-inline">
+                        <select name="sid" lay-verify="required">
+                            <option value="">请选择平台</option>
+                            <option value="10001">10001【线上】</option>
+                            <option value="10002">10002【线下】</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数量</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="money" autocomplete="off" placeholder="请输入数量" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类型</label>
+                    <div class="layui-input-inline">
+                        <select name="sendType" lay-verify="required">
+                            <option value="">请选择金币类型</option>
+                            <option value="1">金币</option>
+                            <option value="3">房卡</option>
+                            <option value="2">钻石</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">立即提交</button>
+            </form>
+        </div>
+
+        <div class="layui-col-md5 layui-col-md-offset2">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>加道具</legend>
+            </fieldset>
+
+            <form class="layui-form layui-form-pane" action="?do=addTool" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">MID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="mid" autocomplete="off" placeholder="请输入MID" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">平台</label>
+                    <div class="layui-input-inline">
+                        <select name="sid"  lay-verify="required">
+                            <option value="">请选择平台</option>
+                            <option value="10001">10001【线上】</option>
+                            <option value="10002">10002【线下】</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">道具卡</label>
+                    <div class="layui-input-inline cardlist">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" >数量</label>
+                    <div class="layui-input-block">
+                        <input type="text"lay-verify="required" name="addtool_num" autocomplete="off" placeholder="请输入数量" class="layui-input">
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">立即提交</button>
+            </form>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md5">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>清理道具</legend>
+            </fieldset>
+            <form class="layui-form layui-form-pane" action="?do=delTool" method="POST">
+                <div class="layui-form-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">MID</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mid" autocomplete="off" placeholder="请输入MID" lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">平台</label>
+                        <div class="layui-input-inline">
+                            <select name="sid" lay-verify="required">
+                                <option value="">请选择平台</option>
+                                <option value="10001">10001【线上】</option>
+                                <option value="10002">10002【线下】</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">ToolID</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="toolIds" autocomplete="off" placeholder="请输入道具ID,0清空所有道具，多个用英文','分隔"
+                                   class="layui-input" lay-verify="required|number">
+                        </div>
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">清除</button>
+            </form>
+        </div>
+
+
+        <div class="layui-col-md5 layui-col-md-offset2">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>清理邮件</legend>
+            </fieldset>
+
+            <form class="layui-form layui-form-pane" action="?do=delMsg" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">MID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="mid" autocomplete="off" placeholder="请输入MID,为空时清所有人的" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">平台</label>
+                    <div class="layui-input-inline">
+                        <select name="sid" lay-verify="required">
+                            <option value="">请选择平台</option>
+                            <option value="10001">10001【线上】</option>
+                            <option value="10002">10002【线下】</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">清除</button>
+            </form>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md5">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>跑马灯-发广播</legend>
+            </fieldset>
+            <form class="layui-form layui-form-pane" action="?do=sendCliMsg" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">消息内容</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="msg" autocomplete="off" placeholder="来吧，让玩家听到你的心声" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类型</label>
+                        <div class="layui-input-inline">
+                            <select name="type">
+                                <option value="">请选择平台类型</option>
+                                <option value="1">线上</option>
+                                <option value="2">线下</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">发送</button>
+            </form>
+        </div>
+        <div class="layui-col-md5 layui-col-md-offset2">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>手机验证获取</legend>
+            </fieldset>
+            <form class="layui-form layui-form-pane" action="?do=getSmsCode" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="mobile" autocomplete="off" placeholder="国内手机号码" class="layui-input">
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">获取</button>
+            </form>
+        </div>
+    </div>
+    <div class="layui-row">
+
+        <div class="layui-col-md5">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>玩家订单状态</legend>
+            </fieldset>
+            <div style="display:none" id="order-list">
+                <table class="layui-table" lay-data="{height:315, page:true, id:'idTest'}"   lay-filter="order">
+                    <thead>
+                    <tr>
+                        <th lay-data="{field:'pid', width:200, sort: true}">订单ID</th>
+                        <th lay-data="{field:'orderTime', width:200}">下单时间</th>
+                        <th lay-data="{field:'pstatus', width: 200, templet: '#statusTpl'}">状态</th>
+                        <th lay-data="{fixed: 'right', width:160, align:'center', toolbar: '#barDemo'}"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <form class="layui-form layui-form-pane" action="?do=searchOrder" method="POST" id="order">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">MID</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="mid" autocomplete="off" placeholder="请输入玩家id获取订单状态" lay-verify="required" class="layui-input" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">平台</label>
+                    <div class="layui-input-inline">
+                        <select name="sid" lay-verify="required">
+                            <option value="">请选择平台</option>
+                            <option value="10001">10001【线上】</option>
+                            <option value="10002">10002【线下】</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">获取</button>
+            </form>
+        </div>
+        <div class="layui-col-md5 layui-col-md-offset2">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>清除账号</legend>
+            </fieldset>
+            <form class="layui-form layui-form-pane" action="?do=delUser" method="POST"  >
+                <div class="layui-form-item">
+                    <label class="layui-form-label">MID</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="mid" autocomplete="off" placeholder="请输入MID" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">平台</label>
+                    <div class="layui-input-inline">
+                        <select name="sid" lay-verify="required">
+                            <option value="">请选择平台</option>
+                            <option value="10001">10001【线上】</option>
+                            <option value="10002">10002【线下】</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="layui-btn" lay-submit="" lay-filter="*">清理</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="__CDN__/static/layui.js"></script>
+<script>
+  layui.use(['form','element','table'], function(){
+    var form = layui.form;
+    var $ = layui.jquery
+      ,element = layui.element
+      ,table = layui.table;
+    $(document).on("click", ".append", function () {
+      var rel = parseInt($(this).closest("div.layui-input-block").attr("rel")) + 1;
+      console.log(rel);
+      var name = $(this).closest("div.layui-input-block").data("name");
+      $(this).closest("div.layui-input-block").attr("rel", rel);
+      $('<div class="layui-input-block" style="clear:both"><div class="layui-input-inline" style="width: 100px;">' +
+        '<input type="text" name="' + name + '[' + rel + '][id]" placeholder="奖励ID" autocomplete="off" class="layui-input"></div>' +
+        '<div class="layui-form-mid">-</div>' +
+        '<div class="layui-input-inline" style="width: 100px;">' +
+        '<input type="text" name="' + name + '[' + rel + '][num]" placeholder="数量" autocomplete="off" class="layui-input"> </div>' +
+        '<span class="layui-btn layui-btn-small layui-btn-normal btn-remove" style="cursor: pointer"><i class="layui-icon">&#xe640;</i></span></div>').appendTo($(this).parent().parent().parent());
+
+    });
+    $(document).on("click", "div.layui-input-block .btn-remove", function () {
+      $(this).parent().remove();
+    });
+
+    request('/player/deal',{"do":"getToolConfig"},function (ret) {
+      var data = ret.hasOwnProperty("data") && ret.data != "" ? ret.data : null;
+      var msg = ret.hasOwnProperty("msg") && ret.msg != "" ? ret.msg : "";
+      if (ret.code === 1) {
+        var html = new Array();
+        html.push('<select name="addtool_card">');
+        html.push('<option value="">请选择道具</option>');
+        for(var tool in data){
+          html.push('<option value="'+tool+'">'+data[tool]+'-'+tool+'</option>');
+        }
+        html.push('</select>');
+        $('.cardlist').append(html.join(''));
+        form.render(); //更新全部
+      }else{
+        layer.msg('未知错误', {
+          time: 2000, //20s后自动关闭
+        });
+      }
+    });
+
+    var mid = GetQueryString('mid') || '';
+    console.log(window.location.search);
+    console.log(mid);
+    $('input[name=mid]').val(mid);
+
+
+    //监听提交
+    form.on('submit(*)', function (data) {
+      var url = data.form.action.replace('test.php','handle.php');
+      var doAction,doAct;
+      var actRule = new RegExp(/\?do=(.*)$/);
+      doAct = (doAction = actRule.exec(url))  ? doAction[1] : null;
+      var post = data.field;
+      request(url,post,function (ret) {
+        var data = ret.hasOwnProperty("data") && ret.data != "" ? ret.data : null;
+        var msg = ret.hasOwnProperty("msg") && ret.msg != "" ? ret.msg : "";
+        if (ret.code === 1) {
+          layer.msg(msg, {
+            time: 2000, //20s后自动关闭
+          });
+        }else{
+          if(doAct== 'searchOrder'){
+            $('#order-list').toggle();
+            //上述方法等价于
+            table.reload('idTest', {
+              url: '/player/deal?do=searchOrder',
+              method: 'post', //如果无需自定义HTTP类型
+              where: { //设定异步数据接口的额外参数，任意设
+                mid: $('#order input[name=mid]').val(),
+                sid: $('#order select[name=sid]').val(),
+              }
+            });
+          }else{
+            layer.msg(msg ? msg : '未知错误', {
+              time: 2000, //20s后自动关闭
+            });
+          }
+
+
+        }
+      });
+      return false;
+    });
+
+    table.on('tool(order)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+      var data = obj.data //获得当前行数据
+        ,layEvent = obj.event; //获得 lay-event 对应的值
+      var  orderid = data.pid;
+      if(layEvent === 'send'){
+        request('/player/deal?do=manualOrder',{"sn":orderid},function(ret){
+          var data = ret.hasOwnProperty("data") && ret.data != "" ? ret.data : null;
+          var msg = ret.hasOwnProperty("msg") && ret.msg != "" ? ret.msg : "";
+          if (ret.code === 1) {
+            layer.msg('<span style="color:greenyellow">'+msg+'</span>');
+            table.reload('idTest', {
+              url: '/player/deal?do=searchOrder',
+              method: 'post', //如果无需自定义HTTP类型
+              where: { //设定异步数据接口的额外参数，任意设
+                mid: $('#order input[name=mid]').val(),
+                sid: $('#order select[name=sid]').val(),
+              }
+            });
+          }else{
+            layer.msg('<span style="color:red">'+msg+'</span>');
+          }
+        })
+
+      } else{
+        layer.msg('发货失败');
+      }
+    });
+
+    function request(url,post,callback) {
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: post,
+        dataType:"json",
+        success: callback ,
+        error: function (data) {
+          alert("error:" + data);
+        }
+      });
+    }
+
+    function GetQueryString(name)
+    {
+      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      console.log(r);
+      if(r!=null && r[2] &&  r[2].toString().length>1)return  decodeURI(r[2]);
+      return '';
+    }
+  });
+
+
+
+
+
+</script>
+<script type="text/html" id="barDemo">
+    {{#  if(d.pstatus == 1){ }}
+    {{#  } else { }}
+    <a class="layui-btn layui-btn-primary layui-btn-mini"  lay-event="send">发货</a>
+    {{#  } }}
+</script>
+<script type="text/html" id="statusTpl">
+    {{#  if(d.pstatus == 1){ }}
+    已发货
+    {{#  } else { }}
+    未发货
+    {{#  } }}
+</script>
+</html>

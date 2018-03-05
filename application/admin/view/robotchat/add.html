@@ -1,0 +1,34 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-no" class="control-label col-xs-12 col-sm-2">{:__('No')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-no" class="form-control" name="row[no]" type="text" value="" data-rule="required;" placeholder="游戏id+3位数,游戏id[炸金花:1001,龙虎斗:1002,欢乐牛牛:1003,斗地主:1004,麻将:1005]">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-quest" class="control-label col-xs-12 col-sm-2">{:__('Quest')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-quest" class="form-control" name="row[quest]" type="text" value="" data-rule="required">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-anser" class="control-label col-xs-12 col-sm-2">{:__('Anser')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-anser" class="form-control " rows="5" name="row[anser]" data-rule="required" cols="50"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-keyword" class="control-label col-xs-12 col-sm-2">{:__('Keyword')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-keyword" class="form-control" name="row[keyword]" data-rule="required" type="text" placeholder="关键字，多个请用英文逗号隔开">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

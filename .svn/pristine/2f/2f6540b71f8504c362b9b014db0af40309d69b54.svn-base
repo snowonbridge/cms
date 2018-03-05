@@ -1,0 +1,84 @@
+<form id=“tpl” onsubmit="bagcopy.submit();return false">
+	<table class="myTable left">
+		<tr>
+			<td class="myTableLeft">目标站点：</td>
+			<td id="tosid"></td>
+		</tr>
+		<tr>
+			<td>活动ID：</td>
+			<td id="actIdList"></td>
+		</tr>
+		<tr>
+			<td>Wmode：</td>
+			<td><span id="wmodeObj">{$TPL.selectsInit()$}</span></td>
+		</tr>
+		<tr>
+			<td>礼包ID：</td>
+			<td><textarea class="w5" name="bagid" must="请输入“礼包ID”">{$bag._copy$}</textarea></td>
+		</tr>
+	</table>
+	<div class="myBtns"><input type="submit" value="确定复制" /></div>
+	<div id="errorMsg" style="color:red; text-align:center"></div>
+</form>
+<script>
+var bagcopy = new function(){
+	var NS = 'bagcopy', I = {
+	def: '=请选择目标站点=',
+	init: function(){
+		$o('#actIdList').html(I.actArr());
+		$.getScript(PATH.$wmode, function(){//异步加载wmode列表
+			var s = MY.sidstr.split(','), d = {0:I.def};
+			$.each(s, function(i, o){
+				d[o] = o +' - '+ L.S[o];
+			});
+			$o('#tosid').html(COMM.getSelect('tosid', d, '', ' onchange="'+ NS +'.getActArr(this)"'));
+			$o('form').loadData();
+			Wmode.init({height:228});
+		});
+	},
+	actArr: function(){
+		var actArr = vars.api == 2 ? VAR.mbactMap : VAR.actArr;
+		if(actArr){
+			var s = {};
+			$.each(actArr, function(i, o){
+				s[i] = i +'-'+ o;
+			});
+			return COMM.getSelect('cid', s, '<option value="">==请选择所属活动==</option>', 'must="==请选择所属活动=="')
+		}else{
+			return '-';
+		}
+	},
+	getActArr: function(obj){
+		if(!I.actArrTmp) I.actArrTmp = {};
+		var sid = $o('[name=tosid]').val(), tmp;
+		if(!I.actArrTmp[S.id]) I.actArrTmp[S.id] = VAR.actArr;
+		if(I.actArrTmp[sid]){
+			VAR.actArr = I.actArrTmp[sid];
+			tmp = I.actArr();
+			$o('#actIdList').html(tmp);
+			tmp && (VAR.actArr = I.actArrTmp[S.id]);
+		}else{
+			$.getScript(PATH.data +'act/'+ sid +'.js?'+ COMM.version('actArr'), function(){
+				tmp = I.actArr();
+				$o('#actIdList').html(tmp);
+				tmp && (I.actArrTmp[sid] = VAR.actArr) && (VAR.actArr = I.actArrTmp[S.id]);
+			});
+		}
+	},
+	submit:function(){//发放礼包
+		var f = new Form(RIGHT);
+		if(!f.check()) return;
+		if(f.data.tosid < 1) return Msg.err(I.def);
+		f.data.bagid = f.data.bagid.replace(/[\r|\n|，]/g,',');
+		Msg.doing();
+		$.JSON(CGI.bag +'?cmd='+NS, f.data, function(ret){
+			Msg.close();
+			COMM.suc(ret,function(){
+				WIN[0].close();
+				P.ref();
+			});
+		});
+	}
+	};return I;
+};
+</script>

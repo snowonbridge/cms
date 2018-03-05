@@ -1,0 +1,26 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: soulgame0089
+ * Date: 2017/9/9
+ * Time: 10:48
+ */
+
+
+
+
+#####################============#################
+//获取安全码
+function _sign(){
+    o::$admin = o('login')->get();
+    if(!o::$admin) cms::callback('notLogin');
+    $ret = o('login')->cmsKey();
+    cms::ret($ret);
+}
+//安全密要
+public function cmsKey($type = ''){
+    $arr = array('by_sid'=>(string)cms::getSid(),'by_uid'=>(string)o::$admin['id'],'by_api'=>(string)o::$api);
+    $arr = cms::by_key('get', $arr);
+    if($type == 'json') $arr = json_encode($arr);
+    return $arr;
+}

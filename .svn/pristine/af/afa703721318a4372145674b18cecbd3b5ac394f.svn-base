@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'Cate_name'  =>  '活动名称',
+    'Cate_desc'  =>  '活动说明',
+    'Status'  =>  '禁用@1启用,2禁用',
+    'Activity_id'  =>  '活动id',
+    'Parent_id'  =>  '父级目录id,顶级为0',
+    'Activity_type'  =>  '活动类型',
+    'Sort_value'  =>  '权重值'
+];

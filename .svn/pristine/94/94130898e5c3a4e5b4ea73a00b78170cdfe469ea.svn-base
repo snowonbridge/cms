@@ -1,0 +1,379 @@
+<style>
+#typeList input{padding:3px}
+.tab_texas input{border:1px solid #ccc}
+.noBorder,.noBorder td{border:0}
+#dataObj .myTableTitle td i{margin:0}
+#bagData tr.on{background:#eef3fa!important}
+#bagData td{padding:5px}
+</style>
+<table id="tpl_base" style="display:none">
+	<!--<tbody id="baseObj">
+		<tr>
+			<td class="myTableLeft"><t>抽奖：</t><input type="hidden" name="[key][type]" value="base" title="综合属性" /></td>
+			<td width="40%">{luck|bagform.tplSelect_[key][luck],luck}{$SYS.help('是否是抽奖类型礼包。')$}
+				抽中项：<input name="[key][lucknum]" value="{lucknum}" size="1" onkeyup="COMM.autoInt(this)" />{$SYS.help('默认为1项。')$}
+			</td>
+			<td class="myTableLeft"><t>金币明细：</t></td>
+			<td><input name="[key][wmode]" value="{wmode}" size="10" must="请输入wmode" onkeyup="COMM.autoInt(this)"/>{$SYS.help('用于金币明细(winlog)统计。')$}</td>
+		</tr>
+		<tr>
+			<td><t>限量：</t></td>
+			<td>{$bag._limit$}</td>
+			<td><t>概率：</t></td>
+			<td>
+				<span class="tab_texas"><input name="[key][percent]" value="{percent}" size="1" onkeyup="COMM.autoInt(this,1)" /><u>%</u></span>
+				，测试环境：<span class="tab_test"><input name="[key][test_percent]" value="{test_percent}" size="1" onkeyup="COMM.autoInt(this,1)" /><u>%</u></span>
+				{$SYS.help('百分比，获得此礼包的概率；&#13l注意：非抽奖礼包若输入0%无意义。')$}
+			</td>
+		</tr>
+		<tr>
+			<td><t>新活动：{$SYS.help('新活动框架专用，请注意，综合属性里若存在任意一项，子项配置将被忽略。')$}</t></td>
+			<td style="padding:0">
+				<table class="noBorder">
+					<tr>
+						<td>{xlb|bagform.tplXlb_[key]}</td>
+					</tr>
+				</table>
+				<div id="base_more" style="position:absolute;top:38px;right:0">
+					<a title="点击切换显示/隐藏" onclick="$(this).next().show()" style="display:block;text-align:right;color:blue;font-weight:bold" class="zh">综合属性其它配置>></a>
+					<div style="display:none;border:1px solid blue;position:absolute;right:0;top:-7px;background:#fff;width:700px">
+						<a onclick="$(this).parent().hide()" style="position:absolute;right:0;top:0;border:1px solid blue;top:-1px;right:-1px;padding:5px 10px;background:#fff;color:red">返回</a>
+						<table class="myTable">
+							<tr>
+								<td>有效期：</td>
+								<td>
+									<input onclick="D.init(this)" name="[key][start]" readonly="true" value="{start|TPL.date}" />
+									<input onclick="D.init(this)" name="[key][end]" readonly="true" value="{end|TPL.date}" />
+								</td>
+								<td>注册时间：</td>
+								<td><input onclick="D.init(this)" name="[key][mtime]" readonly="true" value="{mtime|TPL.date}" />{$SYS.help('针对此时间之前注册的用户。')$}</td>
+							</tr>
+							<tr>
+								<td>等级限制：</td>
+								<td><input name="[key][leval]" value="{leval}" onkeyup="COMM.autoInt(this)" />{$SYS.help('针对大于等于此值的用户。')$}</td>
+								<td>会员等级：</td>
+								<td><input name="[key][vip]" value="{vip}" onkeyup="COMM.autoInt(this)" />{$SYS.help('针对VIP用户等级')$}</td>
+							</tr>
+							<tr>
+								<td>连接符：</td>
+								<td colspan="3"><input name="[key][andstr]" value="{andstr}" />{$SYS.help('子顶中多个“名称”的连接符，名称中使用标签#0来动态获取所获得的内容。')$}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</td>
+			<td><t>扩展属性：</t></td>
+			<td colspan="3" class="extend" key="[key]">{id|bagform.tplExtend_[key],base}</td>
+		</tr>
+	</tbody>-->
+</table>
+<div id="tpl"><!--
+	<table class="myTable left notBgCg">
+		{cid|TPL.catalog_VAR.actArr,1,colspan:3}
+		<tr>
+			<td><t>{$lang('name')$}：</t></td>
+			<td colspan="3"><input name="name" value="{name}" must="{$l(L.must,[L.name])$}" size="60" />{bid|bagform.bid}
+		</tr>
+		{data|bagform.tplBase}
+	</table>
+	<div id="typeList" style="border-top:1px solid #333;padding:5px"></div>
+	<div id="dataSel" style="padding:0 0 5px 5px">
+		<t>翻译切换：</t><span></span>
+		<t>显示选项：</t><span></span>{$SYS.help('请注意：此功能仅仅是显示与隐藏切换，不会真实影响配置的数值！')$}
+	</div>
+	<div id="dataObj" style="width:0px;height:0px;overflow:auto;border-right:1px solid #ccc">
+		<table class="myTable left notBgCg">
+			<tr class="myTableTitle" height="25" style="font-weight:bold">
+				<td width="30" style="text-align:center" title="选中状态下，可以直接删除，不需要确认；&#13;默认是未选中状态，删除操作需要确认。">
+					<input type="checkbox" name="delConfirm" />
+				</td>
+				<td width="55">类型</td>
+				<td width="200">值</td>
+				<td width="180" class="tp_random">随机{$SYS.help('随机：最小值-最大值；')$}</td>
+				<td width="180" class="tp_enum">枚举{$SYS.help('请输入等比例随机出现的多种组合，使用半角逗号分隔。')$}</td>
+				<td width="180" class="tp_attr">其它属性</td>
+				<td width="90">前台名称{$SYS.help('用于显示描述。随机使用#0，例：遊戲幣#0；&#13;多语言情况下，可以通过【翻译切换】选项进行切换显示；&#13;自动翻译配置在：系统>语言包管理>礼包系统名称翻译；应用码为：diyLang_L,bag2lang。')$}</td>
+				<td width="80" class="tp_lc">LC名称{$SYS.help('用于LC统计描述，默认值“名称”。')$}</td>
+				<td width="50" class="tp_percent">概率{$SYS.help('百分比，获得此项奖励的概率。')$}</td>
+				<td width="50" class="tp_pto" title="请输入限量条件满足后，概率转移项的“ID”。">概率转移</td>
+				<td width="30" class="tp_id">ID</td>
+				<td width="60" class="tp_limit0">单人限量</td>
+				<td width="60" class="tp_limit2">全员限量</td>
+				<td width="65" class="tp_wmode">金币明细</td>
+				<td width="160" class="tp_xlb">广播/通知</td>
+				<td width="60" class="tp_notice">动态时报</td>
+				<td width="90" class="tp_tool">活动道具</td>
+				<td width="80" class="tp_cback">回调</td>
+				<td width="170" class="tp_extend">扩展属性</td>
+				<td width="80" class="tp_log">前台展示{$SYS.help('需要展示给用户看的日志，通常是实体大奖。前台通过oo::bag(aid)->getBagLog来查询。&#13;注意：已弃用！！！')$}</td>
+				<td></td>
+			</tr>
+			<tbody id="bagData">{data|bagform.tplData}</tbody>
+		</table>
+	</div>
+	<div class="myBtns pr">
+		<div class="pa" style="left:10px;top:5px;text-align:left">
+			<span style="color:blue">蓝色边框部分为测试数据，为空则以正式数据为准；</span><br>
+			<b style="color:red">数据无价，修改有风险，操作需谨慎！</b>
+		</div>
+		<input type="button" value="{$L.btn.submit$}" class="app" fun="bagform.submit" />
+		<input type="button" value="刷新名称" class="app" fun="bagform.refName" title="从其它平台复制礼包后可通过此功能批量修正此礼包的各项名称" />
+		{$SYS.help('语言包-&gt;后台-&gt;礼包系统(L.bag.type.*)进行管理；&#13;只支持部分项，可自行新增项；')$}
+		<input name="id" value="{id}" type="hidden" />
+	</div>-->
+</div>
+
+{$bag._chips('money','游戏币','',S._blowup)$}
+{$bag._chips('byb','博雅币')$}
+{$bag._chips('ingot','壕卡')$}
+{$bag._chips('fame','人气')$}
+{$bag._chips('exp','经验')$}
+{$bag._chips('startkt','星券')$}
+{$bag._chips('rongyu','荣誉')$}
+{$bag._chips('integral','积分','类型编号：<input name="[key][ilmode]" value="{ilmode}" must="请输入积分类型编号" onkeyup="COMM.autoInt(this)" style="width:60px" />')$}
+{$bag._chips('liquan','礼券','类型编号：<input name="[key][lqmode]" value="{lqmode}" size="10" must="请输入发放类型编号" onkeyup="COMM.autoInt(this)" style="width:60px" />')$}
+
+<table style="display:none">
+	<tr id="tpl_comm">
+		<td>{$langfixs.tpl('<div class="lang#lang"><input name="[key][name#lan]" value="{name#lan}" must="请输入名称" placeholder="#tit" title="#tit" style="width:95%" /></div>','')$}</td>
+		<td class="tp_lc"><input name="[key][lc]" value="{lc}" style="width:95%" /></td>
+		<td class="tp_percent">
+			<div class="tab_texas"><input name="[key][percent]" value="{percent}"  style="width:30px" onkeyup="COMM.autoInt(this,1)" /><u>%</u></div>
+			<div class="tab_test"><input name="[key][test_percent]" value="{test_percent}"  style="width:30px" onkeyup="COMM.autoInt(this,1)" /><u>%</u></div>
+		</td>
+		<td class="tp_pto">
+			<div class="tab_texas"><input name="[key][pto]" value="{pto}" style="width:95%" onkeyup="COMM.autoInt(this)"/></div>
+			<div class="tab_test"><input name="[key][test_pto]" value="{test_pto}" style="width:95%" onkeyup="COMM.autoInt(this)"/></div>
+		</td>
+		<td class="tp_id"><input name="[key][id]" value="{id}" style="width:95%" must="请输入编号" onkeyup="COMM.autoInt(this)" size="1" /></td>
+		<td class="tp_limit0">{$bag._limit1$}</td>
+		<td class="tp_limit2">{$bag._limit2$}</td>
+		<td class="tp_wmode"><input name="[key][wmode]" value="{wmode}" style="width:95%" onkeyup="COMM.autoInt(this)" /></td>
+		<td class="tp_xlb">{xlb|bagform.tplXlb_[key]}</td>
+		<td class="tp_extend extend" key="[key]">{id|bagform.tplExtend_[key],br}</td>
+		<td class="tp_log">{log|bagform.tplSelect_[key][log],log}</td>
+		<td></td>
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_levels">
+		<td>头衔<input type="hidden" name="[key][type]" value="levels" title="头衔" /></td>
+		<td title="0表示永久有效，不填表示使用默认天数，大于0表示指定天数">
+			<span class="levels">{val|COMM.checkpack_levels,[key][val]}</span>×
+			<input name="[key][num]" value="{num}" size="5" onkeyup="bagform.autoName(this);COMM.autoInt(this)" />天
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_nothing">
+		<td>空值<input type="hidden" name="[key][type]" value="nothing" title="空值" /></td>
+		<td></td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_corona">
+		<td>登场<br>特效<input type="hidden" name="[key][type]" value="corona" title="登场特效" /></td>
+		<td>{val|bagform.tplSelect_[key][val],corona} × <input name="[key][num]" value="{num}" size="5" must="请输入有效天数" onkeyup="COMM.autoInt(this)" />天</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_real">
+		<td>实体<input type="hidden" name="[key][type]" value="real" title="实体" /></td>
+		<td>
+			<span>{val|COMM.checkpack_real,[key][val]}</span>
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr">等值游戏币：<br><input name="[key][price]" value="{price}" onkeyup="COMM.autoInt(this)" title="活动发放会按此值累计发放资源，此价格在实体管理处进行管理，记得要点发布哦！" /></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_gift">
+		<td>礼物<input type="hidden" name="[key][type]" value="gift" title="礼物" /></td>
+		<td>
+			<span>{val|COMM.checkpack_gift,[key][val]}</span> × <input name="[key][num]" value="{num}" size="5" must="请输入礼物天数" onkeyup="bagform.autoName(this);COMM.autoInt(this)" />天
+		</td>
+		<td class="tp_random">
+			{random2|bagform.tplSelect_[key][random2],gift}{$SYS.help('请输入礼物价格最小与最大取值范围。')$}<br>
+			<div class="tab_texas">
+				<input name="[key][random0]" value="{random0}" title="最小值" onkeyup="COMM.autoInt(this)" style="width:30%" />-
+				<input name="[key][random1]" value="{random1}" title="最大值" onkeyup="COMM.autoInt(this)" style="width:30%" />
+			</div>
+			<div class="tab_test">
+				<input name="[key][test_random0]" value="{test_random0}" title="最小值" onkeyup="COMM.autoInt(this)" style="width:30%" />-
+				<input name="[key][test_random1]" value="{test_random1}" title="最大值" onkeyup="COMM.autoInt(this)" style="width:30%" />
+			</div>
+		</td>
+		<td class="tp_enum">
+			<div class="tab_texas"><span>{enum|COMM.checkpack_gift,[key][enum]}</span></div>
+			<div class="tab_test"><span>{test_enum|COMM.checkpack_gift,[key][test_enum]}</span></div>
+		</td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_score">
+		<td>积分<br>礼物<input type="hidden" name="[key][type]" value="score" title="积分礼物" /></td>
+		<td>
+			<div class="tab_texas"><input name="[key][val]" value="{val}" onkeyup="COMM.autoInt(this)" /></div>
+			<div class="tab_test"><input name="[key][test_val]" value="{test_val}" onkeyup="COMM.autoInt(this)" /></div>
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum">
+			<div class="tab_texas"><input name="[key][enum]" value="{enum}" style="width:95%" /></div>
+			<div class="tab_test"><input name="[key][test_enum]" value="{test_enum}" style="width:95%" /></div>
+		</td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_prop">
+		<td>道具<input type="hidden" name="[key][type]" value="prop" title="道具" /></td>
+		<td>{val|COMM.checkpack_prop,[key][val]}</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"><span>{enum|COMM.checkpack_prop,[key][enum]}</span></td>
+		<td class="tp_attr">
+			立即使用：{use|bagform.tplSelect_[key][use],use}<br>
+			赠送附品：{ogifts|bagform.tplSelect_[key][ogifts],ogifts}<br>
+			有效期：<input onclick="D.init(this)" name="[key][end]" readonly="true" value="{end|TPL.date}" placeholder="默认永远有效" style="width:100px" /><br>
+			有效天数：<input name="[key][end2]" value="{end2}" onkeyup="COMM.autoInt(this)" placeholder="优先有效期" style="width:88px" />
+		</td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_vip">
+		<td>VIP特权<input type="hidden" name="[key][type]" value="vip" title="VIP特权" /></td>
+		<td>
+			{val|bagform.tplSelect_[key][val],vip} × <input name="[key][num]" value="{num}" size="5" must="请输入VIP天数" onkeyup="bagform.autoName(this);COMM.autoInt(this)" />天
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_face">
+		<td>表情包<input type="hidden" name="[key][type]" value="face" title="表情包" /></td>
+		<td>
+			{val|bagform.tplSelect_[key][val],face} × <input name="[key][num]" value="{num}" size="5" must="请输入表情包天数" onkeyup="bagform.autoName(this);COMM.autoInt(this)" />天
+			<br><a class="app" fun="diyLang_L,bag" class="admin" title="进入语言包管理界面后，标签搜索“face”">[管理选项]</a>
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_interact">
+		<td>互动<br>道具<input type="hidden" name="[key][type]" value="interact" title="互动道具" /></td>
+		<td>
+			<div class="tab_texas"><input name="[key][val]" value="{val}" onkeyup="bagform.autoName(this);COMM.autoInt(this)" style="width:60%" />次</div>
+			<div class="tab_test"><input name="[key][test_val]" value="{test_val}" onkeyup="COMM.autoInt(this)" style="width:60%" /></div>
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr">
+			超级道具：<br>
+			{propid|bagform.tplSelect_[key][propid],superInter} × <input name="[key][supernum]" value="{supernum}" size="5" onkeyup="COMM.autoInt(this)"/>次
+		</td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_collects">
+		<td>幸运<br>玩偶<input type="hidden" name="[key][type]" value="collects" title="幸运玩偶" /></td>
+		<td>
+			<span>{val|COMM.checkpack_collects,[key][val]}</span> × <input name="[key][num]" value="{num}" size="5" must="请输入幸运玩偶个数" onkeyup="bagform.autoName(this);COMM.autoInt(this)"/>个
+		</td>
+		<td class="tp_random">
+			<div class="tab_texas">
+				<input name="[key][random0]" value="{random0}" title="最小值" onkeyup="COMM.autoInt(this)" style="width:30%" />-
+				<input name="[key][random1]" value="{random1}" title="最大值" onkeyup="COMM.autoInt(this)" style="width:30%" />
+			</div>
+			<div class="tab_test">
+				<input name="[key][test_random0]" value="{test_random0}" title="最小值" onkeyup="COMM.autoInt(this)" style="width:30%" />-
+				<input name="[key][test_random1]" value="{test_random1}" title="最大值" onkeyup="COMM.autoInt(this)" style="width:30%" />
+			</div>
+		</td>
+		<td class="tp_enum"><span>{enum|COMM.checkpack_collects,[key][enum]}</span></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_bag">
+		<td>子礼包<input type="hidden" name="[key][type]" value="bag" title="子礼包" /></td>
+		<td><input name="[key][val]" value="{val}" placeholder="多个礼包使用逗号分隔" />{bagtype|bagform.tplSelect_[key][bagtype],bagtype}</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_mycard">
+		<td>MyCard<input type="hidden" name="[key][type]" value="mycard" title="MyCard" /></td>
+		<td>{val|bagform.tplSelect_[key][val],mycard}</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr">消息编号：<input name="[key][msgid]" value="{msgid}" onkeyup="COMM.autoInt(this)" placeholder="消息中心通知编号" size="12" /></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_bycard">
+		<td>ByCard<input type="hidden" name="[key][type]" value="bycard" title="博雅卡" /></td>
+		<td>{val|bagform.tplSelect_[key][val],bycard}</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr">消息编号：<input name="[key][msgid]" value="{msgid}" onkeyup="COMM.autoInt(this)" placeholder="消息中心通知编号" size="12" /></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_vcard">
+		<td>虚拟卡<input type="hidden" name="[key][type]" value="vcard" title="虚拟卡" /></td>
+		<td>{val|bagform.tplVcard_[key]}</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr">消息编号：<input name="[key][msgid]" value="{msgid}" onkeyup="COMM.autoInt(this)" placeholder="消息中心通知编号" size="12" /></td>
+		<!--[comm]-->
+	</tr>
+</table>
+<table style="display:none">
+	<tr id="tpl_addchips">
+		<td>加赠券<input type="hidden" name="[key][type]" value="addchips" title="加赠券" /></td>
+		<td>
+			<div class="tab_texas">
+				<input name="[key][val]" value="{val}" onkeyup="bagform.autoName(this,'val','num');COMM.autoInt(this)" size="5" />%
+				 <i>x</i> <input name="[key][num]" value="{num}" onkeyup="bagform.autoName(this,'val','num');COMM.autoInt(this)" size="1" class="tc" />张
+			</div>
+			<div class="tab_test">
+				<input name="[key][test_val]" value="{test_val}" onkeyup="COMM.autoInt(this)" size="5" />%
+				 <i>x</i> <input name="[key][test_num]" value="{test_num}" onkeyup="COMM.autoInt(this)" size="1" class="tc" />张
+			</div>
+		</td>
+		<td class="tp_random"></td>
+		<td class="tp_enum"></td>
+		<td class="tp_attr"><input name="[key][end]" value="{end|TPL.date}" onclick="D.init(this)" readonly="true" placeholder="有效期" title="有效期" style="width:120px" /></td>
+		<!--[comm]-->
+	</tr>
+</table>

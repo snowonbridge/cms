@@ -1,0 +1,114 @@
+<?php
+
+namespace app\admin\controller;
+
+use app\common\controller\Backend;
+
+use fast\OutFile;
+use fast\SendFile;
+use think\Controller;
+use think\Request;
+
+/**
+ * 版本管理
+ *
+ * @icon fa fa-circle-o
+ */
+class Version extends Backend
+{
+
+    protected $model = null;
+
+    public function _initialize()
+    {
+        parent::_initialize();
+
+        $this->view->assign("packTypeList", $this->getPackTypeList());
+        $this->view->assign("gameidsList", $this->getGameidsList());
+        $this->view->assign("sceneList", $this->getSceneList());
+        $this->view->assign("areaList", $this->getAreaList());
+        $this->view->assign("unidList", $this->getUnidList());
+        $this->view->assign("osList", $this->getOsList());
+        $this->model = model('Version');
+    }
+
+
+
+
+    /**
+     * 发布
+     */
+    public function send($ids = "")
+    {
+        if ($ids)
+        {
+            $list = $this->model->where('id', 'in', $ids)->field('id,pidversion,packname,version,packagesize,content,downloadurl,enforce,createtime,updatetime,weigh,unid,scene,packtype,gameid,area,os,status')->select();
+            $appenv = defined('APPENV')?  APPENV : 'product';
+            $file = "cfg/".$appenv."/download.php";
+            $ret = [];
+
+            //"url" => "包地址", "size" => 包大小, "version" => 版本号,"scene"=>场景(1游戏外，2游戏中),
+            //"packType"=>包类型:apk包1,热更包2,"os"=>支持的系统,"unid"=>支持渠道,"area"=>支持的地区,"gameid"=>游戏ID,0不区分
+            foreach($list as $item){
+                $each['url'] =  (string)$item['downloadurl'];
+                $each['size'] =  (string)$item['packagesize'];
+                $each['packname'] =  (string)$item['packname'];
+                $each['version'] =  (string)$item['version'];
+                $each['remark'] =  (string)$item['content'];
+                $each['scene'] =  (int)$item['scene'];
+                $each['packType'] =  (int)$item['packtype'];
+                $each['gameid'] =  (int)$item['gameid'];
+                $each['os'] =  explode(",",(string)$item['os']);
+                $each['unid'] =  explode(",",(string)$item['unid']);
+                $each['area'] =  explode(",",(string)$item['area']);
+                $ret[]=$each;
+            }
+            $outfile = new OutFile();
+            $outfile->php($file, $ret);
+            $send = new SendFile();
+            $send->file($file, '', false,config('send_url'));
+            $this->success();
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+
+
+
+    public function getPackTypeList()
+    {
+        //包类型:apk包1,热更包2
+        return ['1' => __('PackType_1'),'2' => __('PackType_2')];
+    }
+
+    public function getGameidsList()
+    {
+        //游戏ID[1001=>'炸金花',1002=>'龙虎斗',1003=>'牛牛',1004=>'斗地主',10005=>'麻将']; 示例:{...,"param":
+        return ['0' => __('Game_0'),'1001' => __('Game_1001'),'1002' => __('Game_1002'),'1003' => __('Game_1003'),'1004' => __('Game_1004'),'1005' => __('Game_1005')];
+    }
+
+    public function getSceneList()
+    {
+        //1游戏外，2游戏中
+        return ['1' => __('Scene_1'),'2' => __('Scene_2')];
+    }
+
+
+    public function getUnidList()
+    {
+        return ['1' => __('Unid_1'),'2' => __('Unid_2')];
+    }
+
+    public function getAreaList()
+    {
+        return ['0'=>__('Area_0'),'1' => __('Area_1'),'2' => __('Area_2')];
+    }
+
+
+    public function getOsList()
+    {
+        return ['1' => __('Os_1'),'2' => __('Os_2'),'3' => __('Os_3')];
+    }
+
+
+
+}

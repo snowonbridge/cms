@@ -1,0 +1,476 @@
+<?php
+/**
+ * Copyright (c) boyaa.com
+ * Developer - 安凌志
+ * Last modify - 2012.06.02
+ * Info - 奖励发放系统
+ */
+cms::init('select');
+//insert into cms_bag (sid,cid,name,data,luck,edittime,del,uid) select 13,cid,name,data,luck,edittime,del,438 from cms_bag where id in(170,171,172,173)
+//列表
+function _select(){
+	cms::allow('bag');
+	$db = o::db('bag');
+	$where = $db->deled('cid');
+	$where[] = 'sid='.cms::$sid;
+	if(in_array(cms::$api, array(2, 13))){
+		$where[] = 'api='. cms::$api;
+	}else{
+		$where[] = 'api<2';
+	}
+	$search = array(//搜索配置，0表示不支持模糊搜索
+		'id' => 1,
+		'bid' => 1,
+		'name' => 1,
+		'edittime' => 1,
+		'sendtime' => 1,
+	);
+	$db->where($where, $search)->order('del,id desc')->limit()->data();
+	$db->setTime('edittime');
+	$db->setTime('sendtime');
+	$db->json();
+}
+
+//查看
+function _view(){
+	$id = cms::get('id');
+	$aid = cms::getInt('aid');
+	if($aid > 3000){
+		$f = DATA_ROOT.'cfg/bag_'. intval($aid/100) .'/'. $aid .'/'. $id .'.php';
+	}else if($aid && strpos($id,'b') === 0){
+		$f = DATA_ROOT.'cfg/bag/'. $aid .'/'. cms::$sid .'/'. $id .'.php';
+	}else{
+		$_id = (int)($id/1000);
+		$f = DATA_ROOT.'cfgcms/bag'. $_id .'/'. $id .'.php';
+	}
+	if(is_file($f)){
+		$ret = include($f);
+		if(is_array($ret)) $aBag[$id] = $ret;
+	}
+	if(!isset($aBag[$id])) die('<div onclick="$(\'#bagView\').remove()" title="点击关闭" style="cursor:pointer;padding:4px;background:#efefef;border-bottom:1px solid #ccc;color:red">【配置文件不存在】</div><ul style="margin-top:0;padding-left:20px"><li>对礼包进行编辑保存操作将自动生成配置文件</li><li><u>'.$f.'</u></li></ul>');
+	$base = $aBag[$id];
+	$data = $aBag[$id]['data'];
+	unset($base['data']);
+	//综合属性限量设置
+	$base['limit0'] = isset($base['limit0']) ? '，单人日：<u>'.$base['limit0'].'</u>' : '';
+	$base['limit1'] = isset($base['limit1']) ? ' 单人总：<u>'.$base['limit1'].'</u>' : '';
+	$base['limit2'] = isset($base['limit2']) ? ' 全员日：<u>'.$base['limit2'].'</u>' : '';
+	$base['limit3'] = isset($base['limit3']) ? ' 全员总：<u>'.$base['limit3'].'</u>' : '';
+	$s = '<div onclick="$(\'#bagView\').remove()" title="点击关闭" style="cursor:pointer;padding:4px;background:#efefef;border-bottom:1px solid #ccc">【'. $base['name'] .'-'. $id .'】<i>点击这里关闭</i></div><ul style="margin-top:0;padding-left:20px">';
+	$s .= '<li><b>综合属性</b> 抽奖：'. ($base['luck'] ? '<u>是</u>' : '<u>否</u>') .'，wmode：<u>'.$base['wmode'].'</u>'.$base['limit0'].''.$base['limit1'].''.$base['limit2'].''.$base['limit3'].'</li>';
+	foreach ($data as $rs){
+		//各类型限量设置
+		$rs['limit0'] = isset($rs['limit0']) ? '，单人日：<u>'.$rs['limit0'].'</u>' : '';
+		$rs['limit1'] = isset($rs['limit1']) ? '，单人总：<u>'.$rs['limit1'].'</u>' : '';
+		$rs['limit2'] = isset($rs['limit2']) ? '，全员日：<u>'.$rs['limit2'].'</u>' : '';
+		$rs['limit3'] = isset($rs['limit3']) ? '，全员总：<u>'.$rs['limit3'].'</u>' : '';
+		$rs['percent'] = isset($rs['percent']) ? '，概率：<u>'.$rs['percent'].'%</u>' : '';
+		$rs['pto'] = isset($rs['pto']) ? '，概率转移：<u>'.$rs['pto'].'</u>' : '';
+		$rs['log'] = $rs['log'] == 0 ? '' : '，启用记录日志';
+		$s .= '<li><b>'.$rs['id'].') '.(isset($rs['lc']) ? $rs['lc'] : $rs['name']).'</b><br>';
+		switch ($rs['type']){
+			case 'face':
+				$fname = $rs['val'] == 0 ? '开心宝贝' : ($rs['val'] == 1 ? '虫虫' : ($rs['val'] == 6 ? '扑克人' : '圣诞'));
+				$s .= '使用'.$fname.'<u>'.$rs['num'].'</u>天';
+				break;
+			case 'gift':
+				$gift0 = isset($rs['random2']) && ($rs['random2']==0) ? '游戏币' : '博雅币';
+				$gift1 = isset($rs['random0']) ? '随机 <u>'.$rs['random0'].'</u>-<u>'.$rs['random1'].'</u> '.$gift0 : '';
+				$s .= isset($rs['val']) ? 'ID：<u>'.$rs['val'].'</u>' : (isset($rs['enum']) ? 'ID：<u>'.$rs['enum'].'</u>' : $gift1);
+				break;
+			case 'vip':
+				$vname = $rs['val'] == 1 ? '普通VIP' : ($rs['val'] == 2 ? '银卡VIP' : ($rs['val'] == 3 ? '金卡VIP' : ($rs['val'] == 5 ? '钻石会员' : ($rs['val'] == 6 ? '白金会员' : '精英会员'))));
+				$s .= '获得'.$vname.'<u>'.$rs['num'].'</u>天';
+				break;
+			case 'prop'://道具
+				$s .= isset($rs['val']) ? '值：<u>'.$rs['val'].'</u>' : '值：<u>'.$rs['enum'].'</u>';
+				break;
+			case 'addchips'://加赠券
+				$s .= '加赠：<u>'.$rs['val'].'%</u>x'.intval($rs['num']).'张';
+				break;
+			case 'interact':
+				$s .= '使用次数为<u>'.$rs['val'].'</u>次';
+				break;
+			case 'money':
+				$s .= isset($rs['val']) ? '奖励游戏币：<u>'.$rs['val'].'</u>' : (isset($rs['enum']) ? '枚举：<u>'.$rs['enum'].'</u>' : '随机 <u>'.$rs['random0'].'</u>-<u>'.$rs['random1'].'</u>');
+				break;
+			case 'byb':
+				$s .= isset($rs['val']) ? '奖励博雅币：<u>'.$rs['val'].'</u>' : (isset($rs['enum']) ? '枚举：<u>'.$rs['enum'].'</u>' : '随机 <u>'.$rs['random0'].'</u>-<u>'.$rs['random1'].'</u>');
+				break;
+			case 'bag':
+				$bagtype = $rs['bagtype'] == 0 ? '仅获得资格' : '直接发放';
+				$s .= '礼包编号：<u>'.$rs['val'].'</u> 使用权限：<u>'.$bagtype.'</u>';
+				break;
+			case 'exp':
+				$s .= isset($rs['val']) ? '获取：<u>'.$rs['val'].'</u>经验' : (isset($rs['enum']) ? '枚举：<u>'.$rs['enum'].'</u>' : '随机 <u>'.$rs['random0'].'</u>-<u>'.$rs['random1'].'</u>经验');
+				break;
+			case 'integral':
+				$s .= isset($rs['val']) ? '获取：<u>'.$rs['val'].'</u>积分，类型编号：<u>'.$rs['ilmode'].'</u>' : (isset($rs['enum']) ? '枚举：<u>'.$rs['enum'].'</u>' : '随机 <u>'.$rs['random0'].'</u>-<u>'.$rs['random1'].'</u>积分');
+				break;
+			case 'score'://积分礼物
+				$s .= 'ID：<u>'.$rs['val'].'</u>';
+				break;
+			case 'collects':
+				$s .= 'ID：<u>'.$rs['val'].'</u>';
+				break;
+			case 'real':
+				$s .= 'ID：<u>'.$rs['val'].'</u>';
+				break;
+			case 'mycard':
+				$s .= 'mycard点数：<u>'.$rs['val'].'</u>，消息编号：<u>'.$rs['msgid'].'</u>';
+				break;
+			case 'bycard':
+				$s .= 'bycard点数：<u>'.$rs['val'].'</u>，消息编号：<u>'.$rs['msgid'].'</u>';
+				break;
+		}
+		$s .= $rs['pto'].''.$rs['percent'].''.$rs['limit0'].''.$rs['limit1'].''.$rs['limit2'].''.$rs['limit3'].' '.$rs['log'].'</li>';
+	}
+	$s .= '<i>文件：'. $f .'</i>';
+	die($s.'</ul>');
+}
+
+//编辑
+function _edit(){
+	$ac3 = cms::get('ac3');
+	if($ac3 && ($tbl = $ac3['tbl'])){
+		$tbl = o('ac3')->tblcheck($tbl);
+		$db = o::db('ac3_bag');
+	}else{
+		$tbl = 'bag';
+		$db = o::db($tbl);
+	}
+
+	if($ac3){//v3版活动
+		$fid = (int)$ac3['fid'];
+		$bid = (int)$ac3['bid'];
+		$lockid = $fid .'_b'. $bid;//用作编辑锁定
+		$db->where("tbl='$tbl' AND fid=$fid AND bid=". $bid)->one();
+		if(!$db->rs){
+			$data = array(//1万+活动编号*10+子编号
+				array('type'=>'base','wmode'=>10000+$ac3['fid']*10+1)
+			);
+			$db->rs = array(
+				'isnew' => 1,
+				'bid' => $ac3['bid'],
+				'data' => json_encode($data)
+			);
+		}
+	}elseif(($id = cms::get('id')) && strpos($id,'b') === 0){//子ID + 活动ID
+		$id = (int)str_replace('b', '', $id);
+		$aid = (int)cms::get('aid');
+		$db->where('sid='. cms::$sid .' and cid='. $aid .' and bid='.$id)->one();
+		$lockid = $cid .'_b'. $id;
+	}else{
+		$id = (int)$id;
+		$db->where('id='.$id)->one();
+		$lockid = $id;
+	}
+	if($db->rs['data']) $db->rs['data'] = json_decode($db->rs['data'], true);
+	$lockid = $tbl .'_'.$lockid;
+	o('lock')->init($db, $lockid);
+	$db->json(false);
+}
+
+//更新
+function _update(){
+	o('lock')->check();
+	$ac3 = cms::get('ac3');
+	$setValue = 'name,data,luck,edittime,uid';
+	if($ac3 && ($tbl = $ac3['tbl'])){
+		$tbl = o('ac3')->tblcheck($tbl);
+		$db = o::db('ac3_bag');
+		$ac3['bid'] = (int)$ac3['bid'];
+	}else{
+		$tbl = 'bag';
+		$db = o::db($tbl);
+		$setValue .= ',sid,cid';
+	}
+
+	$id = $db->getInt('id',0);
+	$bid = $db->getInt('bid',0);
+	$db->setValue($setValue);
+
+	if($ac3){
+		$cid = (int)$ac3['fid'];
+		if($ac3['bid'] !== $bid) $id = 0;//复制了bid
+	}else{
+		$cid = (int)$db->value['cid'];
+		if(cms::get('isImport')){//导入
+			include('./bag_import.php');
+			cms::callback(true);
+		}
+	}
+
+	$o = o('bag');
+	$db->value = (array)$o->formatValue($db->value);
+	if($id){//编辑
+		if(!$ac3) cms::allow('bag');
+		if($bid || $ac3){
+			if($ac3){
+				$sql = 'SELECT bid FROM '. DB_FIX .'ac3_bag WHERE tbl="'. $tbl .'" AND fid='. $cid .' AND bid='. $bid .' AND id<>'. $id;
+				$db->value['bid2'] = cms::getInt('bid2');
+			}else{
+				$sql = 'SELECT bid FROM '. DB_FIX .'bag WHERE sid='. cms::$sid .' AND cid='. $cid .' AND bid='. $bid .' AND bid<>0 AND id<>'. $id;
+				$db->value['api'] = cms::$api;
+			}
+			$rs = $db->one($sql);
+			if($rs && isset($rs['bid'])) cms::callback('bid='. $bid .'已经存在！');
+		}
+		$db->value['bid'] = $bid;
+		$suc = $db->update($ac3 ? 'id='. $id .' AND tbl="'. $tbl.'"' : 'id='. $id .' AND sid='. cms::$sid);
+	}else{//添加
+		if($ac3){
+			$bid = $bid ? $bid : $ac3['bid'];
+			$rs = $db->one('SELECT bid FROM '. DB_FIX .'ac3_bag WHERE tbl="'. $tbl .'" AND fid='. $cid .' AND bid='. $bid);
+			if($rs && isset($rs['bid'])) cms::callback('bid='. $bid .'已经存在！');
+
+			$db->value['tbl'] = $tbl;
+			$db->value['fid'] = $cid;
+
+		}else{
+			cms::allow('bag.add');
+			$rs = $db->one('SELECT max(bid) as bid FROM '. DB_FIX .'bag WHERE sid='. cms::$sid .' AND cid='. $cid);
+			$bid = $rs ? (int)$rs['bid']+1 : 1;
+		}
+		$db->value['bid'] = $bid;
+		if(!$ac3){
+			$db->value['api'] = cms::$api;
+			$db->value['sid'] = cms::$sid;
+			$db->value['sendtime'] = $db->value['edittime'];
+		}
+		$suc = $db->insert();
+		$id = $db->lastId();
+	}
+	//生成配置
+	if($suc && $db->value && $id && $cid && $bid){
+		$db->value['data'] = stripslashes($db->value['data']);
+		$db->value['data'] = json_decode($db->value['data'], true);
+		$temp = $o->format($db->value,false);
+		$o->cfgfile($temp, $id, $cid, $bid, $ac3);
+	}
+	if($suc){
+		$ret = array('id'=>$id);
+		if($v = $db->value['luck']) $ret['luck'] = $v;
+		if($v = $db->value['lucktest']) $ret['lucktest'] = $v;
+	}else{
+		$ret = false;
+	}
+	cms::callback($ret);
+}
+
+//概率测试
+function _rand(){
+	$total = cms::get('num', 1000);
+	$id = cms::get('id');
+	$cid = cms::get('cid');
+	if(cms::get('v3')){
+		$fix = intval($cid/100);
+		$id = 'b'. $id;
+		$f = DATA_ROOT."cfg/bag_$fix/{$cid}/{$id}.php";
+		if(!is_file($f)) die('参数错误或配置不存在');
+		$aBag = include($f);
+		if(!$aBag['luck']) die('礼包'. $id .' 并非抽奖类礼包');
+		$data = $aBag['data'];
+	}else{
+		$f = DATA_ROOT."cfg/bag/{$cid}/{$id}.php";
+		if(!is_file($f)) die('参数错误或配置不存在');
+		require($f);
+		if(!$aBag[$id]['luck']) die('礼包'. $id .' 并非抽奖类礼包');
+		$data = $aBag[$id]['data'];
+	}	
+	
+	$test = array();
+	for ($i=0;$i<$total;$i++){
+		$ret = getRand($data);
+		$test[$ret['name']]++;
+	}
+	ksort($test);
+	$s = '<table class="myTable"><tr class="myTableTitle"><td colspan="3" class="left"><b>执行<u>'. $total .'</u>次结果：</b></td></tr><tr><td>名称</td><td>次数</td><td>机率</td></tr>';
+	foreach ($test as $tit => $n){
+		$s .= '<tr><td class="left">'. $tit .'</td><td>'. $n .'</td><td>'. $n/$total*100 .'%</td></tr>';
+	}
+	$s .= '</table>';
+	die($s);
+}
+function getRand($opt, $len = 6){
+	$rand = mt_rand(0,99) + mt_rand(0,pow(10,$len))/pow(10,$len);
+	shuffle($opt);
+	$n = 0;
+	$ret = array();
+	foreach($opt as $o){
+		if(!$o['percent'] || $o['percent'] >= 100 || $o['percent'] <= 0) continue;
+		$n += $o['percent'];
+		if ( $rand <= $n ) {
+			$ret = $o;
+			break;
+		}
+	}
+	return $ret;
+}
+
+//复制礼包
+function _bagcopy(){
+	$db = o::db('bag');
+	$bagids = cms::get('bagid');
+	$cid = cms::get('cid', 'cid');
+	$wmode = cms::get('wmode');
+	$wmode = $wmode ? $wmode : cms::get('wmode2');
+	if(!$wmode) cms::callback('请输入Wmode！');
+	$bagidArr = explode(',', $bagids);
+	$sid = cms::get('tosid', cms::$sid);
+	$edittime = time();
+	$uid = cms::$admin['id'];
+	$ids = array();
+	foreach($bagidArr as $val){
+		$sql = "insert into cms_bag (sid,cid,bid,name,data,luck,edittime,del,uid,api) select '".$sid."','". $cid ."',bid,name,data,luck,'".$edittime."',del,'".$uid."',api from cms_bag where id=".$val;
+		$db->query($sql);
+		$id = $db->lastId();
+		array_push($ids,$id);
+	}
+	foreach ($ids as $v){//复制礼包同时提交LC注册
+		$sql = "select name,cid,data from cms_bag where id = ".$v;
+		$rs = $db->one($sql);
+		if($wmode){
+			$tmp = json_decode($rs['data'], true);
+			$tmp[0]['wmode'] = $wmode;
+			$db->value['data'] = cms::json($tmp);
+			$db->update('id='. $v);
+		}
+		$aBags[] = array(
+			'bid' => $v,
+			'bname' => (string)$rs['name'],
+			'cid' => $rs['cid'],
+		);
+		/*if(!LOCAL){ LC相关的代码已被删除，这里先注释掉
+			$sig = cms::by_key('get',array('aBag' => base64_encode(json_encode($aBags))));
+			$sig = array_merge(array('aBag' => base64_encode(json_encode($aBags))),$sig);
+			$url = 'http://210.5.191.163/api/lcdata.php?method=regBag';
+			$lcret = json_decode(cms::post($url, $sig),true);
+			if(!$lcret['ok']) die('提交LC统计未成功');
+		}*/
+	}
+	cms::callback(true);
+}
+
+function _send(){
+	$ids = cms::get('ids');
+	if(!$ids) cms::callback(false);
+	$db = o::db('bag');
+	$where = 'sid='. cms::$sid .' AND id in('. $ids .') AND del=0';
+	$data = $db->data('SELECT id,cid,bid,name,data,luck FROM cms_bag WHERE '. $where);
+	$file = array();
+	$o = o('bag');
+	foreach($data as $rs){
+		if($rs['luck'] == 2) cms::callback('礼包【'. $rs['id'] .'-'. $rs['name'] .'】机率错误，请检查！');
+		$rs['data'] = json_decode($rs['data'], true);
+		$temp = $o->format($rs,false);
+		if(!is_array($temp)) cms::callback('礼包【'. $rs['id'] .'-'. $rs['name'] .'】错误信息：'. $temp);
+		$o->cfgfile($temp, $rs['id'], $rs['cid'], $rs['bid']);
+	}
+	if(!$o->aFile) cms::callback(false);
+	$ret = cms::sendTo($o->aFile, 'cms', 'demo,no3');
+	if($ret && $ret['ok']){
+		$db->value = array('sendtime' => NOW);//更新发布时间
+		$db->update($where);
+		cms::callback($ret);
+	}else{
+		cms::callback(array('ok'=>0,'ret'=>$ret));
+	}
+}
+
+//更新礼包工作台
+function _updatebw(){
+	cms::allow('bag');
+	$db = o::db('bag');
+	$o = o('bag');
+	$bagdata = cms::get('bagdata');
+	foreach($bagdata as $k=>$v){
+		if(!$v) continue;
+		$id = $v['id'];
+		$bid = $v['bid'];
+		$db->setValue('sid,cid,name,data,luck,edittime,uid');
+		$cid = (int)$db->value['cid'] = $v['cid'];
+		$db->value['name'] = $v['name'];
+		if($id){
+			$rs = $db->one('SELECT * FROM cms_bag WHERE sid='. cms::$sid .' AND id='. $id);
+			$olddata = json_decode($rs['data'], true);
+			foreach($olddata as $i=>$o){
+				foreach($v['data'] as $m=>$n){
+					if($o['id'] == $n['id']){
+						foreach($n as $r=>$s){
+							if(!$s) continue;
+							$olddata[$i][$r] = $s;
+						}
+					}
+				}
+			}
+			$db->value['data'] = $olddata;
+		}else{
+			$db->value['data'] = $v['data'];
+		}
+
+		if(cms::get('isImport')){//导入
+			include('./bag_import.php');
+			cms::callback(true);
+		}
+
+		$db->value = (array)$o->formatValue($db->value);
+		if($id){//编辑
+			if($bid){
+				$rs = $db->one('SELECT bid FROM cms_bag WHERE sid='. cms::$sid .' AND cid='. $cid .' AND bid='. $bid .' AND bid<>0 AND id<>'. $id);
+				if($rs && isset($rs['bid'])) cms::callback('bid='. $bid .'已经存在！');
+			}
+			$db->value['api'] = cms::$api;
+			$db->value['bid'] = $bid;
+			$suc = $db->update('id='. $id .' and sid='. cms::$sid);
+		}else{//添加
+			cms::allow('bag.add');
+			$rs = $db->one('SELECT max(bid) as bid FROM cms_bag WHERE sid='. cms::$sid .' AND cid='. $cid);
+			$bid = $rs ? (int)$rs['bid']+1 : 1;
+			$db->value['api'] = cms::$api;
+			$db->value['bid'] = $bid;
+			$db->value['sid'] = cms::$sid;
+			$suc = $db->insert();
+			$id = $db->lastId();
+		}
+	}
+	cms::callback($suc ? array('id'=>$id) : false);
+}
+
+//批量加载礼包工作台
+function _editbw(){
+	cms::allow('bag');
+	$db = o::db('bag');
+	$ids = cms::get('ids');
+	$ret = $db->where('sid='. cms::$sid .' and id in ('. $ids .')')->data();
+	cms::callback(array('ret'=>$ret));
+}
+
+//礼包工作台 添加存档
+function _dosaving(){
+	cms::allow('bag');
+	$db = o::db('saving');
+	$db->setValue('data,uid,addtime');
+	$db->value['addtime'] = time();
+	$db->value['uid'] = cms::$admin['id'];
+	$db->value['data'] = cms::json(cms::get('bagdata'));
+	$db->insert();
+	cms::callback(true);
+}
+
+//礼包工作台 读取存档列表
+function _getsaving(){
+	cms::allow('bag');
+	$db = o::db('saving');
+	$db->where('uid='. cms::$admin['id'])->order('id desc')->limit()->data();
+	$db->json();
+}
+
+//礼包工作台 加载某一存档
+function _loadsaving(){
+	cms::allow('bag');
+	$db = o::db('saving');
+	$id = cms::get('id');
+	$db->where('uid='. cms::$admin['id'] .' and id='. $id)->order('id desc')->one();
+	$db->json(false);
+}

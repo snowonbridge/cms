@@ -1,0 +1,118 @@
+<div class="tab-pane fade active in" id="one">
+    <div class="row">
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix" style="text-align: center">
+                <p><img class="profile-user-img img-responsive img-circle plupload" src="{$data.avartar}" alt=""></p>
+                <p>uid:<span style="font-size: 14px;font-weight: bold" id="uid">{$data.uid}</span></p>
+                <p>mid:<span style="font-size: 14px;font-weight: bold" id="mid">{$data.mid}</span></p>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-violet"><i class="fa  fa-dollar"></i></span>
+                <div class="sm-st-info">
+                    <span id="chip">{$data.chip}</span>
+                    金币
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-blue"><i class="fa fa-credit-card"></i></span>
+                <div class="sm-st-info">
+                    <span id="roomcard">{$data.roomcard}</span>
+                    房卡数
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-green"><i class="fa  fa-diamond"></i></span>
+                <div class="sm-st-info">
+                    <span id="diamond">{$data.diamond}</span>
+                    钻石数
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-green"><i class="fa fa-cny"></i></span>
+                <div class="sm-st-info">
+                    <span id="charge">{$data.charge}</span>
+                    充值金额
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-blue"><i class="fa fa-cn fa-qq"></i></span>
+                <div class="sm-st-info">
+                    <span id="">{$data.mentercount}</span>
+                    登录次数
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>所属平台：</span><span id="sid">{$data.sid}</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>账号状态：</span><span id="ustatus">{$data.ustatus}</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>昵称：</span><span id="uname">{$data.uname}</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>性别：</span><span id="usex">{$data['usex']==0 ? '未知' : $data['usex']==1 ? '男': '女' }</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>注册时间：</span><span id="regtime">{$data['regtime']|date="y-m-d H:i:s",###}</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>当天首次登录时间：</span><span id="activetime">{$data['activetime']|date="y-m-d H:i:s",###}</span>
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>最近登录IP：</span><span id="ip">{$data['ip']}</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>归属地区：</span><span id="location_info">{$data['location_info']}</span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <span>玩家级别：</span><span id="player_type_text">{$data['player_type_text']}</span><a onclick="changePlayerType({$data.uid},{$data.mid})" href="javascript:;" class="{:$auth->check('player/detail/changeplayertype')?'':'hide'} "> 【编辑】</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 col-xs-6">
+            <div class="sm-st clearfix">
+                <p>olkey:</p><p id="olkey">{$data.olkey}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function changePlayerType(uid,mid){
+        var url = '/player/detail/changeplayertype?uid='+uid+'&mid='+mid;
+        Fast.api.open(url, '后台强制更改玩家级别', {"area":[$(window).width() > 500 ? '500px' : '95%', $(window).height() > 500 ? '500px' : '95%']});
+    }
+</script>

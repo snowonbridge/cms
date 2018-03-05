@@ -1,0 +1,18 @@
+<div class="myPage"></div>
+<table class="myTable">
+	<tr class="myTableTitle">
+		<td width="50">ID</td>
+		<td>存档时间</td>
+		<td>操作</td>
+	</tr>
+	<tbody id="tpl">
+		<!--{loop}
+		<tr>
+			<td>{id}</td>
+			<td>{addtime|TPL.date}</td>
+			<td><input type="button" value="读取" onclick="bagworking.loadsaving({id});"></td>
+		</tr>
+		{/loop}-->
+	</tbody>
+</table>
+<div class="myPage"></div>

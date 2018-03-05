@@ -1,0 +1,164 @@
+<form class="form-horizontal add-form" role="form" data-toggle="validator" method="POST" action="{:url('admin/ajax/gameApi','do=goodAdd');}">
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text" data-rule="required;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-desc" class="control-label col-xs-12 col-sm-2">{:__('Description')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-desc" class="form-control" name="row[description]" type="text" data-rule="required;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-ptype" class="control-label col-xs-12 col-sm-2">{:__('Ptype')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-ptype" class="form-control selectpicker" name="row[ptype]" data-rule="required;">
+                {foreach name="ptypeList" item="vo"}
+                <option value="{$key}" {in name="key" value="1"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-category" class="control-label col-xs-12 col-sm-2">{:__('Category')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-category" class="form-control selectpicker" name="row[category]" data-rule="required">
+                {foreach name="categoryList" item="vo"}
+                    <option value="{$key}" {in name="key" value="1"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-status" class="form-control selectpicker" name="row[status]" data-rule="required;">
+                {foreach name="statusList" item="vo"}
+                    <option value="{$key}" {in name="key" value="off"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-apple_id" class="control-label col-xs-12 col-sm-2">{:__('Apple_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-apple_id" class="form-control" name="row[apple_id]" type="text" data-rule="required;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-num" class="control-label col-xs-12 col-sm-2">{:__('Num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-num" class="form-control" name="row[num]" type="number" data-rule="required;integer">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-version" class="control-label col-xs-12 col-sm-2">{:__('Version')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-version" class="form-control" name="row[version]" type="text"  data-rule="required;"  placeholder="全部：all，区间：最小版本号-最大版本，例：1.0.0-2.0.0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-price" class="control-label col-xs-12 col-sm-2">{:__('Price')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-price" class="form-control" name="row[price]" type="number" step="any" data-rule="filter([0-9.])"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-pcard" class="control-label col-xs-12 col-sm-2">{:__('Pcard')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pcard" class="form-control" name="row[pcard]" type="number" data-rule="required;integer" placeholder="道具类商品为道具ID,其他为0">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-recommand" class="control-label col-xs-12 col-sm-2">{:__('Rcommand')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-recommand" class="form-control selectpicker" name="row[recommand]" data-rule="required;" value="0" placeholder="没有请填0">
+                {foreach name="goodList" item="vo"}
+                <option value="{$key}" {in name="key" value="1"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-tabletypes" class="control-label col-xs-12 col-sm-2">{:__('Tabletypes')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-tabletypes" class="form-control selectpicker" name="row[tabletypes][]"  data-rule="required" multiple>
+                {foreach name="tabletypesList" item="vo"}
+                    <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-gameids" class="control-label col-xs-12 col-sm-2">{:__('Gameids')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-gameids" class="form-control selectpicker" name="row[gameids][]" multiple data-rule="required;">
+                {foreach name="gameidsList" item="vo"}
+                <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-inroom" class="control-label col-xs-12 col-sm-2">{:__('Inroom')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-inroom" class="form-control selectpicker" name="row[inroom]">
+                {foreach name="inroomList" item="vo"}
+                    <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-extra" class="control-label col-xs-12 col-sm-2">{:__('Extra')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-extra" class="form-control" name="row[extra]" type="text" value="">
+        </div>
+    </div>
+    <!--<div class="form-group">-->
+        <!--<label for="c-createtime" class="control-label col-xs-12 col-sm-2">{:__('Createtime')}:</label>-->
+        <!--<div class="col-xs-12 col-sm-8">-->
+            <!--<input id="c-createtime" class="form-control datetimepicker" data-date-format="H" data-use-current="true" name="row[createtime]" type="text" value="">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<label for="c-good_image" class="control-label col-xs-12 col-sm-2">{:__('Good_image')}:</label>-->
+        <!--<div class="col-xs-12 col-sm-8">-->
+            <!--<div class="form-inline">-->
+                <!--<input id="c-good_image" class="form-control" size="50" name="row[good_image]" type="text" value="" data-rule="required;">-->
+                <!--<span><button type="button" id="plupload-good_image" class="btn btn-danger plupload" data-input-id="c-good_image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-good_image"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>-->
+                <!--<span><button type="button" id="fachoose-good_image" class="btn btn-primary fachoose" data-input-id="c-good_image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>-->
+                <!--<span class="msg-box n-right" for="c-good_image"></span>-->
+               <!--<ul class="row list-inline plupload-preview" id="p-good_image"></ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div class="form-group">
+        <label for="c-imagetype" class="control-label col-xs-12 col-sm-2">{:__('图片类型')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-imagetype" class="form-control selectpicker" name="row[image_type]">
+                {foreach name="imageTypeList" item="vo"}
+                <option value="{$key}" {in name="key" value="0"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

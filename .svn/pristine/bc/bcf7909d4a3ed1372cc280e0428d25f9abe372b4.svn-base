@@ -1,0 +1,110 @@
+<?php
+
+namespace app\admin\controller\activity;
+
+use app\common\controller\Backend;
+
+use think\Controller;
+use think\Request;
+
+/**
+ * 活动目录名称配置管理
+ *
+ * @icon fa fa-circle-o
+ */
+class Activitycategory extends Backend
+{
+    
+    /**
+     * ActivityCategory模型对象
+     */
+    protected $model = null;
+    protected $channelModel = null;
+    protected $controllModel = null;
+    private $channelList=array();
+    private $controlList=array();
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->model = model('ActivityCategory');
+        $this->channelModel = model('ActivityChannel');
+        $this->controllModel = model('ActivityControl');
+        $this->channelList = $this->channelModel->getChannelList();
+        $this->controlList = $this->controllModel->getList();
+        $this->view->assign("ChannelList", $this->channelList);
+        $this->view->assign("ControlList", $this->controlList);
+        $this->view->assign("LevelList", $this->model->getLevellist());
+        $this->view->assign("statusList", $this->model->getStatusList());
+    }
+    
+    /**
+     * 默认生成的控制器所继承的父类中有index/add/edit/del/multi五个方法
+     * 因此在当前控制器中可不用编写增删改查的代码,如果需要自己控制这部分逻辑
+     * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
+     */
+
+    public function index()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isAjax())
+        {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('pkey_name'))
+            {
+                return $this->selectpage();
+            }
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+            $total = $this->model
+                ->where($where)
+                ->order($sort, $order)
+                ->count();
+
+            $list = $this->model
+                ->where($where)
+                ->order($sort, $order)
+                ->limit($offset, $limit)
+                ->select();
+
+            foreach($list as $k=>&$v)
+            {
+                $v['status'] = $this->model->getStatuslist()[$v['status']];
+                $v['channel_id_str'] = $this->getChannelNameStr($v['channel_id_str'],$this->channelList);
+
+                $v['activity_control_id'] = $this->getControlName($v['activity_control_id'],$this->controlList);
+                $v['user_level'] = $this->model->getLevellist()[$v['user_level']];
+            }
+            $result = array("total" => $total, "rows" => $list);
+
+            return json($result);
+        }
+        return $this->view->fetch();
+    }
+
+    private function getChannelNameStr($channelStr,$channelList)
+    {
+        if(!$channelStr)
+            return '';
+        $t = explode(',',$channelStr);
+        $str='';
+        foreach($channelList as $k=>$v)
+        {
+            if(in_array($v['id'],$t))
+            {
+                $str .="{$v['channel_name']},";
+            }
+        }
+        return $str?trim($str,','):'';
+    }
+    private function getControlName($id,$List)
+    {
+        foreach($List as $k=>$v)
+        {
+            if($v['id'] == $id)
+            {
+               return $v['status']==1?"<span style='color: #18bc9c'>{$v['name']}</span>":"<span style='color: red'>{$v['name']}</span>";
+            }
+        }
+        return '';
+    }
+}

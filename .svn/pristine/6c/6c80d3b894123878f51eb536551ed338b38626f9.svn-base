@@ -1,0 +1,36 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="" >
+
+    <div class="form-group">
+        <label for="c-uid" class="control-label col-xs-4 col-sm-2">玩家uid:</label>
+        <div class="col-xs-6 col-sm-6">
+            <input id="c-uid" data-rule="required" class="form-control" name="uid" type="number" value="{$row.uid}" readonly="readonly">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-mid" class="control-label col-xs-4 col-sm-2">玩家mid:</label>
+        <div class="col-xs-6 col-sm-6">
+            <input id="c-mid" data-rule="required" class="form-control" name="mid" type="number" value="{$row.mid}" disabled="disabled">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-player_type_force" class="control-label col-xs-4 col-sm-2">强制玩家级别:</label>
+        <div class="col-xs-6 col-sm-6">
+            <select  id="player_type_force" data-rule="required" class="form-control selectpicker" name="player_type_force">
+                {foreach name="playerTypeList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row['player_type_force']"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-6 col-sm-2"></label>
+        <div class="col-xs-6 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

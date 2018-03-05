@@ -1,0 +1,32 @@
+<?php
+//cms,2017-09-13 10:23:00,admin
+return array(
+	9=>array(
+		'id'=>9,
+		'title'=>43,
+		'desc'=>43,
+		'uids'=>'',
+		'type'=>1,
+		'conType'=>3,
+		'day'=>7,
+		'time'=>1505124442,
+		'award'=>array(
+		)
+	),
+	10=>array(
+		'id'=>10,
+		'title'=>'指定玩家消息标题',
+		'desc'=>'指定玩家消息内容',
+		'uids'=>'',
+		'type'=>0,
+		'conType'=>2,
+		'day'=>7,
+		'time'=>1505124450,
+		'award'=>array(
+			0=>array(
+				'id'=>1,
+				'num'=>1000
+			)
+		)
+	)
+);

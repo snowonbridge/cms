@@ -1,0 +1,154 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'order/index',
+                    add_url: 'order/add',
+                    edit_url: 'order/edit',
+                    del_url: 'order/del',
+                    multi_url: 'order/multi',
+                    table: 'order',
+                }
+            }, null, {
+                formatSearch: function () {
+                    return __('Search %s', 'ID');
+                }
+            });
+
+            var table = $("#table");
+
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                pk: 'pid',
+                sortName: 'pstime',
+                columns: [
+                    [
+                        {checkbox: true},
+                        {field: 'id', title: __('Id'),visible:false,searchable:false},
+                        {field: 'pid', title: __('Pid')},
+                        {field: 'pmode', title: __('Pmode')},
+                        {field: 'uid', title: __('Uid')},
+                        {field: 'openid', title: __('Openid')},
+                        {field: 'usertype', title: __('Usertype')},
+                        {field: 'unid', title: __('Unid')},
+                        {field: 'deviceid', title: __('Deviceid'),visible:false},
+                        {field: 'system', title: __('System'),visible:false},
+                        {field: 'pip', title: __('Pip')},
+                        {field: 'appid', title: __('Appid')},
+                        {field: 'goodid', title: __('Goodid')},
+                        {field: 'price', title: __('Price')},
+                        {field: 'pnum', title: __('Pnum')},
+                        {field: 'pdiamond', title: __('Pdiamond')},
+                        {field: 'pstatus', title: __('Pstatus'), formatter: this.api.status},
+                        {field: 'pstime', title: __('Pstime'), formatter: Table.api.formatter.datetime,operate:'BETWEEN',type:'datetime',addclass:'datetimepicker', data: 'data-date-format="YYYY-MM-DD HH:mm:ss"'},
+                        {field: 'sendstatus', title: __('Sendstatus'), formatter: this.api.sendstatus},
+                        {field: 'petime', title: __('Petime'),  formatter: Table.api.formatter.datetime,operate:'BETWEEN',type:'datetime',addclass:'datetimepicker', data: 'data-date-format="YYYY-MM-DD HH:mm:ss"'},
+                        {field: 'pname', title: __('Pname')},
+                        {field: 'vlevel', title: __('Vlevel'),visible:false},
+                        {field: 'payed', title: __('Payed'),visible:false},
+                        {field: 'pdealno', title: __('Pdealno'),visible:false},
+                        {field: 'pbankno', title: __('Pbankno'),visible:false},
+                        {field: 'quarter', title: __('Quarter'),visible:false,searchable:true,formatter: Table.api.formatter.datetime,type:'datetime',data: 'data-date-format="YYYY Q"',addclass:'datetimepicker'},
+                        {field: 'operate', title: __('Operate'), table: table, formatter: this.api.operate, events: this.api.events.operate}
+                    ]
+                ]
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            },
+            operate: function (value, row, index) {
+                var table = this.table;
+                // 操作配置
+                var options = table ? table.bootstrapTable('getOptions') : {};
+                // 默认按钮组
+                var buttons = $.extend([], this.buttons || []);
+                buttons.push({
+                    name: 'sendorder',
+                    icon: 'fa fa-send',
+                    classname: 'btn btn-xs btn-primary btn-sendorder',
+                    text: __('Send Order')
+                });
+                var html = [];
+                var url, classname, icon, text, title, extend;
+                    if (!row.sendstatus) {
+                      $.each(buttons, function (i, j) {
+                            var attr = table.data("operate-" + j.name);
+                        if ((typeof attr === 'undefined') || attr) {
+                                url = url ? url : 'javascript:;';
+                                classname = j.classname ? j.classname : 'btn-primary btn-' + name + 'one';
+                                icon = j.icon ? j.icon : '';
+                                text = j.text ? j.text : '';
+                                title = j.title ? j.title : text;
+                                extend = j.extend ? j.extend : '';
+                                html.push('<a href="' + url + '" class="' + classname + '" ' + extend + ' title="' + title + '" data-orderid="' + row.pid + '"><i class="' + icon + '"></i>' + (text ? ' ' + text : '') + '</a>');
+                            }
+                            });
+                    }
+                    return html.join(' ');
+            },
+            events: {
+                operate: {
+                    'click .btn-sendorder': function (e, value, row, index) {
+                        e.stopPropagation();
+                        var url = 'order/sendorder';
+                        var options = {url: url, data: {ids: row.pid}};
+                        Fast.api.ajax(options, function (data) {
+                            $(".btn-refresh").trigger("click");
+                        });
+                    }
+                }
+            },
+
+            status: function (value, row, index) {
+                //颜色状态数组,可使用red/yellow/aqua/blue/navy/teal/olive/lime/fuchsia/purple/maroon
+                var colorArr = {sended: 'success', unsend: 'grey', orderdeleted: 'danger'};
+                    var mapArr = {1: 'sended', 0: 'unsend', 2: 'orderdeleted'};
+                    value = mapArr[value];
+
+                //如果字段列有定义custom
+                if (typeof this.custom !== 'undefined') {
+                    colorArr = $.extend(colorArr, this.custom);
+                }
+                value = value.toString();
+                var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : 'primary';
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+                //渲染状态
+                var html = '<span class="text-' + color + '"><i class="fa fa-circle"></i> ' + __(value) + '</span>';
+                return html;
+            },
+            sendstatus: function (value, row, index) {
+                //颜色状态数组,可使用red/yellow/aqua/blue/navy/teal/olive/lime/fuchsia/purple/maroon
+                var colorArr = {yes: 'success', no: 'grey'};
+                var mapArr = {1: 'yes', 0: 'no'};
+                value = mapArr[value];
+
+                //如果字段列有定义custom
+                if (typeof this.custom !== 'undefined') {
+                    colorArr = $.extend(colorArr, this.custom);
+                }
+                value = value.toString();
+                var color = value && typeof colorArr[value] !== 'undefined' ? colorArr[value] : 'primary';
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+                //渲染状态
+                var html = '<span class="text-' + color + '"><i class="fa fa-circle"></i> ' + __(value) + '</span>';
+                return html;
+            },
+        }
+    };
+    return Controller;
+});

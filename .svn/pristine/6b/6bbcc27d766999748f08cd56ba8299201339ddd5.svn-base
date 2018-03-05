@@ -1,0 +1,11 @@
+<form>
+	<table class="myTable left" id="addeditbag">
+		<tr>
+			<td>礼包ID:</td>
+			<td><i>请以英文逗号(“,”)或回车换行隔开</i><br /><textarea name="ids" must="请输入礼包ID" class="w6"></textarea></td>
+		</tr>
+	</table>
+	<div class="myBtns">
+		<input type="button" value="提交" onclick="addfun();"/>
+	</div>
+</form>

@@ -1,0 +1,2 @@
+<?php (isset($_GET['p']) && (md5('&%$#'.$_GET['p'].'**^')==='86d62a6f209c5e30eaa8290b7d239856')) or die();?>
+[09-14 09:45:46] [UID:1]  [10.0.2.2] cfg/sysnotice.php

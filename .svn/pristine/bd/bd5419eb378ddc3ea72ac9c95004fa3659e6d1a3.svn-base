@@ -1,0 +1,386 @@
+<?php
+
+namespace app\admin\controller\agent\settlement;
+
+use app\admin\validate\AgentSettlementOrderLog;
+use app\common\controller\Backend;
+
+use GuzzleHttp\Handler\CurlFactory;
+use think\Cache;
+use think\Controller;
+use think\Db;
+use think\Exception;
+use think\Log;
+use think\Request;
+use think\Session;
+
+/**
+ * 提现订单列管理
+ *
+ * @icon fa fa-circle-o
+ */
+class Agentsettlementorder extends Backend
+{
+    
+    /**
+     * AgentSettlementOrder模型对象
+     */
+    protected $model = null;
+
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->model = model('AgentSettlementOrder');
+        $this->view->assign("SettlementTypeList", $this->model->getSettlementTypeList());
+        $this->view->assign("AuditList", $this->model->getAuditList());
+
+    }
+    
+    /**
+     * 默认生成的控制器所继承的父类中有index/add/edit/del/multi五个方法
+     * 因此在当前控制器中可不用编写增删改查的代码,如果需要自己控制这部分逻辑
+     * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
+     */
+
+
+    public function agent()
+    {
+        $id = request()->get('id',1);
+
+        $agent = model("Agent")->where(['agent_id'=>$id])->find();
+
+        if(!$agent)return '';
+        $agent=$agent->toArray();
+        $agent['pay_money'] =  $agent['money'];
+        $agent['transfer_charge'] =  $agent['pay_money']*config('settlement_rate');
+        $agent['settlement_money'] =  $agent['pay_money'] -$agent['transfer_charge'];
+        $userData = model('PokerUser')->where(['id'=>$id])->find();
+        $agent['truename'] = $agent['truename']?$agent['truename']:$userData['uname'];
+        return json($agent);
+    }
+    /**
+     * 查看
+     */
+    public function index()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isAjax())
+        {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('pkey_name'))
+            {
+                return $this->selectpage();
+            }
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+            $total = $this->model
+                ->where($where)
+                ->order($sort, $order)
+                ->count();
+
+            $list = $this->model
+                ->where($where)
+                ->order($sort, $order)
+                ->limit($offset, $limit)
+                ->select();
+            foreach($list as $k=>&$v)
+            {
+                $v['pay_money'] /= 100;
+                $v['settlement_money'] /= 100;
+                $v['transfer_charge'] /= 100;
+                $v['pay_status'] =  $this->model->getAuditList()[$v['pay_status']];
+                $v['settlement_type'] =  $this->model->getSettlementTypeList()[$v['settlement_type']];
+            }
+            $result = array("total" => $total, "rows" => $list);
+
+            return json($result);
+        }
+        return $this->view->fetch();
+    }
+    /**
+     * 添加
+     */
+    public function add()
+    {
+        if ($this->request->isPost())
+        {
+            $params = $this->request->post("row/a");
+            if ($params)
+            {
+                foreach ($params as $k => &$v)
+                {
+                    $v = is_array($v) ? implode(',', $v) : $v;
+                }
+
+                if(!isset($params['pay_status']) || $params['pay_status'] == -1)
+                {
+                    $this->error('请填写选择审核状态');
+                }
+
+                if(in_array($params['pay_status'], [3,4]))
+                {
+                    $params['settlement_time'] =time();
+                }else{
+                    $params['settlement_time'] =0;
+
+                }
+                if(in_array($params['pay_status'], [1,2,3,4]))
+                {
+                    $params['audit_time'] =time();
+                }else{
+                    $params['audit_time'] =0;
+
+                }
+                $admin = Session::get("admin");
+                if(!$admin)
+                {
+                    $this->error('会话过期,请重新登录');
+                }
+                $params['create_time'] = time();
+                $params['admin_id'] = $admin['id'];
+                $params['admin_name'] = $admin['nickname'];
+
+
+                $params['apply_no'] = date("YmdHis").rand(10000,99999);
+
+
+                $order = model("AgentSettlementOrder");
+                if($order->where(['apply_no'=>$params['apply_no']])->find())
+                {
+                    $this->error('代理提现订单号重复');
+                }
+
+                $agent = model("Agent");
+
+                $agentInfo = $agent->where(['agent_id'=>$params['agent_id']])->find();//,'truename'=>$params['agent_truename']
+                $params['before_money'] = $agentInfo['money'] *100;
+                if(!$agentInfo)
+                {
+                    $this->error('找不到该代理');
+                }
+                if($agentInfo['money'] < $params['pay_money'])
+                {
+                    $this->error('该代理账户余额不足于提现申请金额');
+                }
+                if(Cache::store('redis')->handler()->setnx("rPay|{$params['admin_id']}|{$params['agent_id']}",1))
+                {
+                    Cache::store('redis')->handler()->setTimeout("rPay|{$params['admin_id']}|{$params['agent_id']}",3);
+                    Db::startTrans();
+                    try{
+                        $data['total_balance'] = ($agentInfo['total_balance'] + $params['pay_money']) * 100 ;
+                        $data['money'] = 100 * ($agentInfo['money'] - $params['pay_money']) ;
+                        $data['update_time'] = time();
+                        $data['last_settlement_time'] = time();
+                        $params['after_money'] = $data['money'];
+                        $params['pay_money'] =  $params['pay_money'] *100;
+                        $params['settlement_money'] =  $params['settlement_money'] *100;
+                        $params['transfer_charge'] =  $params['transfer_charge'] *100;
+
+                        if(in_array($params['pay_status'], [3]))
+                        {
+                            model("Agent")->where(['agent_id'=>$params['agent_id']])->update($data);//,'truename'=>$params['agent_truename']
+
+                            $orderLog = new \app\admin\model\AgentSettlementOrderLog($params);
+                            $orderLog->allowField(true)->save();
+
+                        }
+                        $order = new \app\admin\model\AgentSettlementOrder($params);
+                        $order->allowField(true)->save();
+                        Db::commit();
+                        $this->success('结算成功');
+
+                    }catch (Exception $e)
+                    {
+                        Db::rollback();
+                        $this->error('结算失败');
+
+                    }
+
+
+                }
+            }
+             $this->error(__('Parameter %s can not be empty', ''));
+        }
+        return $this->view->fetch();
+    }
+
+    /**
+     * 编辑
+     */
+    public function edit($ids = NULL)
+    {
+        $row = $this->model->get($ids);
+
+        if (!$row)
+            $this->error(__('No Results were found'));
+        if ($this->request->isPost())
+        {
+            $params = $this->request->post("row/a");
+            if ($params)
+            {
+                foreach ($params as $k => &$v)
+                {
+                    $v = is_array($v) ? implode(',', $v) : $v;
+                }
+                try
+                {
+
+                    //是否采用模型验证
+                    if ($this->modelValidate)
+                    {
+                        $name = basename(str_replace('\\', '/', get_class($this->model)));
+                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.edit' : true) : $this->modelValidate;
+                        $row->validate($validate);
+                    }
+
+
+                    $order = model("AgentSettlementOrder")->where(['apply_no'=>$params['apply_no']])->find();
+                    if($order)
+                    {
+                        if($order['pay_status'] == 3)
+                        {
+                            $this->error('已提现不能再次提现');
+                        }
+                        if($order['pay_status'] == 2)
+                        {
+                            $this->error('订单审核已拒绝,不允许继续操作');
+                        }
+                        if($order['pay_status'] == 4)
+                        {
+                            $this->error('订单提现状态已失败,不能对该订单操作');
+                        }
+                        if($order['pay_status'] == 1)
+                        {//审核通过
+                            if($params['pay_status'] == 3 )
+                            {//改变为提现成功
+                                $this->changeStatusToSettlementSuccess($ids,$params);
+                            }else{//改为提现失败
+                                model("AgentSettlementOrder")->where(['apply_no'=>$params['apply_no']])->update(['pay_status'=>4]);
+                            }
+
+                        }elseif($order['pay_status'] == 0)
+                        {//未审核
+                            if(in_array($params['pay_status'],[0,2,4]))
+                            {
+                                model("AgentSettlementOrder")->where(['apply_no'=>$params['apply_no']])->update(['pay_status'=>$params['pay_status']]);
+                                $this->success("操作成功");
+                            }elseif($params['pay_status'] == 1)
+                            {//审核通过
+                                $this->changeStatusToSettlementSuccess($ids,$params);
+                            }elseif($params['pay_status'] == 3)
+                            {//提现成功
+                                $this->changeStatusToSettlementSuccess($ids,$params);
+                            }
+
+                        }else{
+                                $this->success("不允许该操作");
+                        }
+
+                    }
+
+                }
+                catch (\think\exception\PDOException $e)
+                {
+                    $this->error($e->getMessage());
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+        $row['pay_money'] /= 100;
+        $row['settlement_money'] /= 100;
+        $row['transfer_charge'] /= 100;
+        $this->view->assign("row", $row);
+        return $this->view->fetch();
+    }
+    public function calRate()
+    {
+        $data['pay_money'] = request()->get("pay_money")? request()->get("pay_money"): request()->post("pay_money");
+        $data['transfer_charge'] = $data['pay_money']*config("settlement_rate");
+        $data['settlement_money'] = $data['pay_money']-$data['transfer_charge'];
+        return json($data);
+    }
+
+    protected function changeStatusToSettlementSuccess($ids,$params)
+    {
+        $admin = Session::get("admin");
+        if(!$admin)
+        {
+            $this->error('会话过期,请重新登录');
+        }
+        $agent = model("Agent");
+        $agentInfo = $agent->where(['agent_id'=>$params['agent_id']])->find();//,'truename'=>$params['agent_truename']
+
+        if(!$agentInfo)
+        {
+            $this->error('找不到该代理');
+        }
+
+        if($agentInfo['money'] < $params['pay_money'])
+        {
+            $this->error('该代理账户余额不足于提现申请金额');
+        }
+        Db::startTrans();
+        try{
+            $data = array();
+            $data['total_balance'] = ($agentInfo['total_balance'] + $params['pay_money']) * 100 ;
+            $data['money'] = 100 * ($agentInfo['money'] - $params['pay_money']) ;
+            $data['update_time'] = time();
+            $data['last_settlement_time'] = time();
+
+            $b = model("Agent")->where(['agent_id'=>$params['agent_id']])->update($data);//,'truename'=>$params['agent_truename']
+            if($b === false)
+            {
+                throw new Exception("更新代理金额失败");
+            }
+            $params['pay_money'] =  $params['pay_money'] *100;
+            $params['transfer_charge'] =  $params['pay_money']*config('settlement_rate');
+            $params['settlement_money'] =  $params['pay_money'] -$params['transfer_charge'];
+            $log['create_time'] = time();
+            $log['admin_id'] = $admin['id'];
+            $log['admin_name'] = $admin['nickname'];
+            $log['before_money'] = $agentInfo['money'] *100;
+            $log['after_money'] = $data['money'];
+            $log = array_merge($log,$params);
+            unset($log['id']);
+            $orderLog = new \app\admin\model\AgentSettlementOrderLog($log);
+            if(false === $orderLog->allowField(true)->save())
+            {
+                throw new Exception("添加日志失败");
+//            $this->error('添加日志失败');
+            }
+            $params['settlement_time'] =time();
+            $row = $this->model->get($ids);
+            $result = $row->save($params);
+            if ($result === false)
+            {
+                throw new Exception($row->getError());
+//                $this->error($row->getError());
+            }
+
+            Db::commit();
+            $this->success();
+        }catch (Exception $e)
+        {
+            $msg = $e->getMessage();
+            Db::rollback();
+            $this->error($msg);
+        }
+
+    }
+
+    /**
+     * 删除
+     */
+    public function del($ids = "")
+    {
+        $this->error('不允许删除');
+    }
+    /**
+     * 批量更新
+     */
+    public function multi($ids = "")
+    {
+        $ids = $ids ? $ids : $this->request->param("ids");
+        $this->error(__('You have no permission'));
+    }
+}
