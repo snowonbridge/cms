@@ -148,7 +148,6 @@ class Backend extends Controller
 
         // 上传信息配置后
         Hook::listen("upload_config_init", $upload);
-
         // 配置信息
         $config = [
             'site'           => array_intersect_key($site, array_flip(['name', 'cdnurl', 'version', 'timezone', 'languages'])),
@@ -161,7 +160,10 @@ class Backend extends Controller
             'language'       => $lang,
             'fastadmin'      => Config::get('fastadmin'),
             'gate_host'      => Config::get('cms_gate_host'),
-            'referer'        => Session::get("referer")
+            'referer'        => Session::get("referer"),
+            'unidsMap'=> Config::get('unidsMap'),
+            'gameCategory'=> Config::get('gameCategory'),
+
         ];
         // 配置信息后
         Hook::listen("config_init", $config);
@@ -175,6 +177,8 @@ class Backend extends Controller
         $this->assign('auth', $this->auth);
         //渲染管理员对象
         $this->assign('admin', Session::get('admin'));
+
+        $this->assign("unidsList", $this->getUnidsList());
     }
 
     /**
@@ -223,8 +227,15 @@ class Backend extends Controller
             if (!empty($this->model))
             {
                 $class = get_class($this->model);
-                $name = basename(str_replace('\\', '/', $class));
-                $tableName = $this->model->getQuery()->getTable($name) . ".";
+                if(!method_exists($this->model,'getTblname') or !($getTbleName = $this->model->getTblname())){
+                    $name = basename(str_replace('\\', '/', $class));
+                    $tableName = $this->model->getQuery()->getTable($name) . ".";
+                }else{
+                    $tableName = $getTbleName.'.';
+                }
+            }
+            if(method_exists($this->model,'getTableNameByField') && ($tblofSort = $this->model->getTableNameByField($sort))){
+                $sort = $tblofSort . ".".$sort;
             }
             $sort = stripos($sort, ".") === false ? $tableName . $sort : $sort;
         }
@@ -242,7 +253,9 @@ class Backend extends Controller
         {
             if($this->filterSearch &&  in_array($k,$this->filterSearch)) continue;
             $sym = isset($op[$k]) ? $op[$k] : '=';
-            if (stripos($k, ".") === false)
+            if(method_exists($this->model,'getTableNameByField') && ($getTbleNameByFiled = $this->model->getTableNameByField($k))){
+                $k = $getTbleNameByFiled . ".".$k;
+            }elseif (stripos($k, ".") === false)
             {
                 $k = $tableName . $k;
             }
@@ -379,6 +392,7 @@ class Backend extends Controller
             };
         }
         $list = [];
+
         $total = $this->model->where($where)->count();
         if ($total > 0)
         {
@@ -394,4 +408,12 @@ class Backend extends Controller
         return json(['list' => $list, 'total' => $total]);
     }
 
+
+    protected function getUnidsList()
+    {
+        $configMap = config('unidsMap');
+        $list = array_combine(array_keys($configMap), array_column($configMap, 'unid_name'));
+        array_unshift($list, '全渠道');
+        return $list;
+    }
 }

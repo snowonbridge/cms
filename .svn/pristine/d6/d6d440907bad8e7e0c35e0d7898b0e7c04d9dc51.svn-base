@@ -1,0 +1,97 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'general/switchsetting/index',
+                    add_url: 'general/switchsetting/add',
+                    edit_url: 'general/switchsetting/edit',
+                    del_url: 'general/switchsetting/del',
+                    multi_url: 'general/switchsetting/multi',
+                    table: 'poker_switch_setting',
+                }
+            });
+
+            var table = $("#table");
+
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                pk: 'id',
+                sortName: 'id',
+                columns: [
+                    [
+                        {checkbox: true},
+                        {field: 'id', title: __('Id')},
+                        {field: 'name', title: __('Name')},
+                        {field: 'channel_text', title: __('Channel_id')},
+                        {field: 'system_text', title: __('Platform_id'), formatter: Table.api.formatter.label},
+                        {field: 'register_text', title: __('Register'), formatter: Table.api.formatter.label},
+                        {field: 'login_text', title: __('Login'), formatter: Table.api.formatter.label},
+                        {field: 'version', title: __('Version'), formatter: Table.api.formatter.label},
+                        // {field: 'game', title: __('Game')},
+                        {field: 'pay_text', title: __('Pay_way'), formatter: Table.api.formatter.label},
+                        // {field: 'waning', title: __('Waning')},
+                        {field: 'status_text', title: __('Status'), formatter: Table.api.formatter.status},
+                        // {field: 'update_time', title: __('Update_time'), formatter: Table.api.formatter.datetime},
+                        {field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime},
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                    ]
+                ]
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+
+            $("body").on("input","#game_table input",function (e) {
+                var val = $(e.currentTarget).val();
+                var col_name = $(e.currentTarget).attr("class");
+                var game_name = $(e.currentTarget).parents("tr").attr("id");
+                var game = $("#c-game").val();
+                var gameList = JSON.parse(game);
+                gameList[game_name][col_name] = val;
+                $("#c-game").val(JSON.stringify(gameList));
+
+            })
+            //notify_way
+            $("body").on("change","select[name='notify_way']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['notify_way'] = $(this).val();
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+            //ceil
+            $("body").on("input","input[name='ceil']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['ceil'] = parseInt($(this).val());
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+            //to
+            $("body").on("input","input[name='to']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['to'] = ($(this).val());
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            }
+        }
+    };
+
+    return Controller;
+});

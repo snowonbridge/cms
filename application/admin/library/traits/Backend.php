@@ -175,4 +175,36 @@ trait Backend
         $this->error(__('Parameter %s can not be empty', 'ids'));
     }
 
+    /**
+     * 复制
+     */
+    public function copy($ids = "", $params)
+    {
+        if ($ids) {
+            $pk = $params && isset($params['pk']) ? $params['pk'] : 'id';
+            $list = $this->model->where($pk, 'in', $ids)
+                ->field($pk,true)
+                ->select();
+            if ($list) {
+                try {
+                    $rows = [];
+                    foreach ($list as $key => $it) {
+                        $itData = $it->getData();
+                        $rows[] = $itData;
+                    }
+                    $result = $this->model->saveAll($rows, false);
+                    if ($result !== false) {
+                        $this->success();
+                    } else {
+                        $this->error($this->model->getError());
+                    }
+                } catch (\think\exception\PDOException $e) {
+                    $this->error($e->getMessage());
+                }
+                $this->success();
+            }
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+
 }

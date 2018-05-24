@@ -1,0 +1,76 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-fuid" class="control-label col-xs-12 col-sm-2">{:__('Fuid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-fuid" data-rule="required" class="form-control" name="row[fuid]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-fmid" class="control-label col-xs-12 col-sm-2">{:__('Fmid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-fmid" data-rule="required" class="form-control" name="row[fmid]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-tuid" class="control-label col-xs-12 col-sm-2">{:__('Tuid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-tuid" data-rule="required" class="form-control" name="row[tuid]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-tmid" class="control-label col-xs-12 col-sm-2">{:__('Tmid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-tmid" data-rule="required" class="form-control" name="row[tmid]" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-channel_id" class="control-label col-xs-12 col-sm-2">{:__('Channel_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-channel_id" data-rule="required" data-source="channel/index" class="form-control selectpage" name="row[channel_id]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-read" class="control-label col-xs-12 col-sm-2">{:__('Read')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-read" data-rule="required" class="form-control" name="row[read]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status" data-rule="required" class="form-control" name="row[status]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-unbinder_uid" class="control-label col-xs-12 col-sm-2">{:__('Unbinder_uid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-unbinder_uid" data-rule="required" class="form-control" name="row[unbinder_uid]" type="number" value="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-agree_time" class="control-label col-xs-12 col-sm-2">{:__('Agree_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-agree_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[agree_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-unbind_time" class="control-label col-xs-12 col-sm-2">{:__('Unbind_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-unbind_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[unbind_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

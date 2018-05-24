@@ -1,0 +1,175 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-gameids" class="control-label col-xs-12 col-sm-2">{:__('Game_cate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-gameids" class="form-control selectpicker" name="row[game_cate]">
+                {foreach name="gameidsList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.game_cate"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-game_level" class="control-label col-xs-12 col-sm-2">{:__('Game_level')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-game_level" class="form-control selectpicker" name="row[game_level]" data-rule="required" >
+                {foreach name="tabletypesList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.game_level"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="c-weigh" class="control-label col-xs-12 col-sm-2">{:__('Weigh')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-weigh" class="form-control" name="row[weigh]" type="number" value="{$row.weigh}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="control-label col-xs-12 col-sm-2">{:__('Venuetype')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div>
+                <span>{:__('Venue')}:</span>
+                <input id="row-venue-1" name="row[venuetype]" type="radio" value="1" {in name="row.venuetype" value="1"}checked{/in}/>
+                <input  id="c-venue"  name="row[venue]" type="number" value="{$row.venue}">
+                <span style="padding-left:20px">{:__('Rate')}:</span>
+                <input id="row-venue-2" name="row[venuetype]" type="radio" value="2"  {in name="row.venuetype" value="2"}checked{/in}/>
+                <input id="c-rate" name="row[rate]" type="number" value="{$row.rate}">%
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-rob_lord" class="control-label col-xs-12 col-sm-2">{:__('Rob_lord')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rob_lord" class="form-control" name="row[rob_lord]" type="number" value="{$row.rob_lord}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-own_min" class="control-label col-xs-12 col-sm-2">{:__('Own_min')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-own_min" class="form-control" name="row[own_min]" type="number" value="{$row.own_min}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-own_max" class="control-label col-xs-12 col-sm-2">{:__('Own_max')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-own_max" class="form-control" name="row[own_max]" type="number" value="{$row.own_max}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-base_score" class="control-label col-xs-12 col-sm-2">{:__('Base_score')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-base_score" class="form-control" name="row[base_score]" type="number" value="{$row.base_score}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-init_multiple" class="control-label col-xs-12 col-sm-2">{:__('Init_multiple')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-init_multiple" class="form-control" name="row[init_multiple]" type="number" value="{$row.init_multiple}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-bomb_one_ratio" class="control-label col-xs-12 col-sm-2">{:__('Bomb_one_ratio')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bomb_one_ratio" class="form-control" name="row[bomb_one_ratio]" type="number" value="{$row.bomb_one_ratio}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-bomb_two_ratio" class="control-label col-xs-12 col-sm-2">{:__('Bomb_two_ratio')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bomb_two_ratio" class="form-control" name="row[bomb_two_ratio]" type="number" value="{$row.bomb_two_ratio}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-bomb_three_ratio" class="control-label col-xs-12 col-sm-2">{:__('Bomb_three_ratio')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bomb_three_ratio" class="form-control" name="row[bomb_three_ratio]" type="number" value="{$row.bomb_three_ratio}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-bomb_four_ratio" class="control-label col-xs-12 col-sm-2">{:__('Bomb_four_ratio')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bomb_four_ratio" class="form-control" name="row[bomb_four_ratio]" type="number" value="{$row.bomb_four_ratio}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-bomb_five_ratio" class="control-label col-xs-12 col-sm-2">{:__('Bomb_five_ratio')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bomb_five_ratio" class="form-control" name="row[bomb_five_ratio]" type="number" value="{$row.bomb_five_ratio}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-set_card" class="control-label col-xs-12 col-sm-2">{:__('Set_card')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <div class="radio">
+                {foreach name="setCardSwitch" item="vo"}
+                <label for="row[status]-{$key}"><input id="row[set_card]-{$key}" name="row[set_card]" type="radio" value="{$key}" {in name="key" value="$row.set_card"}checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-robot_switch" class="control-label col-xs-12 col-sm-2">{:__('Robot_switch')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="radio">
+                {foreach name="setCardSwitch" item="vo"}
+                <label for="row[robot_switch]-{$key}"><input id="row[robot_switch]-{$key}" name="row[robot_switch]" type="radio" value="{$key}" {in name="key" value="$row.robot_switch"}checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-robot_level" class="control-label col-xs-12 col-sm-2">{:__('Robot_level')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-robot_level" class="form-control" name="row[robot_level]" type="number" value="{$row.robot_level}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-player_multiple" class="control-label col-xs-12 col-sm-2">{:__('Player_multiple')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-player_multiple" class="form-control" name="row[player_multiple]" type="number" value="{$row.player_multiple}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-rand_min" class="control-label col-xs-12 col-sm-2">{:__('Rand_min')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rand_min" class="form-control" name="row[rand_min]" type="number" value="{$row.rand_min}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-rand_max" class="control-label col-xs-12 col-sm-2">{:__('Rand_max')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rand_max" class="form-control" name="row[rand_max]" type="number" value="{$row.rand_max}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

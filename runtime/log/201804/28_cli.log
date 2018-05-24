@@ -1,0 +1,8 @@
+[ 2018-04-28T12:03:39+08:00 ][ error ] [2]fopen() expects at least 2 parameters, 1 given[/vagrant/cms/public/test.php:13]
+[ info ] [ LOG ] INIT File
+[ 2018-04-28T12:03:53+08:00 ][ error ] [2]fopen() expects parameter 1 to be a valid path, resource given[/vagrant/cms/public/test.php:13]
+[ info ] [ LOG ] INIT File
+[ 2018-04-28T12:06:50+08:00 ][ error ] [8]Undefined offset: 0[/vagrant/cms/public/test.php:15]
+[ info ] [ LOG ] INIT File
+[ 2018-04-28T12:08:04+08:00 ][ error ] [8]Undefined offset: 0[/vagrant/cms/public/test.php:15]
+[ info ] [ LOG ] INIT File

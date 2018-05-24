@@ -1,0 +1,24 @@
+[ 2018-04-23T17:37:02+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000089s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-23T17:37:02+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-23T17:37:02+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010637s ]
+[ 2018-04-23T17:37:54+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000185s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-23T17:37:54+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-23T17:37:54+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010827s ]
+[ 2018-04-23T17:38:10+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000086s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-23T17:38:10+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-23T17:38:10+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.014596s ]
+[ 2018-04-23T17:38:25+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000093s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-23T17:38:26+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-23T17:38:26+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.011709s ]
+[ 2018-04-23T17:39:03+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000085s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-23T17:39:03+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-23T17:39:03+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010204s ]
+[ 2018-04-23T17:44:51+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000073s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-23T17:44:51+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-23T17:44:51+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.010591s ]

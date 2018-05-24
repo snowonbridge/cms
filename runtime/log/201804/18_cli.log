@@ -1,0 +1,45 @@
+[ 2018-04-18T11:26:46+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000088s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-18T11:26:46+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-18T11:26:46+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.027082s ]
+[ 2018-04-18T11:27:18+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000082s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-18T11:27:18+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-18T11:27:18+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.012448s ]
+[ 2018-04-18T11:27:18+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-04-18T11:27:18+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000385s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-04-18T11:27:18+08:00 ][ sql ] [ SQL ] SHOW TABLE STATUS LIKE 'poker_notice' [ RunTime:0.000352s ]
+[ 2018-04-18T11:27:18+08:00 ][ sql ] [ SQL ] SELECT * FROM `information_schema`.`columns` WHERE TABLE_SCHEMA = 'cms' AND table_name = 'poker_notice' ORDER BY ORDINAL_POSITION [ RunTime:0.000610s ]
+[ 2018-04-18T11:27:43+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000078s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-18T11:27:43+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-18T11:27:43+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013049s ]
+[ 2018-04-18T11:27:43+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-04-18T11:27:43+08:00 ][ info ] [ LANG ] /vagrant/cms/application/admin/lang/zh-cn.php
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000190s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] SHOW COLUMNS FROM `fa_auth_rule` [ RunTime:0.000363s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] SELECT * FROM `fa_auth_rule` WHERE  `name` = 'firstlogin' LIMIT 1 [ RunTime:0.032112s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] SELECT * FROM `fa_auth_rule` WHERE  `name` = 'firstlogin/noticesetting' LIMIT 1 [ RunTime:0.000183s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `title` , `icon` , `remark` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (364 , 'firstlogin/noticesetting' , '公告' , 'fa fa-circle-o\r' , '' , 1 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.020836s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/getunidslist' , 'fa fa-circle-o' , 'getUnidsList' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000214s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/index' , 'fa fa-circle-o' , '查看' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000713s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/add' , 'fa fa-circle-o' , '添加' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000115s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/edit' , 'fa fa-circle-o' , '编辑' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000165s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/del' , 'fa fa-circle-o' , '删除' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000147s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/multi' , 'fa fa-circle-o' , '批量更新' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000138s ]
+[ 2018-04-18T11:27:43+08:00 ][ sql ] [ SQL ] INSERT INTO `fa_auth_rule` (`pid` , `name` , `icon` , `title` , `ismenu` , `status` , `createtime` , `updatetime`) VALUES (644 , 'firstlogin/noticesetting/copy' , 'fa fa-circle-o' , '复制' , 0 , 'normal' , 1524022063 , 1524022063) [ RunTime:0.000123s ]
+[ 2018-04-18T12:01:45+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000077s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-18T12:01:45+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-18T12:01:45+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013124s ]
+[ 2018-04-18T12:01:45+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-04-18T12:01:45+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000388s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-04-18T12:01:45+08:00 ][ sql ] [ SQL ] SHOW TABLE STATUS LIKE 'poker_notice' [ RunTime:0.000370s ]
+[ 2018-04-18T12:01:51+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000080s ]
+[ info ] [ LOG ] INIT File
+[ 2018-04-18T12:01:51+08:00 ][ info ] [ CACHE ] INIT File
+[ 2018-04-18T12:01:51+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013020s ]
+[ 2018-04-18T12:01:51+08:00 ][ info ] [ DB ] INIT mysql
+[ 2018-04-18T12:01:51+08:00 ][ sql ] [ DB ] CONNECT:[ UseTime:0.000370s ] mysql:dbname=cms;host=127.0.0.1;port=3306;charset=utf8
+[ 2018-04-18T12:01:51+08:00 ][ sql ] [ SQL ] SHOW TABLE STATUS LIKE 'poker_notice' [ RunTime:0.000369s ]
+[ 2018-04-18T12:01:51+08:00 ][ sql ] [ SQL ] SELECT * FROM `information_schema`.`columns` WHERE TABLE_SCHEMA = 'cms' AND table_name = 'poker_notice' ORDER BY ORDINAL_POSITION [ RunTime:0.000468s ]

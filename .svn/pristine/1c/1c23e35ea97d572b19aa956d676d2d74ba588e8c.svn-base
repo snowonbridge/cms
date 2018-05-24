@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'Id'  =>  'ID',
+    'Goodid'  =>  '商品ID',
+    'Name'  =>  '名称',
+    'Desc'  =>  '商品描述',
+    'Status'  =>  '状态',
+    'On'=>'上线',
+    'Off'=>'下架',
+    'Diamond_price'  =>  '钻石价格',
+    'Roomcard_price'  =>  '房卡价格',
+    'Cash_price'  =>  '现金价格',
+    'Ptypes'  =>  '可用的支付类型',
+    'Ptypes 5'=>'现金',
+    'Ptypes 4'=>'道具',
+    'Ptypes 3'=>'房卡',
+    'Ptypes 2'=>'钻石',
+    'Ptypes 1'=>'金币',
+    'Mday'  =>  '每天赠送游戏币数',
+    'Day'  =>  '赠送天数',
+    'Card_image'  =>  '图片地址[暂时不用]',
+    'Total'  =>  '总价值',
+    'Ratio'  =>  '赠送比例',
+    'Order'  =>  '商品顺序',
+    'NormalCard'=>'普通月卡',
+    'GoldCard'=>'黄金月卡',
+];

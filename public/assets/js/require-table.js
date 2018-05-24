@@ -59,6 +59,7 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
             sendbtn: '.btn-send',
             statbtn: '.btn-stat',
             copybtn: '.btn-copy',
+            previewbtn: '.btn-preview',
             multibtn: '.btn-multi',
             disabledbtn: '.btn-disabled',
             editonebtn: '.btn-editone',
@@ -158,12 +159,18 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                     var ids = Table.api.selectedids(table);
                     Fast.api.open(options.extend.add_url + (ids.length > 0 ? (options.extend.add_url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + ids.join(",") : ''), __('Add'), $(this).data() || {});
                 });
+              // 预览按钮事件
+              $(toolbar).on('click', Table.config.previewbtn, function () {
+                var ids = Table.api.selectedids(table);
+                Fast.api.open(options.extend.preview_url + (ids.length > 0 ? (options.extend.add_url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + ids.join(",") : ''), __('Preview'), $(this).data() || {});
+              });
                 // 批量编辑按钮事件
                 $(toolbar).on('click', Table.config.editbtn, function () {
                     var ids = Table.api.selectedids(table);
                     //循环弹出多个编辑框
+                  var sData = $(this).data();
                     $.each(ids, function (i, j) {
-                        Fast.api.open(options.extend.edit_url + (options.extend.edit_url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + j, __('Edit'), $(this).data() || {});
+                        Fast.api.open(options.extend.edit_url + (options.extend.edit_url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + j, __('Edit'), sData || {});
                     });
                 });
               // 批量操作按钮事件
@@ -191,14 +198,7 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
               $(toolbar).on("click", Table.config.copybtn, function (e) {
                 var ids = Table.api.selectedids(table);
                 var that = this;
-                var index = Layer.confirm(
-                  __('Are you sure you want to send the %s selected item?', ids.length),
-                  {icon: 3, title: __('Warning'), shadeClose: true},
-                  function () {
                     Table.api.copy( ids, table, that);
-                    Layer.close(index);
-                  }
-                );
               });
 
                 // 批量删除按钮事件
@@ -297,26 +297,26 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
             var params = typeof data.params !== "undefined" ? (typeof data.params == 'object' ? $.param(data.params) : data.params) : '';
             table.bootstrapTable('refresh',{url: options.extend.index_url + '?stat='+params});
           },
-            send: function ( ids, table, element) {
-                var options = table.bootstrapTable('getOptions');
-                var data = element ? $(element).data() : {};
-                var url = typeof data.url !== "undefined" ? data.url :   options.extend.send_url;
-                url = url + (url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + ($.isArray(ids) ? ids.join(",") : ids);
-                var params = typeof data.params !== "undefined" ? (typeof data.params == 'object' ? $.param(data.params) : data.params) : '';
-                var options = {url: url, data: {ids: ids, params: params}};
-                Fast.api.ajax(options, function (data) {
-                    Toastr.success(__('send success'));
-                });
-            },
+          send: function (ids, table, element) {
+            var options = table.bootstrapTable('getOptions');
+            var data = element ? $(element).data() : {};
+            var url = typeof data.url !== "undefined" ? data.url : options.extend.send_url;
+            url = url + (url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + ($.isArray(ids) ? ids.join(",") : ids);
+            var params = typeof data.params !== "undefined" ? (typeof data.params == 'object' ? $.param(data.params) : data.params) : '';
+            var options = {url: url, data: {ids: ids, params: params}};
+            Fast.api.ajax(options, function (data) {
+              Toastr.success(__('send success'));
+            });
+          },
           copy: function ( ids, table, element) {
             var options = table.bootstrapTable('getOptions');
             var data = element ? $(element).data() : {};
             var url = typeof data.url !== "undefined" ? data.url :   options.extend.copy_url;
             url = url + (url.match(/(\?|&)+/) ? "&ids=" : "/ids/") + ($.isArray(ids) ? ids.join(",") : ids);
-            var params = typeof data.params !== "undefined" ? (typeof data.params == 'object' ? $.param(data.params) : data.params) : '';
-            var options = {url: url, data: {ids: ids, params: params}};
-            Fast.api.ajax(options, function (data) {
+            var request_options = {url: url, data: {ids: ids, params: data}};
+            Fast.api.ajax(request_options, function (data) {
               Toastr.success(__('copy success'));
+              table.bootstrapTable('refresh');
             });
           },
             // 单元格元素事件
@@ -505,7 +505,20 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                         }
                     });
                     return html.join(' ');
-                }
+                },
+              unids: function (value, row, index, custom) {
+                //渲染Flag
+                var html = [];
+                var mapArr = Config.unidsMap;
+
+                value = value.toString();
+                var arr = value.indexOf(",") > -1 ? value.split(',') : [value];
+                $.each(arr, function (i, value) {
+                  var formatStr = mapArr[value] ? mapArr[value].unid_name + '[' + value + ']' : '全渠道[' + value + ']';
+                  html.push('<span class="label label-success">' + formatStr + '</span>');
+                });
+                return html.join(' ');
+              }
             },
             //替换URL中的{ids}和{value}
             replaceurl: function (url, value, row, table) {

@@ -403,9 +403,7 @@ class App
             // 操作不存在
             throw new HttpException(404, 'method not exists:' . get_class($instance) . '->' . $action . '()');
         }
-
         Hook::listen('action_begin', $call);
-
         return self::invokeMethod($call, $vars);
     }
 

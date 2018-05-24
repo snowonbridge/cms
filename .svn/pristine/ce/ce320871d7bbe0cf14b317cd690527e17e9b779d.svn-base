@@ -1,0 +1,279 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form','bootstrap-editable','select2'], function ($, undefined, Backend, Table, Form,editable,select2) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'general/switchsetting/index',
+                    add_url: 'general/switchsetting/add',
+                    edit_url: 'general/switchsetting/edit',
+                    del_url: 'general/switchsetting/del',
+                    multi_url: 'general/switchsetting/multi',
+                    table: 'poker_switch_setting',
+                }
+            });
+
+            var table = $("#table");
+
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                pk: 'id',
+                sortName: 'id',
+                columns: [
+                    [
+                        {checkbox: true},
+                        {field: 'id', title: __('Id'),sortable:true},
+                        {field: 'name', title: __('Name'),operate:'LIKE %...%'},
+                        {field: 'channel_text', title: __('Channel_id'),clickToSelect:true,searchable:false},
+                        {field: 'channel_id', title: __('渠道ID'),visible:false,searchList:function () {
+                                    var searchList=[];
+                                    $.ajax({
+                                        url:"/general/switchsetting/getChannelList",
+                                        type:'get',
+                                        dataType:'json',
+                                        async:false,
+                                        success:function (data) {
+                                            searchList = data;
+                                        },
+                                        error:function (XMLHttpRequest, textStatus, errorThrown) {
+                                            console.log("textStatus:"+textStatus);
+                                        }
+                                    });
+                                var list = [],result;
+                                var sprintf = $.fn.bootstrapTable.utils.sprintf;
+
+                                list.push(sprintf('<option value="">%s</option>', '请选择渠道'));
+                                $.each(searchList, function (key, value) {
+                                    var isSelect = '';
+                                    list.push(sprintf("<option value='" + key + "' %s>" + value + "</option>", isSelect));
+                                });
+                                var result = sprintf('<select  class="form-control" name="%s" %s>%s</select>', 'channel_id', '', list.join(''));
+                                return result;
+                                }},
+                        {field: 'system_text', title: __('Platform_id'),searchable:false, formatter: Table.api.formatter.label,searchList:{'1':'android','2':'IOS','3':'PC'}},
+                        {field: 'platform_id', title: __('Platform_id'),visible:false, operate:'LIKE %...%',formatter: Table.api.formatter.label,searchList:{'1':'android','2':'IOS','3':'PC'}},
+                        // {field: 'register', title: __('Register'),visible:false, operate:'LIKE %...%', formatter: Table.api.formatter.label,searchList:{'1':'游客','2':'手机','3':'微信','4':'QQ','5':'灵游'}},
+                        // {field: 'register_text', title: __('Register'),searchable:false, formatter: Table.api.formatter.label,searchList:{'1':'游客','2':'手机','3':'微信','4':'QQ','5':'灵游'}},
+                        {field: 'login', title: __('Login'),visible:false, operate:'LIKE %...%', formatter: Table.api.formatter.label,searchList:{'1':'游客','2':'手机','3':'微信','4':'QQ','5':'灵游'}},
+                        {field: 'login_text', title: __('Login'),searchable:false, formatter: Table.api.formatter.label,searchList:{'1':'游客','2':'手机','3':'微信','4':'QQ','5':'灵游'}},
+                        {field: 'version', title: __('Version'), operate:'LIKE %...%', formatter: Table.api.formatter.label,searchList:{'1.0.0':'1.0.0','1.1.0':'1.1.0','1.2.0':'1.2.0'}},
+                        // {field: 'game', title: __('Game')},
+                        {field: 'pay_text', title: __('Pay_way'),searchable:false, formatter: Table.api.formatter.label,},
+                        {field: 'pay_way', title: __('Pay_way'), operate:'LIKE %...%',visible:false, formatter: Table.api.formatter.label,searchList:{'1':'微信','2':'支付宝'}},
+                        // {field: 'waning', title: __('Waning')},
+                        {field: 'status', title: __('Status'), visible:false,formatter: Table.api.formatter.status,searchList:{'0':'隐藏','1':'正常'}},
+                        {field: 'status_text', title: __('Status'),searchable:false,formatter: Table.api.formatter.status,},
+                        {field: 'show_charge_text', title: __('兑换商店'), formatter: Table.api.formatter.status,searchList:{'0':'隐藏','1':'正常'}},
+                        {field: 'show_primary_text', title: __('大厅游戏列表'), formatter: Controller.primaryFormatter},
+                        {field: 'show_more_text', title: __('更多游戏'), formatter: Controller.secondFormatter},
+
+                        // {field: 'update_time', title: __('Update_time'), formatter: Table.api.formatter.datetime},
+                        {field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime,type:'datetime',addclass:'datetimepicker', data: 'data-date-format="YYYY-MM-DD HH:mm:ss"'},
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                    ]
+                ],
+                search:false,
+                strictSearch:false,
+                // onColumnSearch:function (field,text) {
+                //     console.log(field);
+                // },
+                // onSearch:function (text) {
+                //     console.log(text);
+                // },
+                onColumnSwitch:function (field, checked) {
+                    // console.log(field);
+                },
+                onAll:function (name, args) {
+                    // console.log(name);
+                },
+                queryParams:function (params) {
+                    console.log(params);
+                    return params;
+                }
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+
+
+
+            setTimeout(function () {
+
+                $('.editable1').editable({
+                    // field: "game_list",
+                    url: '/general/switchsetting/changeGames',
+                    ajaxOptions: {
+                        type:'post',
+                        dataType: 'json', //assuming json response
+                    },
+                    send:'always',
+                    params: function(params) {
+                        //originally params contain pk, name and value
+                        // params.id = $(this).parent('.list-group-item').attr('data-id');
+                        // params.day_nd =$(this).parent('.list-group-item').attr('data-day_nd');
+                        params.operate ='primary';
+                        console.log(params);
+                        return params;
+                    },
+                    success: function(response, newValue) {
+                        if(response.data)
+                        {
+                            console.log(response.data);
+                        }else{
+                            console.log(response);
+                        }
+                    },
+                    select2: {
+                        allowClear: true,
+                        multiple: true,
+                        dropdownAutoWidth:true,
+                        containerCss:{"min-width":"200px"},
+                        tags:  function () {
+                            var result = [];
+                            $.ajax({
+                                url: '/general/switchsetting/getGameList',
+                                async: false,
+                                type: "get",
+                                data: {},
+                                dataType:'json',
+                                success: function (data, status) {
+                                    $.each(data, function (key, value) {
+                                        result.push(value);
+                                    });
+                                }
+                            });
+                            return result;
+                        },
+                        //
+                        tokenSeparators: [",", " "]
+                    },
+                    inputclass: 'input-large',
+                });
+                $('.editable2').editable({
+                    // field: "game_list",
+                    url: '/general/switchsetting/changeGames',
+                    ajaxOptions: {
+                        type:'post',
+                        dataType: 'json', //assuming json response
+                    },
+                    send:'always',
+                    params: function(params) {
+                        //originally params contain pk, name and value
+                        // params.id = $(this).parent('.list-group-item').attr('data-id');
+                        // params.day_nd =$(this).parent('.list-group-item').attr('data-day_nd');
+                        params.operate ='more';
+                        console.log(params);
+                        return params;
+                    },
+                    success: function(response, newValue) {
+                        if(response.data)
+                        {
+                            console.log(response.data);
+                        }else{
+                            console.log(response);
+                        }
+                    },
+                    select2: {
+                        allowClear: true,
+                        multiple: true,
+                        tags:  function () {
+                            var result = [];
+                            $.ajax({
+                                url: '/general/switchsetting/getGameList',
+                                async: false,
+                                type: "get",
+                                data: {},
+                                dataType:'json',
+                                success: function (data, status) {
+                                    $.each(data, function (key, value) {
+                                        result.push(value);
+                                    });
+                                }
+                            });
+                            return result;
+                        },
+                        //
+                        tokenSeparators: [",", " "],
+                        placeholder:'请选择游戏',
+                        dropdownAutoWidth:true,
+                        containerCss:{"min-width":"200px"}
+                    },
+                    inputclass: 'input-large',
+
+                });
+            },500);
+
+        },
+
+        primaryFormatter:function (value,row,index) {
+//Table.api.formatter.label (value, row, index)
+           var html = '<a href="#" data-type="select2" data-pk="'+row.id +'" data-value="'+value+'"'+'  data-title="大厅游戏列表" style="width: 70%;" class="editable1">'+value +'</a>';
+
+            return html;
+        },
+        secondFormatter:function (value,row,index) {
+//Table.api.formatter.label (value, row, index)
+            var html = '<a href="#" data-type="select2" data-pk="'+row.id +'" data-value="'+value+'"'+'  data-title="大厅游戏列表" style="width: 70%;" class="editable2">'+value +'</a>';
+
+            return html;
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+
+            $("body").on("input","#game_table input",function (e) {
+                var val = $(e.currentTarget).val();
+                var col_name = $(e.currentTarget).attr("class");
+                var game_name = $(e.currentTarget).parents("tr").attr("id");
+                var game = $("#c-game").val();
+                var gameList = JSON.parse(game);
+                gameList[game_name][col_name] = val;
+                $("#c-game").val(JSON.stringify(gameList));
+
+            })
+            //notify_way
+            $("body").on("change","select[name='notify_way']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['notify_way'] = $(this).val();
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+            //ceil
+            $("body").on("input","input[name='ceil']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['ceil'] = parseFloat($(this).val());
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+            //new_ceil
+            $("body").on("input","input[name='new_ceil']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['new_ceil'] = parseFloat($(this).val());
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+            //to
+            $("body").on("input","input[name='to']",function (e) {
+                var warning = $("#c-warning").val();
+                var warningList = JSON.parse(warning);
+                warningList['to'] = ($(this).val());
+                $("#c-warning").val(JSON.stringify(warningList));
+
+            })
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            }
+        }
+    };
+
+    return Controller;
+});

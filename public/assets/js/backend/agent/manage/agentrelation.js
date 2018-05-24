@@ -54,7 +54,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'bind_level', title: __('bind_level')},
                         {field: 'bind_type_text', title: __('bind_type_text'),searchable:false},
                         {field: 'first_agent_id', title: __('first_agent_id'),sortable:true,formatter: Controller.api.formatter.agent_info},
-                        {field: 'bind_time', title: __('bind_time'), formatter: Table.api.formatter.datetime,sortable:true,operate:'BETWEEN',type:'datetime',addclass:'datetimepicker', data: 'data-date-format="YYYY-MM-DD HH:mm:ss"'},
+                        {field: 'bind_time', title: __('bind_time'),
+                            formatter: Table.api.formatter.datetime,sortable:true,operate:'BETWEEN',type:'datetime',addclass:'datetimepicker', data: 'data-date-format="YYYY-MM-DD HH:mm:ss"'},
                         {
                             field: 'operate',
                             title: __('Operate'),

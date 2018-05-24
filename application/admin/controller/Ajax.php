@@ -6,11 +6,12 @@ use app\common\controller\Backend;
 use fast\Func;
 use fast\Http;
 use fast\Random;
+use think\App;
 use think\Cache;
 use think\Config;
 use think\Db;
 use think\Lang;
-use Upload\Upload;
+use \Upload\Upload;
 
 /**
  * Ajax异步请求接口
@@ -86,7 +87,7 @@ class Ajax extends Backend
 
         $uploadDir = substr($savekey, 0, strripos($savekey, '/') + 1);
         $fileName = substr($savekey, strripos($savekey, '/') + 1);
-        (new Upload([ 'subName' => [],'saveName'=>['savekey',$savekey]],'Qiniu'))->upload($_FILES);
+//        (new Upload([ 'subName' => [],'saveName'=>['savekey',$savekey]],'Qiniu'))->upload($_FILES);
         $splInfo = $file->validate(['size' => $size])->move(ROOT_PATH . '/public' . $uploadDir, $fileName);
         if ($splInfo)
         {
@@ -205,6 +206,107 @@ class Ajax extends Backend
                 }
                 $weighids[$n] = $weighdata[$offset];
                 Db::name($table)->where($prikey, $n)->update([$field => $weighdata[$offset]]);
+            }
+            $this->success();
+        }
+    }
+
+
+    /**
+     * 通用排序
+     */
+    public function pweigh()
+    {
+        //排序的数组
+        $ids = $this->request->post("ids");
+        //拖动的记录ID
+        $changeid = $this->request->post("changeid");
+        //操作字段
+        $field = $this->request->post("field");
+        //操作的数据表
+        $table = $this->request->post("table");
+        //排序的方式
+        $orderway = $this->request->post("orderway", 'strtolower');
+        $orderway = $orderway == 'asc' ? 'ASC' : 'DESC';
+        $sour = $weighdata = [];
+        $ids = explode(',', $ids);
+        $prikey = 'id';
+        $pid = $this->request->post("pid");
+        //限制更新的字段
+        $field = in_array($field, ['weigh']) ? $field : 'weigh';
+
+        $connect = Db::connect(config('db_config_poker'));
+        $connect->setConfig('prefix','poker_');
+
+        $triggers = ['exchange_config' =>'freshExchangeGoods'];
+        // 如果设定了pid的值,此时只匹配满足条件的ID,其它忽略
+        if ($pid !== '')
+        {
+            $hasids = [];
+            $list =        $connect->name($table)->where($prikey, 'in', $ids)->where('pid', 'in', $pid)->field('id,pid')->select();
+            foreach ($list as $k => $v)
+            {
+                $hasids[] = $v['id'];
+            }
+            $ids = array_values(array_intersect($ids, $hasids));
+        }
+
+        //直接修复排序
+        $one = $connect->name($table)->field("{$field},COUNT(*) AS nums")->group($field)->having('nums > 1')->find();
+        if ($one)
+        {
+            $list = $connect->name($table)->field("$prikey,$field")->order($field, $orderway)->select();
+            foreach ($list as $k => $v)
+            {
+                $connect->name($table)->where($prikey, $v[$prikey])->update([$field => $k + 1]);
+            }
+            if(isset($triggers[$table])){
+                Func::gameApiRequest($this->request,$triggers[$table]);
+            }
+            $this->success();
+        }
+        else
+        {
+            $list = $connect->name($table)->field("$prikey,$field")->where($prikey, 'in', $ids)->order($field, $orderway)->select();
+            foreach ($list as $k => $v)
+            {
+                $sour[] = $v[$prikey];
+                $weighdata[$v[$prikey]] = $v[$field];
+            }
+            $position = array_search($changeid, $ids);
+            $desc_id = $sour[$position];    //移动到目标的ID值,取出所处改变前位置的值
+            $sour_id = $changeid;
+            $desc_value = $weighdata[$desc_id];
+            $sour_value = $weighdata[$sour_id];
+            //echo "移动的ID:{$sour_id}\n";
+            //echo "替换的ID:{$desc_id}\n";
+            $weighids = array();
+            $temp = array_values(array_diff_assoc($ids, $sour));
+            foreach ($temp as $m => $n)
+            {
+                if ($n == $sour_id)
+                {
+                    $offset = $desc_id;
+                }
+                else
+                {
+                    if ($sour_id == $temp[0])
+                    {
+                        $offset = isset($temp[$m + 1]) ? $temp[$m + 1] : $sour_id;
+                    }
+                    else
+                    {
+                        $offset = isset($temp[$m - 1]) ? $temp[$m - 1] : $sour_id;
+                    }
+                }
+                $weighids[$n] = $weighdata[$offset];
+                $connect->name($table)->where($prikey, $n)->update([$field => $weighdata[$offset]]);
+            }
+
+            if(isset($triggers[$table])){
+                if(isset($triggers[$table])){
+                    Func::gameApiRequest($this->request,$triggers[$table]);
+                }
             }
             $this->success();
         }

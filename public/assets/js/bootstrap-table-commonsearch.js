@@ -91,7 +91,6 @@
                         htmlForm.push(sprintf('<select class="form-control" name="%s" %s>%s</select>', vObjCol.field, style, sprintf('<option value="">%s</option>', that.options.formatCommonChoose())));
                         (function (vObjCol, that) {
                             $.when(vObjCol.searchList).done(function (ret) {
-
                                 var isArray = false;
                                 if (ret.data && ret.data.searchlist && $.isArray(ret.data.searchlist)) {
                                     var resultlist = {};
@@ -117,6 +116,7 @@
                         var searchList = [];
                         searchList.push(sprintf('<option value="">%s</option>', that.options.formatCommonChoose()));
                         $.each(vObjCol.searchList, function (key, value) {
+
                             var isSelect = (isArray ? value : key) == vObjCol.defaultValue ? 'selected' : '';
                             searchList.push(sprintf("<option value='" + (isArray ? value : key) + "' %s>" + value + "</option>", isSelect));
                         });

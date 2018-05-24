@@ -51,6 +51,10 @@ class ItemsConfig extends Model
     {
         return ['chip' => __('Tool chip'),'card' => __('Tool card'),'diamond' =>__('Tool diamond'),'prop' =>__('Tool prop'), 'bag' => __('Tool bag'), 'prestige' => __('Tool prestige'),];//礼包类型编号
     }
+    public function getName($tid)
+    {
+        return $this->where("tlid=$tid")->value('name');
+    }
 
 
 

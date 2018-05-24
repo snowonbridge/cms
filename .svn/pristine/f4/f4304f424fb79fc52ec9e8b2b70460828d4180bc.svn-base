@@ -1,0 +1,17 @@
+<?php
+
+return [
+    'Version'  =>  '版本',
+    'Type'  =>  '公告类型:1@登录前公告,2@登录后公告',
+    'Label_title'  =>  '左边的tab标题',
+    'Title'  =>  '标题',
+    'Content'  =>  '公告内容',
+    'Img'  =>  '图片',
+    'Redirect_btn_text'  =>  '跳转按钮文本',
+    'Redirect_url'  =>  '跳转链接地址',
+    'Show_start_time'  =>  '展示开始时间',
+    'Show_end_time'  =>  '展示结束时间',
+    'Status'  =>  '状态:0@隐藏,1@展示',
+    'Sort'  =>  '排序值,越大权值越前',
+    'Create_time'  =>  '创建时间'
+];

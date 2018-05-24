@@ -34,7 +34,6 @@ class Min extends Command
     {
         $module = $input->getOption('module') ?: '';
         $resource = $input->getOption('resource') ?: '';
-
         if (!$module || !in_array($module, ['frontend', 'backend', 'all']))
         {
             throw new Exception('Please input correct module name');
@@ -52,7 +51,7 @@ class Min extends Command
         $tempFile = $minPath . 'temp.js';
 
         // Winsows下请手动配置配置该值
-        $nodeExec = "";
+        $nodeExec = "/usr/bin/node";
 
         if (!$nodeExec)
         {
@@ -74,7 +73,6 @@ class Min extends Command
                 throw new Exception($e->getMessage());
             }
         }
-
         foreach ($moduleArr as $mod)
         {
             foreach ($resourceArr as $res)
@@ -112,8 +110,7 @@ class Min extends Command
                 // 生成压缩文件
                 $this->writeToFile($res, $data, $tempFile);
 
-                $output->info("Compress " . $data["{$res}BaseName"] . ".{$res}");
-
+                $output->info("Compress " . $data["{$res}BaseName"] . ".{$res} :{$nodeExec} {$minPath}r.js -o {$tempFile}");
                 // 执行压缩
                 echo exec("{$nodeExec} {$minPath}r.js -o {$tempFile} >> {$minPath}node.log");
             }

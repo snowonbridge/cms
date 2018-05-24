@@ -24,6 +24,7 @@ require.config({
         //
         // 以下的包从bower的libs目录加载
         'jquery': '../libs/jquery/dist/jquery.min',
+        'jquery-cookie': '../libs/jquery.cookie/jquery.cookie',
         'bootstrap': '../libs/bootstrap/dist/js/bootstrap.min',
         'bootstrap-datetimepicker': '../libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min',
         'bootstrap-select': '../libs/bootstrap-select/dist/js/bootstrap-select.min',
@@ -32,6 +33,8 @@ require.config({
         'bootstrap-table-export': '../libs/bootstrap-table/dist/extensions/export/bootstrap-table-export.min',
         'bootstrap-table-mobile': '../libs/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile',
         'bootstrap-table-lang': '../libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN',
+        'bootstrap-editable': '../libs/bootstrap3-editable/js/bootstrap-editable',
+        'select2': '../libs/select2/dist/js/select2',
         'tableexport': '../libs/tableExport.jquery.plugin/tableExport.min',
         'dragsort': '../libs/dragsort/jquery.dragsort',
         'qrcode': '../libs/jquery-qrcode/jquery.qrcode.min',
@@ -51,6 +54,10 @@ require.config({
         'selectpage': '../libs/selectpage/selectpage',
         'citypicker': '../libs/city-picker/dist/js/city-picker.min',
         'citypicker-data': '../libs/city-picker/dist/js/city-picker.data',
+        'bootstrap-table-editable':'../libs/bootstrap-table/dist/extensions/editable/bootstrap-table-editable',
+        'wangeditor': '../libs/wangeditor/wangEditor',
+        'wangEditor-fullscreen-plugin': '../libs/wangeditor/wangEditor-fullscreen-plugin',
+
     },
     // shim依赖配置
     shim: {
@@ -87,6 +94,18 @@ require.config({
             deps: ['bootstrap-table', 'template'],
             exports: '$.fn.bootstrapTable.defaults'
         },
+        'bootstrap-table-editable': {
+            deps: ['bootstrap-table', 'template'],
+            exports: '$.fn.bootstrapTable.defaults'
+        },
+        'bootstrap-editable': {
+            deps: ['bootstrap','css!../libs/bootstrap3-editable/css/bootstrap-editable.css'],
+            exports: '$.fn.editable'
+        },
+        'select2': {
+            deps: ['jquery','css!../libs/select2/dist/css/select2-bootstrap.css','css!../libs/select2/dist/css/select2.css'],
+            exports: '$.fn.Select2'
+        },
         'tableexport': {
             deps: ['jquery'],
             exports: '$.fn.extend'
@@ -98,6 +117,10 @@ require.config({
         'adminlte': {
             deps: ['bootstrap', 'slimscroll'],
             exports: '$.AdminLTE'
+        },
+        'jquery-cookie': {
+          deps: ['jquery'],
+          exports: '$.cookie'
         },
         'bootstrap-datetimepicker': [
             'moment/locale/zh-cn',
@@ -116,7 +139,16 @@ require.config({
 //        'validator-core': ['css!../libs/nice-validator/dist/jquery.validator.css'],
         'validator-lang': ['validator-core'],
 //        'selectpage': ['css!../libs/selectpage/selectpage.css'],
-        'citypicker': ['citypicker-data', 'css!../libs/city-picker/dist/css/city-picker.css']
+        'citypicker': ['citypicker-data', 'css!../libs/city-picker/dist/css/city-picker.css'],
+        'wangeditor': {
+            deps:['jquery','wangEditor-fullscreen-plugin','css!../libs/wangeditor/wangEditor.css','css!../libs/wangeditor/wangEditor-fullscreen-plugin.css'],
+            exports: "$.fn.wangEditor"
+        },
+        'wangEditor-fullscreen-plugin': {
+            deps:['jquery','css!../libs/wangeditor/wangEditor-fullscreen-plugin.css'],
+            exports: "$.fullscreen"
+        },
+
     },
     baseUrl: requirejs.s.contexts._.config.config.site.cdnurl + '/assets/js/', //资源基础路径
     map: {

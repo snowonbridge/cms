@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:62:"/vagrant/cms/public/../application/admin/view/index/login.html";i:1509939121;s:62:"/vagrant/cms/public/../application/admin/view/common/meta.html";i:1509174944;s:64:"/vagrant/cms/public/../application/admin/view/common/script.html";i:1505374143;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:62:"/vagrant/cms/public/../application/admin/view/index/login.html";i:1509939121;s:62:"/vagrant/cms/public/../application/admin/view/common/meta.html";i:1520215499;s:64:"/vagrant/cms/public/../application/admin/view/common/script.html";i:1505374143;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

@@ -159,7 +159,6 @@ class Input
     private function parseArgument($token)
     {
         $c = count($this->arguments);
-
         if ($this->definition->hasArgument($c)) {
             $arg = $this->definition->getArgument($c);
 

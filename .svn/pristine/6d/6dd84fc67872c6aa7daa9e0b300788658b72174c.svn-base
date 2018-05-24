@@ -1,0 +1,198 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name"  class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-channel_text" class="control-label col-xs-12 col-sm-2">{:__('Channel_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input ready_only id="c-channel_text" readonly data-rule="required" data-source="channel/index" class="form-control " name="channel_text" type="text" value="{$row.channel_text}">
+        </div>
+    </div>
+    <!--<div class="form-group">-->
+        <!--<label for="c-platform_id" class="control-label col-xs-12 col-sm-2">{:__('Platform_id')}:</label>-->
+        <!--<div class="col-xs-12 col-sm-8">-->
+            <!--<input id="c-platform_id" data-rule="required" data-source="platform/index" class="form-control selectpage" name="row[platform_id]" type="text" value="{$row.platform_id}">-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="form-group">
+        <label for="c-platform_id" class="control-label col-xs-12 col-sm-2">{:__('Platform_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  id="c-platform_id" data-rule="required" class="form-control selectpicker" name="row[platform_id][]" multiple>
+                {foreach name="systemList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.platform_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-register" class="control-label col-xs-12 col-sm-2">{:__('Register')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select  id="c-register" data-rule="required" class="form-control selectpicker" name="row[register][]" multiple>
+                {foreach name="registerList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.register"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-login" class="control-label col-xs-12 col-sm-2">{:__('Login')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-login" data-rule="required" class="form-control selectpicker" name="row[login][]" multiple>
+                {foreach name="loginList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.login"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-version" class="control-label col-xs-12 col-sm-2">{:__('Version')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-version" data-rule="required" class="form-control selectpicker" name="row[version][]" multiple>
+                {foreach name="versionList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.version"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-game" class="control-label col-xs-12 col-sm-2">{:__('Game')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input  readonly id="c-game" data-rule="required" class="form-control" name="row[game]" type="hidden" value='{$row.game}'>
+
+        </div>
+    </div>
+    <table id="game_table" class="table table-striped table-bordered table-hover" width="80%">
+        <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle; ">游戏名称</th>
+            <th style="text-align: center; vertical-align: middle; ">至少满足条件数量</th>
+            <th style="text-align: center; vertical-align: middle; ">总玩牌时间(小时)</th>
+            <th style="text-align: center; vertical-align: middle; ">总在线时间(小时)</th>
+            <th style="text-align: center; vertical-align: middle; ">至今注册时间（小时）</th>
+            <th style="text-align: center; vertical-align: middle; ">VIP等级</th>
+            <th style="text-align: center; vertical-align: middle; ">充值金额(元)</th>
+            <th style="text-align: center; vertical-align: middle; ">金币流(个)</th>
+            <th style="text-align: center; vertical-align: middle; ">玩斗地主次数</th>
+            <th style="text-align: center; vertical-align: middle; ">玩牛牛次数</th>
+            <th style="text-align: center; vertical-align: middle; ">玩炸金花次数</th>
+            <th style="text-align: center; vertical-align: middle; ">玩麻将次数</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach name="gameList" item="game"}
+        <tr id="{$key}">
+            <td>{$key}</td>
+            {foreach name="game" item="vo"}
+            <td><input type="text" class="{$key}" value="{$vo}"></td>
+            {/foreach}
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label for="c-pay_way" class="control-label col-xs-12 col-sm-2">{:__('Pay_way')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-pay_way" data-rule="required" class="form-control selectpicker" name="row[pay_way][]" multiple>
+                {foreach name="payList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.pay_way"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-warning" class="control-label col-xs-12 col-sm-2">{:__('Waning')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-warning" data-rule="required" class="form-control" name="row[warning]" type="hidden" value='{$row.warning}'>
+            <div class="form-group">
+                <label for="c-version" class="control-label col-xs-12 col-sm-2">{:__('支付告警方式')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <select  id="c-notify_way" data-rule="required" class="form-control selectpicker" name="notify_way"  >
+                        {foreach name="warnList" item="vo"}
+                        <option value="{$key}" {in name="key" value="$row.notify_way"}selected{/in}>{$vo}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-ceil" class="control-label col-xs-12 col-sm-2">{:__('支付告警初始上限')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-ceil" data-rule="required" class="form-control" name="ceil" type="number" value='{$row.ceil}'>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-new_ceil" class="control-label col-xs-12 col-sm-2">{:__('支付告警当天上限')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-new_ceil" data-rule="required" class="form-control" name="new_ceil" type="number" value='{$row.new_ceil}'>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-to" class="control-label col-xs-12 col-sm-2">{:__('支付告警通知人,多个地址英文逗号分隔')}:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-to" data-rule="required" class="form-control" name="to" type="text" value='{$row.to}'>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="c-quick_start_game" class="control-label col-xs-12 col-sm-2">{:__('大厅快速开始游戏')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select  id="c-quick_start_game" data-rule="required" class="form-control selectpicker" name="row[quick_start_game]" multiple>
+                {foreach name="gamesList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.quick_start_game"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="radio">
+                {foreach name="statusList" item="vo"}
+                <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-show_charge" class="control-label col-xs-12 col-sm-2">{:__('兑换商店')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="radio">
+                {foreach name="statusList" item="vo"}
+                <label for="row[status]-{$key}"><input id="row[show_charge]-{$key}" name="row[show_charge]" type="radio" value="{$key}" {in name="key" value="$row.show_charge"}checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-update_time" class="control-label col-xs-12 col-sm-2">{:__('Update_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-update_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[update_time]" type="text" value="{$row.update_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('Create_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{$row.create_time|datetime}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

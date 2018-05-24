@@ -1,0 +1,227 @@
+define(['jquery', 'bootstrap', 'backend', 'table', 'form','bootstrap-editable'], function ($, undefined, Backend, Table, Form,editable) {
+
+    var Controller = {
+        index: function () {
+            // 初始化表格参数配置
+            Table.api.init({
+                extend: {
+                    index_url: 'firstlogin/firstchargesetting/index',
+                    add_url: 'firstlogin/firstchargesetting/add',
+                    edit_url: 'firstlogin/firstchargesetting/edit',
+                    del_url: 'firstlogin/firstchargesetting/del',
+                    multi_url: 'firstlogin/firstchargesetting/multi',
+                    table: 'firstcharge_setting',
+                }
+            });
+
+            var table = $("#table");
+
+            // 初始化表格
+            table.bootstrapTable({
+                url: $.fn.bootstrapTable.defaults.extend.index_url,
+                pk: 'id',
+                sortName: 'id',
+                columns: [
+                    [
+                        {checkbox: true},
+                        {field: 'id', title: __('Id')},
+                        {field: 'channel_text', title: __('Channel_id')},
+                        {field: 'system_text', title: __('Platform_id'), formatter: Table.api.formatter.label},
+                        {field: 'goods_name', title: __('Goods_id')},
+                        {field: 'money', title: __('Money')},
+                        {field: 'title', title: __('Title')},
+                        {field: 'base_gift_content', title: __('Base_gift_content'),formatter:Controller.giftListformatter},
+                        {field: 'extra_gift_content', title: __('Extra_gift_content'),formatter:Controller.giftListformatter2},
+                        {field: 'desc', title: __('Desc')},
+                        {field: 'status_text', title: __('Status'), formatter: Table.api.formatter.status},
+                        {field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime},
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                    ]
+                ]
+            });
+
+            // 为表格绑定事件
+            Table.api.bindevent(table);
+        },
+        add: function () {
+            Controller.api.bindevent();
+        },
+        edit: function () {
+            Controller.api.bindevent();
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            }
+        },
+        giftListformatter:function (value,row,index) {
+            var data = JSON.parse(row.base_gift_content);
+            if(!data)
+                return value;
+            var html='';
+            html += '<ul class="list-group">';
+            for(var i=0;i<data.length;i++)
+            {
+                var gift = data[i].name;
+                var num =  "   "+data[i].num;
+                html += '<li class="list-group-item" data-id="'+row.id+'"  data-gift_old_id="'+data[i].id+'">' +'<a  href="#"  data-title="编辑奖励类型" data-type="select"  class="editable1">'+gift+'</a>'+
+                    ',  数量:<a  href="#"  data-title="编辑数量" data-type="text"  class="editable2">'+num+'</a></li>';
+            }
+            html +=' </ul>';
+            setTimeout(function () {
+                $('.editable1').editable({
+                    field: "gift_id",
+                    url: '/firstlogin/firstchargesetting/changeName',
+                    ajaxOptions: {
+                        type:'post',
+                        dataType: 'json', //assuming json response
+                    },
+                    send:'always',
+                    params: function(params) {
+                        //originally params contain pk, name and value
+                        params.id = $(this).parent('.list-group-item').attr('data-id');
+                        params.gift_old_id =$(this).parent('.list-group-item').attr('data-gift_old_id');
+                        params.gift_id =params.value;
+                        return params;
+                    },
+                    success: function(response, newValue) {
+                        if(response.data)
+                        {
+                            console.log(response.data);
+                        }else{
+                            console.log(response);
+                        }
+                    },
+                    type: "select",
+                    source: function () {
+                        var result = [];
+                        $.ajax({
+                            url: '/firstlogin/checkinsetting/getGiftList',
+                            async: false,
+                            type: "get",
+                            data: {},
+                            dataType:'json',
+                            success: function (data, status) {
+                                $.each(data, function (key, value) {
+                                    result.push({ value: value.id, text: value.name });
+                                });
+                            }
+                        });
+                        return result;
+                    }
+                });
+                $('.editable2').editable({
+                    field: "gift_num",
+                    type: "text",
+                    url: '/firstlogin/firstchargesetting/changeNum',
+                    ajaxOptions: {
+                        type:'post',
+                        dataType: 'json', //assuming json response
+                    },
+                    send:'always',
+                    params: function(params) {
+                        //originally params contain pk, name and value
+                        params.id = $(this).parent('.list-group-item').attr('data-id');
+                        params.gift_old_id =$(this).parent('.list-group-item').attr('data-gift_old_id');
+                        params.gift_num =params.value;
+                        return params;
+                    },
+                    success: function(response, newValue) {
+                        if(response.data)
+                        {
+                            console.log(response.data);
+                        }else{
+                            console.log(response);
+                        }
+                    },
+                });
+            },1000)
+            return html;
+        },
+        giftListformatter2:function (value,row,index) {
+            var data = JSON.parse(row.extra_gift_content);
+            if(!data)
+                return value;
+            var html='';
+            html += '<ul class="list-group">';
+            for(var i=0;i<data.length;i++)
+            {
+                var gift = data[i].name;
+                var num =  "   "+data[i].num;
+                html += '<li class="list-group-item" data-id="'+row.id+'"  data-gift_old_id="'+data[i].id+'">' +'<a  href="#"  data-title="编辑奖励类型" data-type="select"  class="editable3">'+gift+'</a>'+
+                    ',  数量:<a  href="#"  data-title="编辑数量" data-type="text"  class="editable4">'+num+'</a></li>';
+            }
+            html +=' </ul>';
+            setTimeout(function () {
+                $('.editable3').editable({
+                    field: "gift_id",
+                    url: '/firstlogin/firstchargesetting/changeExtraName',
+                    ajaxOptions: {
+                        type:'post',
+                        dataType: 'json', //assuming json response
+                    },
+                    send:'always',
+                    params: function(params) {
+                        //originally params contain pk, name and value
+                        params.id = $(this).parent('.list-group-item').attr('data-id');
+                        params.gift_old_id =$(this).parent('.list-group-item').attr('data-gift_old_id');
+                        params.gift_id =params.value;
+                        return params;
+                    },
+                    success: function(response, newValue) {
+                        if(response.data)
+                        {
+                            console.log(response.data);
+                        }else{
+                            console.log(response);
+                        }
+                    },
+                    type: "select",
+                    source: function () {
+                        var result = [];
+                        $.ajax({
+                            url: '/firstlogin/checkinsetting/getGiftList',
+                            async: false,
+                            type: "get",
+                            data: {},
+                            dataType:'json',
+                            success: function (data, status) {
+                                $.each(data, function (key, value) {
+                                    result.push({ value: value.id, text: value.name });
+                                });
+                            }
+                        });
+                        return result;
+                    }
+                });
+                $('.editable4').editable({
+                    field: "gift_num",
+                    type: "text",
+                    url: '/firstlogin/firstchargesetting/changeExtraNum',
+                    ajaxOptions: {
+                        type:'post',
+                        dataType: 'json', //assuming json response
+                    },
+                    send:'always',
+                    params: function(params) {
+                        //originally params contain pk, name and value
+                        params.id = $(this).parent('.list-group-item').attr('data-id');
+                        params.gift_old_id =$(this).parent('.list-group-item').attr('data-gift_old_id');
+                        params.gift_num =params.value;
+                        return params;
+                    },
+                    success: function(response, newValue) {
+                        if(response.data)
+                        {
+                            console.log(response.data);
+                        }else{
+                            console.log(response);
+                        }
+                    },
+                });
+            },1000)
+            return html;
+        }
+    };
+    return Controller;
+});
